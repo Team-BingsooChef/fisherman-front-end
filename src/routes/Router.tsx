@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RootLayout from "../pages/common/RootLayout";
-import HomePage from "../pages/home/HomePage";
+//import RootLayout from "../pages/common/RootLayout";
+//import HomePage from "../fishpages/home/HomePage";
+import RootLayout from "../fishpages/common/RootLayout";
+import HomePage from "../fishpages/home/HomePage";
 import LoginPage from "../pages/auth/LoginPage";
 import SignUpPage from "../pages/auth/SignUpPage";
 import FindPasswordPage from "../pages/auth/FindPasswordPage";
