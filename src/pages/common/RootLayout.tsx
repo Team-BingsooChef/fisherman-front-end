@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import background_blue from "../../assets/background/background_blue.png";
-import background from "../../assets/background/background.png";
-import background_ivory from "../../assets/background/background_ivory.png";
+import background from "../../assets/background/fish_background.png";
+import background_whitegray from "../../assets/background/background_whitegray.png";
 
 export default function RootLayout() {
   const location = useLocation();
@@ -14,7 +14,7 @@ export default function RootLayout() {
   } else if (
     ["/setting", "/seetoppinglist", "/search"].includes(location.pathname)
   ) {
-    backgroundImage = `url(${background_ivory})`;
+    backgroundImage = `url(${background_whitegray})`;
   } else {
     backgroundImage = `url(${background})`;
   }

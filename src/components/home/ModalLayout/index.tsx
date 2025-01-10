@@ -61,7 +61,7 @@ const ModalWrapper = styled.div`
 
 const ModalContainer = styled.div`
   margin-top: 100px;
-  background: #61bfbf;
+  background: #f0f8fb;
   width: calc(100% - 40px);
   border-radius: 30px;
   display: flex;

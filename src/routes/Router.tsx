@@ -1,14 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-//import RootLayout from "../pages/common/RootLayout";
-//import HomePage from "../fishpages/home/HomePage";
-import RootLayout from "../fishpages/common/RootLayout";
-import HomePage from "../fishpages/home/HomePage";
+import RootLayout from "../pages/common/RootLayout";
+import HomePage from "../pages/home/HomePage";
 import LoginPage from "../pages/auth/LoginPage";
 import SignUpPage from "../pages/auth/SignUpPage";
 import FindPasswordPage from "../pages/auth/FindPasswordPage";
 import EmailCheckPage from "../pages/auth/EmailCheckPage";
 import AfterSignUpPage from "../pages/auth/AfterSignUpPage";
-import ChangeFlavorPage from "../pages/user/ChangeFlavorPage";
 import SettingPage from "../pages/user/SettingPage";
 import SeeToppnigListPage from "../pages/user/SeeToppingListPage";
 import SearchPage from "../pages/user/SerachPage";
@@ -63,10 +60,6 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <SearchPage />,
-      },
-      {
-        path: "changeflavor",
-        element: <ChangeFlavorPage />,
       },
     ],
   },
