@@ -2,7 +2,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Box, Button, Link as ChakraLink, Flex, Text } from "@chakra-ui/react";
 import kakao_icon from "../../../assets/icon/kakao_icon.svg";
 import naver_icon from "../../../assets/icon/naver_icon.svg";
-import google_icon from "../../../assets/icon/google_icon.png";
+import google_icon from "../../../assets/icon/google_icon.svg";
 import { ToppestText } from "../ToppestText";
 import { MoveLeft } from "lucide-react";
 import { MouseEventHandler } from 'react';
