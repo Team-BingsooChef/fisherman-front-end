@@ -2,11 +2,11 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { Link as RouterLink } from "react-router-dom";
 import { Box, Link as ChakraLink } from "@chakra-ui/react";
-import { ToppestText } from "../../components/auth/ToppestText";
 import { PasswordInput } from "../../components/auth/PasswordInput";
 import { BlueRectangleButton } from "../../components/common/CustomedButton";
 import { IvoryInput } from "../../components/common/CustomedInput";
 import { AuthBottomWrapper } from "../../components/auth/AuthWrapper";
+import { BlueHeader} from "../../components/common/Header";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -20,9 +20,7 @@ export default function LoginPage() {
   };
   return (
     <Wrapper>
-      <Box marginTop="40px">
-      <ToppestText text="로그인하기" color="#03526B" />
-      </Box>
+      <BlueHeader text="로그인하기" />
       <IvoryInput
         value={email}
         text="이메일"
