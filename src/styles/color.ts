@@ -3,7 +3,7 @@ export const COLOR = {
     SERVE: '#F9F7F7',
     NAVY: '#03526B',
     DEEPBLUE: '#3887C7',
-    LIGHTBLUE: '#5E9CD2',
+    LIGHTBLUE: '#78B8EC',
     GREY: '#D9D9D9',
 }
 
