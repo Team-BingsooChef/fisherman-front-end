@@ -3,17 +3,17 @@ import {
  } from "@chakra-ui/react";
 
 
-interface IvoryInputProps {
+interface InputProps {
     value: string;
     text: string;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
 }
 
-export const IvoryInput: React.FC<IvoryInputProps> = ({ value, text, handleChange, placeholder }) => {
+export const WhiteInput: React.FC<InputProps> = ({ value, text, handleChange, placeholder }) => {
   return (
     <>
-      <Text mb='8px' color="#03526B" fontWeight="100" alignSelf="start" >{text}</Text>
+      <Text mb='8px' color="#03526B" alignSelf="start" fontWeight="semibold" >{text}</Text>
       <Input
       variant="filled"
         value={value}
@@ -23,11 +23,12 @@ export const IvoryInput: React.FC<IvoryInputProps> = ({ value, text, handleChang
         size='sm'
         width={"100%"}
         height="60px"
+        fontWeight="medium"
         borderRadius="16px"
-        backgroundColor="#FDF0CC"
+        backgroundColor="#FFFEFE"
         mb="24px"
-        _hover={{ backgroundColor: "#FDF0CC" }} // Keeps the background white on hover
-        _focus={{ backgroundColor: "#FDF0CC", boxShadow: "none" }} // Keeps the background white on focus
+        _hover={{ backgroundColor: "#FFFEFE" }} // Keeps the background white on hover
+        _focus={{ backgroundColor: "#FFFEFE", boxShadow: "none" }} // Keeps the background white on focus
       />
     </>
   );

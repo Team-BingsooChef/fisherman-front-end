@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate} from 'react-router-dom';
-import { ToppestText } from "../ToppestText";
 import { PasswordInput } from "../PasswordInput";
 import { BlueRectangleButton } from "../../common/CustomedButton";
-import { useToast, Box } from "@chakra-ui/react";
+import { useToast, Box, Flex } from "@chakra-ui/react";
+import fisherman from "../../../assets/pictures/fisherman_small.svg";
 
 export const SetPassword = () => {
   const toast = useToast();
@@ -36,9 +36,7 @@ export const SetPassword = () => {
 
   return (
     <>
-      <Box margin="40px 0 80px 0">
-        <ToppestText text="비밀번호 변경" color="#03526B" />
-      </Box>
+    <Box w="full" marginTop="160px">
       <PasswordInput
         value={password}
         text="비밀번호"
@@ -51,16 +49,24 @@ export const SetPassword = () => {
         placeholder="비밀번호를 한 번 더 입력해 주세요"
         handleChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <Box w="100%" mt="160px">
+      <Box w="100%" mt="80px">
         <BlueRectangleButton onClick={handleSubmit}>
-          변경하기
+          회원가입
         </BlueRectangleButton>
+        </Box>
+        <Flex w="full" justify="center" position="relative">
+        <Box mb="90px" position="fixed" bottom="0">
+         <img src={fisherman} alt="fisherman" width={180} height={180} />
+        </Box>
+        </Flex>
       </Box>
     </>
   );
 };
+
 export const ReSetPassword = () => {
   const toast = useToast();
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(""); // 두 번째 비밀번호
 
@@ -77,20 +83,19 @@ export const ReSetPassword = () => {
 
     // 비밀번호가 동일한 경우 로직
     toast({
-      title: "비밀번호가 재설정되었습니다.",
+      title: "비밀번호가 설정되었습니다.",
       status: "success",
       duration: 3000,
       isClosable: true,
     });
 
     // 다음 단계로 이동 로직 추가
+    navigate("/setting");
   };
 
   return (
     <>
-      <Box margin="40px 0 80px 0">
-        <ToppestText text="가입하기" color="#03526B" />
-      </Box>
+    <Box w="full" marginTop="160px">
       <PasswordInput
         value={password}
         text="비밀번호"
@@ -103,10 +108,16 @@ export const ReSetPassword = () => {
         placeholder="비밀번호를 한 번 더 입력해 주세요"
         handleChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <Box w="100%" mt="140px">
+      <Box w="100%" mt="80px">
         <BlueRectangleButton onClick={handleSubmit}>
-          다음으로
+          변경하기
         </BlueRectangleButton>
+        </Box>
+        <Flex w="full" justify="center" position="relative">
+        <Box mb="90px" position="fixed" bottom="0">
+         <img src={fisherman} alt="fisherman" width={180} height={180} />
+        </Box>
+        </Flex>
       </Box>
     </>
   );

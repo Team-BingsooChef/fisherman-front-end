@@ -1,10 +1,9 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Box, useToast } from "@chakra-ui/react";
-import { IvoryInput } from "../../components/common/CustomedInput";
+import { Box, useToast, Input, Text, Flex } from "@chakra-ui/react";
 import { BlueRectangleButton } from "../../components/common/CustomedButton";
-import { SelectBingsooFlavor } from "../../components/auth/SelectBingsooFlavor";
 import { useNavigate } from 'react-router-dom';
+import fisherman from "../../assets/pictures/fisherman_small.svg";
 
 export default function AfterSignUpPage() {
   const navigate = useNavigate();
@@ -31,18 +30,33 @@ export default function AfterSignUpPage() {
   }
   return (
     <Wrapper>
-      <Box marginTop="80px" w="100%">
-        <IvoryInput
-          value={username}
-          text="당신을 뭐라고 부를까요?"
-          placeholder="8자 내로 닉네임을 설정해 주세요"
-          handleChange={(e) => setUsername(e.target.value)}
-        />
+      <Box marginTop="160px" w="100%">
+      <Text mb='80px' color="#03526B" w="full" textAlign="center" fontWeight="semibold" >당신을 뭐라고 부를까요?</Text>
+      <Input
+      variant="filled"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder={"닉네임을 입력해주세요."}
+        _placeholder={{ opacity: 1, color: 'gray.500' }}
+        size='sm'
+        width={"100%"}
+        height="60px"
+        fontWeight="medium"
+        borderRadius="16px"
+        backgroundColor="#FFFEFE"
+        mb="26px"
+        _hover={{ backgroundColor: "#FFFEFE" }} // Keeps the background white on hover
+        _focus={{ backgroundColor: "#FFFEFE", boxShadow: "none" }} // Keeps the background white on focus
+      />
       </Box>
-      <SelectBingsooFlavor />
-      <Box mt="40px" w="100%">
+      <Box w="100%">
       <BlueRectangleButton onClick={handleSubmit}>완료</BlueRectangleButton>
       </Box>
+      <Flex w="full" justify="center" position="relative">
+        <Box mb="90px" position="fixed" bottom="0">
+         <img src={fisherman} alt="fisherman" width={180} height={180} />
+        </Box>
+        </Flex>
     </Wrapper>
   );
 }

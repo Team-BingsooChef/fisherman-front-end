@@ -3,18 +3,27 @@ import { COLOR, TEXTCOLOR } from '../../../styles/color';
 import { useNavigate } from "react-router-dom";
 import { Flex, Text, IconButton } from "@chakra-ui/react";
 
-
 interface HeaderProps {
-    text: string;
-  }
+  text: string;
+  onBackClick?: () => void; // onClick 핸들러를 선택적으로 추가
+}
 
-export const BlueHeader = ( {text}: HeaderProps) => {
+export const BlueBackHeader = ( {text, onBackClick}: HeaderProps) => {
     return (
     <Flex w="100%" h="70px" align="center" backgroundColor={COLOR.PRIMARY} position="relative" >
-        <IconButton icon={<ChevronLeft size={28} />} variant="ghost" aria-label="goBack" color={TEXTCOLOR.HEADER_BLACK} position="absolute"/>
+        <IconButton icon={<ChevronLeft size={28} />} variant="ghost" aria-label="goBack" color={TEXTCOLOR.HEADER_BLACK} position="absolute"   onClick={onBackClick}/>
         <Text color={TEXTCOLOR.HEADER_BLACK} fontSize="20px" fontWeight="Bold" textAlign="center" w="100%">{text}</Text>
     </Flex>
     );
+};
+
+
+export const BlueHeader = ( {text}: HeaderProps) => {
+  return (
+  <Flex w="100%" h="70px" align="center" backgroundColor={COLOR.PRIMARY} position="relative" >
+      <Text color={TEXTCOLOR.HEADER_BLACK} fontSize="20px" fontWeight="Bold" textAlign="center" w="100%">{text}</Text>
+  </Flex>
+  );
 };
 
 export const BlueHomeHeader = () => {
