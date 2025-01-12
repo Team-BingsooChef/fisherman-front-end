@@ -19,11 +19,11 @@ export const PlatformLogin = () => {
           color="#381F1F"
           fontSize="20px"
           position="relative"
-          sx={{
-            _hover: {
+
+            _hover= {{
               bgColor: "#FFE812", // hover 시 배경색 유지
               transform: "none", // transform 효과 제거
-            },
+
           }}
         >
           <img
@@ -50,11 +50,11 @@ export const PlatformLogin = () => {
           color="white"
           fontSize="20px"
           position="relative"
-          sx={{
-            _hover: {
+
+            _hover={ {
               bgColor: "#03E266",
               transform: "none",
-            },
+          
           }}
         >
           <img

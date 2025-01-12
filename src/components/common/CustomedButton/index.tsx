@@ -17,10 +17,10 @@ export const BlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({ childr
       fontWeight="ExtraBold"
       height="60px"
       borderRadius="16px"
-      // _hover={{
-      //   bg: COLOR.DEEPBLUE, // hover 시 배경색
-      //   color: "white", // hover 시 텍스트 색상 유지
-      // }}
+      _hover={{
+        bg: COLOR.DEEPBLUE, // hover 시 배경색
+        color: "white", // hover 시 텍스트 색상 유지
+      }}
       // _active={{
       //   transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
       // }}
