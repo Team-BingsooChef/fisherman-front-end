@@ -1,4 +1,4 @@
-import { Input } from "@chakra-ui/react";
+import {InputGroup, InputLeftElement, Input } from "@chakra-ui/react";
 
 interface SettingInputProps {
   value: string;
@@ -55,5 +55,44 @@ export const GreyInput: React.FC<SettingInputProps> = ({
         _focus={{ backgroundColor: "#A4ABBC", boxShadow: "none" }} // Keeps the background white on focus
       />
     </>
+  );
+};
+
+export const WhiteInput: React.FC<SettingInputProps & { icon?: React.ReactNode }> = ({
+  value,
+  handleChange,
+  placeholder,
+  icon,
+}) => {
+  return (
+    <InputGroup width="100%">
+      {icon && (
+        <InputLeftElement
+          pointerEvents="none"
+          height="100%" // Input과 동일한 높이
+          display="flex"
+          alignItems="center" // 세로 가운데 정렬
+          justifyContent="center"
+        >
+          <div style={{ marginLeft: "8px" }}>{icon}</div> {/* 아이콘과 placeholder 간격 */}
+        </InputLeftElement>
+      )}
+      <Input
+        variant="filled"
+        value={value}
+        onChange={handleChange}
+        border="1px"
+        borderColor="#A4ABBC"
+        placeholder={placeholder}
+        _placeholder={{ opacity: 1, color: "gray.500" }}
+        size="sm"
+        height="60px" // Input 높이 설정
+        paddingLeft="45px" // 아이콘으로 인해 텍스트가 겹치지 않도록 여백 설정
+        borderRadius="50px"
+        backgroundColor="#ffffff"
+        _hover={{ backgroundColor: "#A4ABBC" }}
+        _focus={{ backgroundColor: "#A4ABBC", boxShadow: "none" }}
+      />
+    </InputGroup>
   );
 };

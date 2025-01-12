@@ -20,6 +20,7 @@ export const ModalInsideGreyContainer = styled.div<ModalInsideContainerProps>`
     props.height || "auto"}; // props로 받은 height 또는 기본값
 `;
 
+
 // 스타일드 컴포넌트 정의
 const StyledInput = styled(Input)<ModalInsideContainerProps>`
   background: #d9d9d9;
@@ -82,7 +83,7 @@ interface ModalTitleProps {
 
 export const ModalTitle = ({ title }: ModalTitleProps) => {
   return (
-    <Text fontSize="32px" color="white">
+    <Text fontSize="32px" color="#03526B" fontWeight="800">
       {title}
     </Text>
   );
@@ -96,7 +97,7 @@ interface LetterTopInfoProps {
 export const LetterTopInfo = ({ text, nickname }: LetterTopInfoProps) => {
   return (
     <Flex justify="center" w="100%" gap="20px">
-      <Text color="white" fontSize="24px">
+      <Text color="black" fontSize="24px">
         {text}
       </Text>
       <Box

@@ -60,10 +60,11 @@ const ToppingByMeElement = ({
       w="full"
       justify="center"
       align="center"
-      backgroundColor="#B8F7FE"
+      backgroundColor="#AFD5F4"
       h="300px"
-      borderRadius="50px"
+      borderRadius="30px"
       mb="16px"
+      gap="10px"
     >
       <Text color="#1581A3" fontSize="24px">
         To. {nickname}

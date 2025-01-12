@@ -24,6 +24,7 @@ import ice_injeolmi from "../../assets/toppings/ice_injeolmi.svg";
 import injeolmi from "../../assets/toppings/injeolmi.svg";
 import ice_mochi from "../../assets/toppings/ice_mochi.svg";
 import mochi from "../../assets/toppings/mochi.svg";
+import shark from "../../assets/toppings/shark.svg";
 
 export const toppingTypesData = [
   {
@@ -36,9 +37,9 @@ export const toppingTypesData = [
   {
     toppingTypeId: 1,
     toppingTypeCategory: "fruits",
-    toppingTypeName: "cherry",
+    toppingTypeName: "shark",
     frozenImg: ice_cherry,
-    defrostedImg: cherry,
+    defrostedImg: shark,
   },
   {
     toppingTypeId: 2,

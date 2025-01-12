@@ -4,17 +4,20 @@ import {
     MenuList,
     MenuItem,
     Flex,
-    Box
+    Box,
+    Image
   } from "@chakra-ui/react";
   import { Link } from "react-router-dom";
   import { IconButton } from "@chakra-ui/icons";
-  import { Settings, IceCreamBowl, Search, RefreshCcw, MenuIcon, ChefHat } from "lucide-react";
-  
+  import { Settings, Github, Search, Fish, MenuIcon, Dice5, LogOut} from "lucide-react";
+  import profile_example from "../../../assets/profile_example.jpg";
+
   export const Menu = () => {
     const nickName = "자고싶어핑";
     return (
-      <Flex width="100%" justifyContent="flex-end" p={1}>
-        <CustomedMenu>
+      <Flex width="100%" justifyContent="flex-end" p={0}>
+        <CustomedMenu >
+
           <MenuButton
             as={IconButton}
             aria-label="Options"
@@ -22,54 +25,81 @@ import {
             variant="unstyled"
             size="lg"
           />
-          <MenuList bg="#00181B" color="white" borderColor="gray.700">
+
+          <MenuList  bg="#F9F7F7" color="white" >
             {/* 첫 번째 MenuItem은 텍스트처럼 표시 */}
             <MenuItem
               isDisabled
               fontSize="24px"
-              bg="#00181B"
+              fontWeight="bold"
+              bg="#F9F7F7"
               _hover={{ bg: "transparent" }}
-              _disabled={{ opacity: 1, cursor: "default", color: "#1581A3" }}
-            mb="10px"
+              _disabled={{ opacity: 1, cursor: "default", color: "#3887C7" }}
+              mb="1px"
             >
+            <Flex align="center" gap="8px">
+            <Image
+            src={profile_example}
+            alt="profile"
+            width="30px"
+            height="30px"
+            borderRadius="full"
+            objectFit="contain"
+            />
               {nickName} 님
+            </Flex>
             </MenuItem>
+
+
             <Link to="/setting">
             <MenuItem
               icon={<Settings size="20" color="#777C89" />}
-              bg="#00181B"
-              _hover={{ bg: "gray.700" }}
+              bg="#F9F7F7"
+              _hover={{ bg: "#AFD5F4" }}
+              color = "#595353"
+              fontWeight={700}
             >
-              계정 설정
+            계정 설정
             </MenuItem>
             </Link>
+
             <Link to="/seetoppinglist">
             <MenuItem
-              icon={<IceCreamBowl size="20" color="#777C89" />}
-              bg="#00181B"
-              _hover={{ bg: "gray.700" }}
+              icon={<Dice5 size="20" color="#777C89" />}
+              bg="#F9F7F7"
+              _hover={{ bg: "#AFD5F4" }}
+              color = "#595353"
+              fontWeight={700}
             >
-              내가 만든 토핑
+              빙어 뽑기
             </MenuItem>
+
             </Link>
+
             <Link to="/search">
             <MenuItem
               icon={<Search size="20" color="#777C89" />}
-              bg="#00181B"
-              _hover={{ bg: "gray.700" }}
+              bg="#F9F7F7"
+              _hover={{ bg: "#AFD5F4" }}
+              color = "#595353"
+              fontWeight={700}
             >
-              빙수 찾아 떠나기
+              낚시터 찾기
             </MenuItem>
             </Link>
-            <Link to="/changeflavor">
+
+            <Link to="/seetoppinglist">
             <MenuItem
-              bg="#00181B"
-              icon={<RefreshCcw size="20" color="#777C89" />}
-              _hover={{ bg: "gray.700" }}
+              bg="#F9F7F7"
+              icon={<Fish size="20" color="#777C89" />}
+              _hover={{ bg: "#AFD5F4" }}
+              color = "#595353"
+              fontWeight={700}
             >
-              빙수 맛 변경하기
+              내가 보낸 빙어
             </MenuItem>
             </Link>
+
             {/* 구분선 추가 */}
             <Box
               as="hr"
@@ -78,12 +108,26 @@ import {
               my={2} /* 위아래 여백 */
             />
             <MenuItem
-              bg="#00181B"
-              icon={<ChefHat size="20" color="#777C89" />}
-              _hover={{ bg: "gray.700" }}
+              bg="#F9F7F7"
+              icon={<LogOut size="20" color="#777C89" />}
+              _hover={{ bg: "#AFD5F4" }}
+              color = "#595353"
+              fontWeight={700}
+              
             >
-              포셰프 소개
+              로그아웃
             </MenuItem>
+            <MenuItem
+              bg="#F9F7F7"
+              icon={<Github size="20" color="#777C89" />}
+              _hover={{ bg: "#AFD5F4" }}
+              color = "#595353"
+              fontWeight={700}
+              
+            >
+              포피셔 소개
+            </MenuItem>
+
           </MenuList>
         </CustomedMenu>
       </Flex>
