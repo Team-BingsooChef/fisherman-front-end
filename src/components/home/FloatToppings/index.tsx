@@ -94,6 +94,7 @@ export const ToppingsPagination = () => {
         borderRadius="full"
         aria-label="Previous Page"
         mr="8px"
+        
       >
         이전
       </IconButton>

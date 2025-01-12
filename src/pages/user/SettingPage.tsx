@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { SettingHeader } from "../../components/user/SettingHeader";
 import { GreyInput, PasswordInput } from "../../components/user/CustomedInput";
-import { Text, Flex, Box, Image, Divider } from "@chakra-ui/react";
-import { BlueEllipseButton } from "../../components/common/CustomedButton";
+import { Text, Flex, Box, Image, Button } from "@chakra-ui/react";
+import { WhiteRectangleButton } from "../../components/common/CustomedButton";
 import profile_example from "../../assets/profile_example.jpg";
+import { LockKeyhole, RotateCcw, Trash2} from "lucide-react";
 
 export default function SettingPage() {
   const [currentNickname, setCurrentNickname] = useState<string>("호랭이");
@@ -32,56 +33,53 @@ const toggleAccess = () => {
 
   return (
     <Wrapper>
-      <SettingHeader text="계정 설정" />
-      <Flex align="center" justify="space-between" w="full" mt="70px">
-        <Flex align="center" gap="4px">
-        <Text fontSize="24px" color="#1581A3">{currentNickname}</Text>
-        <Text fontSize="20px" color="black">님</Text>
-        </Flex>
-        <Flex align="center" gap="8px">
-        <Box>
+      <SettingHeader   text="계정 설정" />
+      <Box mt="20px" ></Box>
+      <Flex direction="column" w="full" align="center" justify="center"  bgColor="white">
+          <Box m="20px 0 20px 0" >
+
           <Image
             src={profile_example}
             alt="profile"
-            width="50px"
-            height="50px"
+            width="100px"
+            height="100px"
             borderRadius="full"
             objectFit="contain"
           />
-        </Box>
-        <GreyTextButton>사진 변경</GreyTextButton>
-        </Flex>
+
+          <GreyTextButton align="center">사진 변경</GreyTextButton>
+    
+          <Flex  align="center" justify="center" gap="2px" fontWeight="Bold">
+          <Text fontSize="24px" color="#3887C7" >{currentNickname}</Text>
+          <Text fontSize="24px" color="black">님</Text>
+          </Flex>
+
+          </Box>
       </Flex>
 
-      <Divider my="8px" borderColor="gray.400" borderWidth="1px" />
 
-        <Box w="full" m="10px 0 10px 0">
-        <FlexChangeElement text1="닉네임" text2="변경" onClick={() => setCurrentNickname(changedNickname)} />
-        </Box>
-      <GreyInput
-        value={changedNickname}
-        handleChange={handleNicknameChange} // 닉네임 핸들러 연결
-        placeholder="닉네임"
-      />
-         <Box w="full" m="10px 0 10px 0">
-        <FlexChangeElement text1="비밀번호" text2="변경" onClick={() => setCurrentNickname(changedNickname)} />
-        </Box>
-      <PasswordInput
-        value={changedPassword}
-        handleChange={handlePasswordChange} // 비밀번호 핸들러 연결
-        placeholder="비밀번호"
-      />
-
-      <Divider my="8px" borderColor="gray.400" borderWidth="1px"  />
-      <Box m="10px 0 10px 0" w="full">
-      <FlexChangeElement text1="내 빙수 검색 허용" text2={accessStatus} onClick={toggleAccess} />
-
+      <Box m="15px 0 0 0" p={3} h="60px" w="full" display="flex" gap="8px" 
+      bgColor="white" alignItems="center" color="black">
+      <LockKeyhole/>
+      <FlexChangeElement text1="검색 허용" text2={accessStatus} onClick={toggleAccess} />
       </Box>
-      <Divider my="8px" borderColor="gray.400" borderWidth="1px"/>
-        <Flex gap="20px" mt="200px">
-      <BlueEllipseButton>로그아웃</BlueEllipseButton>
-      <BlueEllipseButton>회원 탈퇴</BlueEllipseButton>
-      </Flex>
+
+    
+      <Button w="full" m="0 0 15px 0" p={3} h="60px"  display="flex" gap="8px" 
+      bgColor="white" alignItems="center" color="black" justifyContent="flex-start">
+      <RotateCcw/>
+      비밀번호 변경
+      </Button>
+
+
+    
+      <Button w="full" p={3} h="60px"  display="flex" gap="8px" 
+      bgColor="white" alignItems="center" color="black" justifyContent="flex-start">
+      <Trash2 color="red" />
+      회원 탈퇴
+      </Button>
+
+      
     </Wrapper>
   );
 };
@@ -112,7 +110,7 @@ const FlexChangeElement = ({text1,text2, onClick}: FlexChangeElementProps ) =>
 {
     return(
         <Flex justify="space-between" align="center" w="100%">
-    <Text color="#03526B">{text1}</Text>
+    <Text color="#000000" fontWeight="600">{text1}</Text>
     <GreyTextButton onClick={onClick}>{text2}</GreyTextButton>
     </Flex>
     );

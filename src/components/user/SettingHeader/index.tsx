@@ -13,7 +13,7 @@ export const SettingHeader = ({ text }: SettingHeaderProps) => {
   };
   return (
     <Flex justify="space-between" align="center" w="100%" mt="20px">
-      <Text color="black" fontSize="32px">
+      <Text color="#13353B" fontSize="32px" fontWeight="Bold">
         {text}
       </Text>
       <IconButton

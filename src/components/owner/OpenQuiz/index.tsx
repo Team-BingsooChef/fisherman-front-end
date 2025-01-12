@@ -7,7 +7,7 @@ import { Flex, IconButton, Button, useToast } from "@chakra-ui/react";
 import { quizSampleOXData, quizSampleMultipleData } from '../../../__mocks__/quiz/data';
 import {
   ModalTitle,
-  ModalInsideGreyContainer,
+  ModalInsideWhiteContainer,
 } from "../../home/ModalCustomedElement";
 
 
@@ -89,9 +89,9 @@ export const OpenQuiz = () => {
       <>
         <ModalTitle title="OX 퀴즈" />
         <Flex w="100%" h="30%" mt="20px" justify="center">
-          <ModalInsideGreyContainer height="100%">
+          <ModalInsideWhiteContainer height="100%">
             Q. {quizSampleOXData.quiz.quizTitle}
-          </ModalInsideGreyContainer>
+          </ModalInsideWhiteContainer>
         </Flex>
         <Flex gap="40px" mt="20px" justify="center">
           <IconButton
@@ -132,7 +132,7 @@ export const OpenQuiz = () => {
       <>
         <ModalTitle title="객관식 퀴즈" />
         <Flex w="100%" h="30%" mt="20px" justify="center">
-          <ModalInsideGreyContainer>Q. {quizSampleMultipleData.quiz.quizTitle}</ModalInsideGreyContainer>
+          <ModalInsideWhiteContainer>Q. {quizSampleMultipleData.quiz.quizTitle}</ModalInsideWhiteContainer>
         </Flex>
         <Flex direction="column" gap="10px" mt="20px" width="100%" align="center">
           {quizSampleMultipleData.questions.map((option, index) => (

@@ -11,8 +11,8 @@ export const AddToppingButton = () => {
     onOpen();
   };
   return (
-    <Box w="calc(100% - 80px)" mt="16px">
-      <BlueRectangleButton onClick={clickAddTopping}>토핑 추가하기</BlueRectangleButton>
+    <Box w="calc(100% - 180px)" mt="16px">
+      <BlueRectangleButton onClick={clickAddTopping}>빙어 보내기</BlueRectangleButton>
     </Box>
   );
 };
@@ -20,7 +20,7 @@ export const AddToppingButton = () => {
 export const CopyLink = () => {
 
   return (
-    <Box w="calc(100% - 80px)" mt="16px">
+    <Box w="calc(100% - 200px)" mt="16px">
       <BlueRectangleButton>공유하기</BlueRectangleButton>
     </Box>
   );

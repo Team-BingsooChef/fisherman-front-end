@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { SettingHeader } from "../../components/user/SettingHeader";
-import { GreyInput } from "../../components/user/CustomedInput";
+import { WhiteInput } from "../../components/user/CustomedInput";
 import { Search } from "lucide-react";
 import { Flex, Text, Box, VStack, Image } from "@chakra-ui/react";
 import { users } from "../../__mocks__/search/data";
@@ -18,19 +18,16 @@ export default function SearchPage() {
 
     return (
         <Wrapper>
-            <SettingHeader text="빙수 찾아 떠나기" />
-            <Text fontSize="14px" color="#777C89">
-                다른 사람들의 빙수를 구경해 보세요!
-            </Text>
+            <SettingHeader text="낚시터 찾기" />
+      
             <Flex align="center" w="full" gap="8px" mt="20px">
-                <Box boxSize="30px">
-                    <Search size={24} color="#777C89" />
-                </Box>
-                <GreyInput
+            
+                <WhiteInput
+                    icon={<Search size={24} color="#000000" />} 
                     value={otherNickname}
-                    placeholder="닉네임 검색"
-                    handleChange={(e) => setOtherNickname(e.target.value)}
-                />
+                    placeholder="낚시꾼 이름으로 찾기"
+                    handleChange={(e) => setOtherNickname(e.target.value)}>
+                </WhiteInput>
             </Flex>
             {/* 검색 결과 */}
             <VStack align="center" mt="20px" w="full" spacing="8px">

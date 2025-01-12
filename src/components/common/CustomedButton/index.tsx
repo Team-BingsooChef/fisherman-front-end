@@ -94,6 +94,7 @@ export const LightBlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({ c
        _hover={{
        bg:"#03526B",
        color:"#ffffff"
+
        }}
        _active={{
          transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
@@ -102,6 +103,6 @@ export const LightBlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({ c
        {children}
      </Button>
    );
+
  };
- 
- 
+

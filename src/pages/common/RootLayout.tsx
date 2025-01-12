@@ -1,11 +1,15 @@
 import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
+
 import { COLOR } from "../../styles/color";
+
 
 export default function RootLayout() {
   const location = useLocation();
 
   // 경로에 따라 배경 이미지 선택
+
+
   let backgroundColor;
   if (["/emailcheck", "/search", "/setting", "/seetoppinglist"].includes(location.pathname)) {
     backgroundColor = COLOR.SERVE;
