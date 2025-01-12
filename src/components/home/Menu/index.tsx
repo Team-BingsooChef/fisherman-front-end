@@ -12,10 +12,18 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { Settings, Github, Search, Fish, Dice5, LogOut, MenuIcon } from "lucide-react";
+import {
+  Settings,
+  Github,
+  Search,
+  Fish,
+  Dice5,
+  LogOut,
+  MenuIcon,
+} from "lucide-react";
 import profile_example from "../../../assets/profile_example.jpg";
 
-export const DrawerMenu = () => {
+export const Menu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const nickName = "자고싶어핑";
 
@@ -23,11 +31,7 @@ export const DrawerMenu = () => {
     <>
       {/* 메뉴 버튼 */}
       <Flex width="100%" justifyContent="flex-end">
-        <Button
-          onClick={onOpen}
-          variant="unstyled"
-          aria-label="Open Menu"
-        >
+        <Button onClick={onOpen} variant="unstyled" aria-label="Open Menu">
           <MenuIcon size="28" />
         </Button>
       </Flex>
@@ -35,7 +39,11 @@ export const DrawerMenu = () => {
       {/* Drawer 컴포넌트 */}
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs">
         <DrawerOverlay />
-        <DrawerContent bg="#F9F7F7">
+        <DrawerContent
+          bg="#F9F7F7"
+          maxWidth="250px" // 원하는 너비 설정
+          width="90%" // 반응형으로 설정 가능
+        >
           <DrawerCloseButton color="#595353" />
           <DrawerHeader>
             <Flex align="center" gap="8px">
@@ -63,7 +71,6 @@ export const DrawerMenu = () => {
                 fontWeight={700}
                 width="100%"
                 justifyContent="flex-start"
-                mb="4"
               >
                 계정 설정
               </Button>
@@ -78,7 +85,6 @@ export const DrawerMenu = () => {
                 fontWeight={700}
                 width="100%"
                 justifyContent="flex-start"
-                mb="4"
               >
                 빙어 뽑기
               </Button>
@@ -93,7 +99,6 @@ export const DrawerMenu = () => {
                 fontWeight={700}
                 width="100%"
                 justifyContent="flex-start"
-                mb="4"
               >
                 낚시터 찾기
               </Button>
@@ -108,19 +113,13 @@ export const DrawerMenu = () => {
                 fontWeight={700}
                 width="100%"
                 justifyContent="flex-start"
-                mb="4"
               >
                 내가 보낸 빙어
               </Button>
             </Link>
 
             {/* 구분선 */}
-            <Box
-              as="hr"
-              borderColor="gray.700"
-              borderWidth="1px"
-              my={4}
-            />
+            <Box as="hr" borderColor="gray.700" borderWidth="1px" my={4} />
 
             <Button
               leftIcon={<LogOut size="20" color="#777C89" />}
@@ -130,7 +129,6 @@ export const DrawerMenu = () => {
               fontWeight={700}
               width="100%"
               justifyContent="flex-start"
-              mb="4"
             >
               로그아웃
             </Button>
