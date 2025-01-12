@@ -1,27 +1,25 @@
 import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
-import background_blue from "../../assets/background/background_blue.png";
-import background from "../../assets/background/fish_background.png";
-import background_whitegray from "../../assets/background/background_whitegray.png";
+
+import { COLOR } from "../../styles/color";
+
 
 export default function RootLayout() {
   const location = useLocation();
 
   // 경로에 따라 배경 이미지 선택
-  let backgroundImage;
-  if (location.pathname === "/emailcheck") {
-    backgroundImage = `url(${background_blue})`;
-  } else if (
-    ["/setting", "/seetoppinglist", "/search"].includes(location.pathname)
-  ) {
-    backgroundImage = `url(${background_whitegray})`;
+
+
+  let backgroundColor;
+  if (["/emailcheck", "/search", "/setting", "/seetoppinglist"].includes(location.pathname)) {
+    backgroundColor = COLOR.SERVE;
   } else {
-    backgroundImage = `url(${background})`;
+    backgroundColor= COLOR.PRIMARY;
   }
 
   return (
     <Wrapper>
-      <InsideWrapper backgroundImage={backgroundImage}>
+      <InsideWrapper backgroundColor={backgroundColor}>
         <Outlet />
       </InsideWrapper>
     </Wrapper>
@@ -38,13 +36,13 @@ const Wrapper = styled.div`
   overflow-x: hidden;
 `;
 
-const InsideWrapper = styled.div<{ backgroundImage: string }>`
+const InsideWrapper = styled.div<{ backgroundColor: string }>`
   width: 100%;
   max-width: 430px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: ${({ backgroundImage }) => backgroundImage};
+  background-color: ${({ backgroundColor }) => backgroundColor};
   background-size: cover;
   background-position: center;
 `;
