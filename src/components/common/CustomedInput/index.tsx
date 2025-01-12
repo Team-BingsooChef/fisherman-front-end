@@ -13,7 +13,7 @@ interface InputProps {
 export const WhiteInput: React.FC<InputProps> = ({ value, text, handleChange, placeholder }) => {
   return (
     <>
-      <Text mb='8px' color="#03526B" fontWeight="100" alignSelf="start" >{text}</Text>
+      <Text mb='8px' color="#03526B" alignSelf="start" fontWeight="semibold" >{text}</Text>
       <Input
       variant="filled"
         value={value}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { Box, useToast } from "@chakra-ui/react";
-import { IvoryInput } from "../../components/common/CustomedInput";
+import { WhiteInput } from "../../components/common/CustomedInput";
 import { BlueRectangleButton } from "../../components/common/CustomedButton";
 import { SelectBingsooFlavor } from "../../components/auth/SelectBingsooFlavor";
 import { useNavigate } from 'react-router-dom';
@@ -32,7 +32,7 @@ export default function AfterSignUpPage() {
   return (
     <Wrapper>
       <Box marginTop="80px" w="100%">
-        <IvoryInput
+        <WhiteInput
           value={username}
           text="당신을 뭐라고 부를까요?"
           placeholder="8자 내로 닉네임을 설정해 주세요"

@@ -15,7 +15,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
 }) => {
   return (
     <>
-      <Text mb="8px" color="#03526B" fontWeight="100" alignSelf="start">
+      <Text mb="8px" color="#03526B" fontWeight="semibold" alignSelf="start">
         {text}
       </Text>
       <Input
@@ -31,7 +31,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
         fontWeight="medium"
         borderRadius="16px"
         backgroundColor="#FFFEFE"
-        mb="24px"
+        mb="12px"
         _hover={{ backgroundColor: "#FFFEFE" }} // Keeps the background white on hover
         _focus={{ backgroundColor: "#FFFEFE", boxShadow: "none" }} // Keeps the background white on focus
       />
