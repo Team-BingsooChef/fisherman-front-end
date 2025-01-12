@@ -5,10 +5,10 @@ import { SetPassword, ReSetPassword } from "../../components/auth/SetPassword";
 export default function SetPasswordPage()   {
 
     const location = useLocation();
-    const to = location.state?.to || "unknown"; // 기본값 설정
+    const action = location.state?.action || "unknown"; // 기본값 설정
     return(
         <Wrapper>
-            {to === "findpassword" ? <ReSetPassword /> : <SetPassword />}
+            {action === "setpassword" ? <SetPassword /> : <ReSetPassword />}
         </Wrapper>
         
     );
