@@ -78,6 +78,7 @@ export const CodeCheck = () => {
         isClosable: true,
       });
      if (from === "signup") {
+      // 비밀번호 설정은 같은 페이지에서, but 이전 페이지 정보를 전달
       navigate("/setpassword", { state: { to: "setpassword" } });
     } else if (from === "findpassword") {
       navigate("/setpassword", { state: { to: "resetpassword" } });
