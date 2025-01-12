@@ -34,17 +34,23 @@ export const Menu = () => {
         <Button onClick={onOpen} variant="unstyled" aria-label="Open Menu">
           <MenuIcon size="28" />
         </Button>
-      </Flex>
-
+        </Flex>
       {/* Drawer 컴포넌트 */}
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs">
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        size="xs"
+        trapFocus={false} // 트랩 비활성화
+        blockScrollOnMount={false} // 스크롤 블록 비활성화
+      >
         <DrawerOverlay />
         <DrawerContent
           bg="#F9F7F7"
-          maxWidth="250px" // 원하는 너비 설정
+          maxWidth="240px" // 원하는 너비 설정
           width="90%" // 반응형으로 설정 가능
         >
-          <DrawerCloseButton color="#595353" />
+          {/* <DrawerCloseButton color="#595353" /> */}
           <DrawerHeader>
             <Flex align="center" gap="8px">
               <Image
@@ -68,7 +74,7 @@ export const Menu = () => {
                 bg="#F9F7F7"
                 _hover={{ bg: "#AFD5F4" }}
                 color="#595353"
-                fontWeight={700}
+                      fontWeight="semibold"
                 width="100%"
                 justifyContent="flex-start"
               >
@@ -76,13 +82,13 @@ export const Menu = () => {
               </Button>
             </Link>
 
-            <Link to="/seetoppinglist">
+            <Link to="/fishdrawing">
               <Button
                 leftIcon={<Dice5 size="20" color="#777C89" />}
                 bg="#F9F7F7"
                 _hover={{ bg: "#AFD5F4" }}
                 color="#595353"
-                fontWeight={700}
+                fontWeight="semibold"
                 width="100%"
                 justifyContent="flex-start"
               >
@@ -96,7 +102,7 @@ export const Menu = () => {
                 bg="#F9F7F7"
                 _hover={{ bg: "#AFD5F4" }}
                 color="#595353"
-                fontWeight={700}
+                fontWeight="semibold"
                 width="100%"
                 justifyContent="flex-start"
               >
@@ -110,7 +116,7 @@ export const Menu = () => {
                 bg="#F9F7F7"
                 _hover={{ bg: "#AFD5F4" }}
                 color="#595353"
-                fontWeight={700}
+                fontWeight="semibold"
                 width="100%"
                 justifyContent="flex-start"
               >
@@ -119,14 +125,14 @@ export const Menu = () => {
             </Link>
 
             {/* 구분선 */}
-            <Box as="hr" borderColor="gray.700" borderWidth="1px" my={4} />
+            <Box as="hr" borderColor="#c0c0c0" borderWidth="1px" my={4} />
 
             <Button
               leftIcon={<LogOut size="20" color="#777C89" />}
               bg="#F9F7F7"
               _hover={{ bg: "#AFD5F4" }}
               color="#595353"
-              fontWeight={700}
+                fontWeight="semibold"
               width="100%"
               justifyContent="flex-start"
             >
@@ -138,7 +144,7 @@ export const Menu = () => {
               bg="#F9F7F7"
               _hover={{ bg: "#AFD5F4" }}
               color="#595353"
-              fontWeight={700}
+                fontWeight="semibold"
               width="100%"
               justifyContent="flex-start"
             >
