@@ -5,10 +5,21 @@ import googleIcon from "../../../assets/icon/google_icon.svg";
 import { BlueRectangleButton } from "../../common/CustomedButton";
 import fisherman from "../../../assets/pictures/fisherman_small.svg";
 
-export const PlatformLogin = () => {
+interface PlatformLoginProps {
+  onEmailClick: () => void;
+}
+
+export const PlatformLogin = ({onEmailClick}: PlatformLoginProps) => {
   return (
     <>
-      <Flex w="full" flexDir="column" align="center" gap="30px" mt="76px" mb="120px">
+      <Flex
+        w="full"
+        flexDir="column"
+        align="center"
+        gap="30px"
+        mt="76px"
+        mb="120px"
+      >
         <Button
           w="full"
           h="60px"
@@ -19,11 +30,9 @@ export const PlatformLogin = () => {
           color="#381F1F"
           fontSize="20px"
           position="relative"
-
-            _hover= {{
-              bgColor: "#FFE812", // hover 시 배경색 유지
-              transform: "none", // transform 효과 제거
-
+          _hover={{
+            bgColor: "#FFE812", // hover 시 배경색 유지
+            transform: "none", // transform 효과 제거
           }}
         >
           <img
@@ -50,11 +59,9 @@ export const PlatformLogin = () => {
           color="white"
           fontSize="20px"
           position="relative"
-
-            _hover={ {
-              bgColor: "#03E266",
-              transform: "none",
-          
+          _hover={{
+            bgColor: "#03E266",
+            transform: "none",
           }}
         >
           <img
@@ -104,7 +111,7 @@ export const PlatformLogin = () => {
           />
           구글로 시작하기
         </Button>
-        <BlueRectangleButton>이메일로 시작하기</BlueRectangleButton>
+        <BlueRectangleButton onClick={onEmailClick}>이메일로 시작하기</BlueRectangleButton>
       </Flex>
       <img src={fisherman} alt="fisherman" width={200} height={200} />
     </>
