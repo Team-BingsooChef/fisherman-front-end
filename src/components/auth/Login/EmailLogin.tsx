@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Box, Link as ChakraLink } from "@chakra-ui/react";
 import { PasswordInput } from "../PasswordInput";
 import { BlueRectangleButton } from "../../common/CustomedButton";
-import { IvoryInput } from "../../common/CustomedInput";
+import { WhiteInput } from "../../common/CustomedInput";
 import { AuthBottomWrapper } from "../../auth/AuthWrapper";
 
 export const EmailLogin = () => {
@@ -18,7 +18,7 @@ export const EmailLogin = () => {
       };
 return(
 <>
-    <IvoryInput
+    <WhiteInput
     value={email}
     text="이메일"
     handleChange={handleChangeEmail}
