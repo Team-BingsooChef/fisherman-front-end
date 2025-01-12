@@ -1,19 +1,30 @@
 import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
-
 import { COLOR } from "../../styles/color";
-
+import fish_background from "../../assets/background/fish_background.png";
 
 export default function RootLayout() {
   const location = useLocation();
 
   // 경로에 따라 배경 이미지 선택
-
-
   let backgroundColor;
-  if (["/emailcheck", "/search", "/setting", "/seetoppinglist"].includes(location.pathname)) {
+
+  if (["/bingsooId", "/"].includes(location.pathname)){
+    backgroundColor = `url(${fish_background})`;
+
+    return (
+      <Wrapper>
+        <ImgInsideWrapper backgroundColor={backgroundColor}>
+          <Outlet />
+        </ImgInsideWrapper>
+      </Wrapper>
+    );
+
+  }
+  else if (["/emailcheck", "/search", "/setting", "/seetoppinglist"].includes(location.pathname)) {
     backgroundColor = COLOR.SERVE;
-  } else {
+  } 
+  else {
     backgroundColor= COLOR.PRIMARY;
   }
 
@@ -43,6 +54,17 @@ const InsideWrapper = styled.div<{ backgroundColor: string }>`
   flex-direction: column;
   align-items: center;
   background-color: ${({ backgroundColor }) => backgroundColor};
+  background-size: cover;
+  background-position: center;
+`;
+
+const ImgInsideWrapper = styled.div<{ backgroundColor: string }>`
+  width: 100%;
+  max-width: 430px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: ${({ backgroundColor }) => backgroundColor};
   background-size: cover;
   background-position: center;
 `;
