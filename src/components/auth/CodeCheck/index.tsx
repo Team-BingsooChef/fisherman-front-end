@@ -79,9 +79,9 @@ export const CodeCheck = () => {
       });
      if (from === "signup") {
       // 비밀번호 설정은 같은 페이지에서, but 이전 페이지 정보를 전달
-      navigate("/setpassword", { state: { to: "setpassword" } });
+      navigate("/setpassword", { state: { action: "setpassword" } });
     } else if (from === "findpassword") {
-      navigate("/setpassword", { state: { to: "resetpassword" } });
+      navigate("/setpassword", { state: { action: "resetpassword" } });
     } else {
       console.error("Unknown navigation source");
     }
