@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { useState, useEffect, useRef } from "react";
-import { Box, Text, useToast } from "@chakra-ui/react";
+import { Box, Flex, Text, useToast } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { LightBlueRectangleButton } from "../../common/CustomedButton";
+import { NavyRectangleButton } from "../../common/CustomedButton";
+import {COLOR} from "../../../styles/color";
 
 export const CodeCheck = () => {
   const [timeLeft, setTimeLeft] = useState(300); // 300초 = 5분
@@ -120,16 +121,22 @@ export const CodeCheck = () => {
           />
         ))}
       </InputsContainer>
-      <Text color="white" mt="40px">
-        코드 입력까지 {formatTime(timeLeft)} 남았습니다
+      <Text color="#13353B" mt="25px">
+        코드 입력까지   <span style={{ fontWeight: "bold" }}>{formatTime(timeLeft)}</span> 남았습니다
       </Text>
-      {timeExpired && (
-        <ResendButton onClick={handleResend}>다시 전송</ResendButton>
-      )}
-      <Box mt="120px" w="100%">
-        <LightBlueRectangleButton onClick={handleSubmit}>
+
+      <Box mt="148px" w="100%">
+        <NavyRectangleButton onClick={handleSubmit}>
           인증하기
-        </LightBlueRectangleButton>
+        </NavyRectangleButton>
+        {timeExpired && (
+        <Flex justify="center" mt="42px" gap="8px">
+        <Text fontSize="14px">메일이 전송되지 않았나요? 
+        </Text>
+        <ResendButton onClick={handleResend}>
+          다시 전송</ResendButton>
+          </Flex>
+      )}
       </Box>
       </CodeCheckWrapper>
   );
@@ -146,7 +153,7 @@ const InputsContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 48px;
 `;
 
 const CodeInput = styled.input`
@@ -154,16 +161,18 @@ const CodeInput = styled.input`
   height: 52px;
   text-align: center;
   font-size: 24px;
+  font-weight: bold;
   border-radius: 8px;
-  border: 1px solid #007da4;
-  background-color: #007da4;
+  border: 1px solid #919799;
+  background-color: #919799;
   color: #ffffff;
 `;
 
 const ResendButton = styled.button`
   background-color: transparent;
   border: none;
-  color: #2589ff;
+  font-size: 14px;
+  color: #0075FF;
   text-decoration: underline;
   cursor: pointer;
 `;

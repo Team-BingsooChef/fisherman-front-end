@@ -80,3 +80,28 @@ export const LightBlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({ c
  };
  
  
+ export const NavyRectangleButton: React.FC<BlueRectangleButtonProps> = ({ children, onClick }) => {
+  return (
+     <Button
+       onClick={onClick} // onClick 이벤트 연결
+       bg="#03526B"
+       color="white"
+       width="100%"
+       fontSize="20px"
+       fontWeight="extrabold"
+       height="60px"
+       borderRadius="16px"
+       _hover={{
+       bg:"#03526B",
+       color:"#ffffff"
+       }}
+       _active={{
+         transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
+       }}
+     >
+       {children}
+     </Button>
+   );
+ };
+ 
+ 
