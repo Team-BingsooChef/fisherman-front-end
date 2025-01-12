@@ -7,6 +7,7 @@ import { WhiteInput } from "../../common/CustomedInput";
 import { AuthBottomWrapper } from "../../auth/AuthWrapper";
 import { Checkbox} from '@chakra-ui/react'
 
+
 export const EmailLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +20,7 @@ export const EmailLogin = () => {
   };
   return (
     <>
-    <Box mt="82px" w="full">
+    <Box mt="76px" w="full">
       <WhiteInput
         value={email}
         text="이메일"
