@@ -78,16 +78,21 @@ const ToppingByMeElement = ({
         >
           {/* 모서리에 defrostedImg 아이콘 표시 */}
           {defrostedImg && (
-            <Image
-              src={defrostedImg}
-              alt="topping icon"
-              position="absolute"
-              top="-20px"
-              right="0px"
-              boxSize="50px"
-              cursor="pointer"
-            />
-          )}
+  <Image
+    src={defrostedImg}
+    alt="topping icon"
+    position="absolute"
+    top="-20px"
+    right="0px"
+    boxSize="50px"
+    cursor="pointer"
+    transition="transform 0.2s ease-in-out" // 부드러운 크기 변화를 위한 트랜지션
+    _hover={{
+      transform: "scale(1.2)", // 호버 시 이미지 크기를 10% 확대
+    }}
+  />
+)}
+
           <Text fontSize="16px" color="#03526B">
             {toppingContent}
           </Text>
