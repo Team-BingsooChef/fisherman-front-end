@@ -24,7 +24,7 @@ export default function FishDrawingPage() {
           icon={
             <FaInfoCircle size="24px" color="#7c7c7c" />
           }
-          label="코인의 개수를 확인하세요!"
+          label={`코인은 빙어를 뽑을 때 사용됩니다.\n 친구에게 빙어를 보내거나 친구에게서 빙어를 받을 때 3개의 코인을 받을 수 있어요!`}
         >
           <img src={coin} alt="coin" width="40px" height="40px" />
           <Text fontSize="24px" fontWeight="semibold" letterSpacing="-1px">

@@ -16,7 +16,11 @@ export const LotteryMachine = () => {
        </Box>
      </PopoverTrigger>
      <PopoverContent bg="#f9f9f9" borderColor="#e0e0e0" boxShadow="md" borderRadius="8px">
-       <PopoverBody>로터리 머신 사용법을 확인하세요.</PopoverBody>
+     <PopoverBody fontWeight="semibold">
+        3개의 코인을 사용하여 1개의 빙어를 뽑을 수 있어요.
+  뽑은 빙어는 가방에서 확인할 수 있어요.
+</PopoverBody>
+
      </PopoverContent>
    </Popover>
    <img src={lotterymachine} alt="lotterymachine" />
@@ -25,7 +29,15 @@ export const LotteryMachine = () => {
     );
 };
 
-export const InfoBox = ({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) => (
+export const InfoBox = ({
+    icon,
+    label,
+    children,
+  }: {
+    icon: React.ReactNode;
+    label: string;
+    children: React.ReactNode;
+  }) => (
     <Flex
       w="140px"
       h="44px"
@@ -39,8 +51,19 @@ export const InfoBox = ({ icon, label, children }: { icon: React.ReactNode; labe
         <PopoverTrigger>
           <Box cursor="pointer">{icon}</Box>
         </PopoverTrigger>
-        <PopoverContent bg="#f9f9f9" borderColor="#e0e0e0" boxShadow="md" borderRadius="8px">
-          <PopoverBody>{label}</PopoverBody>
+        <PopoverContent
+          bg="#f9f9f9"
+          borderColor="#e0e0e0"
+          boxShadow="md"
+          borderRadius="8px"
+          p="8px"
+        >
+          <PopoverBody
+            fontWeight="semibold"
+            whiteSpace="pre-line" // 줄바꿈 허용
+          >
+            {label}
+          </PopoverBody>
         </PopoverContent>
       </Popover>
       {children}
