@@ -59,7 +59,7 @@ export const OpenQuiz = () => {
         isClosable: true,
       });
     }
-  }catch (error: any) {
+  }catch (error: unknown) {
     console.error("OX 퀴즈 정답 제출 실패:", error);
     toast({
       title: "퀴즈 제출 실패",
@@ -104,7 +104,7 @@ export const OpenQuiz = () => {
           isClosable: true,
         });
       }
-    }catch (error: any) {
+    }catch (error: unknown) {
       console.error("객관식 퀴즈 정답 제출 실패:", error);
       toast({
         title: "퀴즈 제출 실패",

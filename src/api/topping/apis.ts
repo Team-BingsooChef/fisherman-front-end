@@ -4,7 +4,8 @@ import {
   ToppingOutsideResponseBody,
   ToppingOutsideParams,
   ToppingInsideResponseBody,
-  ToppingInsideParams
+  ToppingInsideParams,
+  PostCommentRequestBody
 } from "./types";
 
 export function CreateTopping(req: CreateToppingRequestBody): Promise<void> {
@@ -36,3 +37,7 @@ export async function QueryToppingInside(params: ToppingInsideParams): Promise<T
   return res.data;
 }
 
+export async function PostComment(req: PostCommentRequestBody): Promise<ToppingInsideResponseBody> {
+  const res = await api.post<ToppingInsideResponseBody>('/users/bingsoos/toppings/comments', req);
+  return res.data;
+}
