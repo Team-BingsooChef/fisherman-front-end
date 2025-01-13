@@ -10,17 +10,14 @@ export const SeeToppingsByMe = () => {
       mt="20px"
       flexDir="column"
       w="full"
-      h="80vh"
+      h="100vh"
       align="center"
       justify="center"
-      overflow="hidden"
+      overflowY="auto"
     >
       <Box
         w="full"
         h="100%"
-        overflowY="auto"
-        borderRadius="16px"
-        p="16px"
         bg="none"
       >
         {toppingExamples.map((topping) => (
@@ -62,13 +59,14 @@ const ToppingByMeElement = ({
       align="center"
       backgroundColor="#AFD5F4"
       h="300px"
-      borderRadius="30px"
+      borderRadius="16px"
       mb="16px"
-      gap="10px"
     >
-      <Text color="#1581A3" fontSize="24px">
-        To. {nickname}
+      <Box w="full" p="0 20px 0 20px">
+      <Text color="black" fontSize="16px" fontWeight="semibold">
+        {nickname}에게
       </Text>
+      </Box>
       <ModalInsideWhiteContainer height="160px">
         <Box
           w="full"
@@ -97,15 +95,15 @@ const ToppingByMeElement = ({
       </ModalInsideWhiteContainer>
       <Box mt="16px">
         {isHidden ? (
-          <Text fontSize="16px" color="#777C89">
+          <Text fontSize="14px" color="black" fontWeight="semibold">
             주인이 아직 편지를 열어보지 않았어요!
           </Text>
         ) : (
           <>
-            <Text fontSize="14px" color="#777C89">
+            <Text fontSize="14px" color="black"  fontWeight="semibold">
               이 편지는 {wrongCount}번 만에 열어봤어요!
             </Text>
-            <Text fontSize="14px" color="#777C89" mt="4px">
+            <Text fontSize="14px" color="black" mt="4px"  fontWeight="semibold">
               {isReplied
                 ? "주인이 답장을 남겼어요! 답장 보러 가기"
                 : "주인이 답장을 남기지 않았어요."}
