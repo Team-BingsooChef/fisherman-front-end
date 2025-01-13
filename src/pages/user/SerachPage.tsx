@@ -35,7 +35,7 @@ export default function SearchPage() {
               <Flex
                 key={user.userId}
                 p="12px"
-                w="80%"
+                w="90%"
                 borderWidth="1px"
                 borderRadius="16px"
                 borderColor="#E2E8F0"
@@ -49,7 +49,7 @@ export default function SearchPage() {
                   borderRadius="full"
                   objectFit="contain"
                 />
-                <Text ml="8px" fontSize="16px" color="#03526B">
+                <Text ml="8px" fontSize="20px" fontWeight="semibold" color="#737373">
                   {user.nickname}
                 </Text>
               </Flex>
