@@ -125,7 +125,7 @@ const ToppingByMeElement = ({
       >
         <Text fontSize="16px" color="black" fontWeight="medium">
           {/* 답장 내용을 표시 (예: "답장 내용입니다.") */}
-          gdgd
+          {repliedContent}
         </Text>
       </Box>
     </ModalInsideWhiteContainer>

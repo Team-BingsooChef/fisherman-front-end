@@ -6,6 +6,7 @@ export const toppingExamples = [
       isHidden: true,
       wrongCount: 3,
       isReplied: false,
+      repliedContent: "ㅎㅇdㅎㅇ",
       toppingTypeId: 1,
     },
     {
@@ -15,6 +16,7 @@ export const toppingExamples = [
       isHidden: false,
       wrongCount: 1,
       isReplied: true,
+      repliedContent: "ㅎㅇdㅎㅇ",
       toppingTypeId: 2,
     },
     {
@@ -24,6 +26,7 @@ export const toppingExamples = [
       isHidden: false,
       wrongCount: 5,
       isReplied: false,
+      repliedContent: "ㅎㅇdㅎㅇ",
       toppingTypeId: 3,
     },
   ];
