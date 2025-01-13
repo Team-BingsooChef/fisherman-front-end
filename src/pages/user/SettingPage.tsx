@@ -17,7 +17,7 @@ export default function SettingPage() {
       toast({
         title: '닉네임이 변경되었습니다.',
         status: 'success',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       })
     }
