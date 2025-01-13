@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useModalStateStore } from "../../../store/modal";
 import { useModalHeight } from "../../../hook/useModalHeight";
-// import { useSelectedToppingStore } from "../../../store/api/topping";
+
 import { Circle, X } from "lucide-react";
 import { Flex, IconButton, Button, useToast } from "@chakra-ui/react";
 import { quizSampleOXData, quizSampleMultipleData } from '../../../__mocks__/quiz/data';
-import {
-  ModalTitle,
-  ModalInsideWhiteContainer,
-} from "../../home/ModalCustomedElement";
+import { ModalTitle, ModalInsideWhiteContainer,} from "../../home/ModalCustomedElement";
+
+import { SendAnswer } from '../../../api/quiz/apis'; 
 
 
 export const OpenQuiz = () => {
@@ -29,13 +28,20 @@ export const OpenQuiz = () => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [correctOption, setCorrectOption] = useState<number | null>(null);
 
+  
   // OX 버튼 클릭 핸들러
-  const handleOXAnswerClick = (answer: "O" | "X") => {
+  const handleOXAnswerClick = async (answer: "O" | "X") => {
+    try {
+      const requestData = {
+        userId: 1,
+        quizId: quizSampleOXData.quiz.quizId,
+        questionId: quizSampleOXData.questions.find((q) => q.answer === answer)?.questionId || 0,
+      };
+    const response = await SendAnswer(requestData); 
     setSelectedAnswer(answer); // 선택한 답변 저장
-
-    const isCorrect = exampleOXAnswer === answer; // 정답 확인
     setCorrectAnswer(exampleOXAnswer); // 정답 저장
-    if (isCorrect) {
+    //const isCorrect = exampleOXAnswer === answer; // 정답 확인
+    if (response.result) {
       toast({
         title: "정답입니다!",
         description: "토핑이 오픈됩니다.",
@@ -53,15 +59,34 @@ export const OpenQuiz = () => {
         isClosable: true,
       });
     }
-  };
+  }catch (error: any) {
+    console.error("OX 퀴즈 정답 제출 실패:", error);
+    toast({
+      title: "퀴즈 제출 실패",
+      description: "다시 시도해 주세요.",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+};
 
 
     // 객관식 버튼 클릭 핸들러
-    const handleMultipleAnswerClick = (index: number) => {
+    const handleMultipleAnswerClick = async (index: number) => {
+      try {
+        const requestData = {
+          userId: 1,
+          quizId: quizSampleMultipleData.quiz.quizId,
+          questionId: quizSampleMultipleData.questions[index]?.questionId || 0,
+        };
+      
+      const response = await SendAnswer(requestData);
       setSelectedOption(index);
-      const isCorrect = exampleMultipleAnswer === index; // 정답 확인
       setCorrectOption(exampleMultipleAnswer); // 정답 저장
-      if (isCorrect) {
+
+      //onst isCorrect = exampleMultipleAnswer === index; // 정답 확인
+      if (response.result) {
         toast({
           title: "정답입니다!",
           description: "토핑이 오픈됩니다.",
@@ -79,8 +104,17 @@ export const OpenQuiz = () => {
           isClosable: true,
         });
       }
-    };
-
+    }catch (error: any) {
+      console.error("객관식 퀴즈 정답 제출 실패:", error);
+      toast({
+        title: "퀴즈 제출 실패",
+        description: "다시 시도해 주세요.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
 
    // OX 퀴즈 렌더링
