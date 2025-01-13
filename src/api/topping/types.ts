@@ -78,3 +78,11 @@ export interface ToppingInsideParams {
   toppingId: number;  // `topping-id`를 camelCase로 변경
   userId: string; // `user-id`를 camelCase로 변경
 }
+
+export interface PostCommentRequestBody {
+  userId: number; // 사용자 ID
+  toppingId: number; // 토핑 ID
+  comment: {
+    commentContent: string; // 코멘트 내용
+  };
+}
