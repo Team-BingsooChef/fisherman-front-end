@@ -52,10 +52,10 @@ export const BlueHomeHeader = () => {
             );
         };
 
-        export const WhiteLeftHeader = ( {text}: HeaderProps) => {
+        export const WhiteLeftHeader = ( {text, onBackClick}: HeaderProps) => {
             return (
             <Flex w="100%" h="70px" align="center" backgroundColor={COLOR.SERVE} position="relative" >
-                <IconButton icon={<ChevronLeft size={28} />} variant="ghost" aria-label="goBack" color={TEXTCOLOR.HEADER_BLACK} position="absolute"/>
+                <IconButton icon={<ChevronLeft size={28} />} variant="ghost" aria-label="goBack" color={TEXTCOLOR.HEADER_BLACK} position="absolute" onClick={onBackClick}/>
                 <Text color={TEXTCOLOR.HEADER_BLACK} fontSize="20px" fontWeight="Bold" ml="40px">{text}</Text>
             </Flex>
             );

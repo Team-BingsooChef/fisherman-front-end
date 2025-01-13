@@ -1,17 +1,21 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { SettingHeader } from "../../components/user/SettingHeader";
+import { WhiteLeftHeader } from "../../components/common/Header";
 import { GreyInput, PasswordInput } from "../../components/user/CustomedInput";
-import { Text, Flex, Box, Image, Button } from "@chakra-ui/react";
+import { Text, Flex, Box, Image, Button, IconButton } from "@chakra-ui/react";
 import { WhiteRectangleButton } from "../../components/common/CustomedButton";
 import profile_example from "../../assets/profile_example.jpg";
-import { LockKeyhole, RotateCcw, Trash2} from "lucide-react";
+import { LockKeyhole, RotateCcw, Trash2, Pencil} from "lucide-react";
 
 export default function SettingPage() {
+  const navigate = useNavigate();
   const [currentNickname, setCurrentNickname] = useState<string>("호랭이");
-  const [changedNickname, setChangedNickname] = useState<string>("");
-  const [changedPassword, setChangedPassword] = useState<string>("");
 
+  const goHome = () => {
+    navigate("/");
+  }
   // 닉네임 변경 핸들러
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChangedNickname(e.target.value);
@@ -33,11 +37,10 @@ const toggleAccess = () => {
 
   return (
     <Wrapper>
-      <SettingHeader   text="계정 설정" />
-      <Box mt="20px" ></Box>
+      <WhiteLeftHeader text="계정 설정" onBackClick={goHome}/>
       <Flex direction="column" w="full" align="center" justify="center"  bgColor="white">
           <Box m="20px 0 20px 0" >
-
+          <Box position="relative" >
           <Image
             src={profile_example}
             alt="profile"
@@ -46,8 +49,10 @@ const toggleAccess = () => {
             borderRadius="full"
             objectFit="contain"
           />
-
-          <GreyTextButton align="center">사진 변경</GreyTextButton>
+          <Box position="absolute" borderRadius="50%" boxSize="30px" right="0" bottom="6px">
+          <IconButton aria-label='Edit Profile' icon={<Pencil />} borderRadius="50%" />
+          </Box>
+          </Box>
     
           <Flex  align="center" justify="center" gap="2px" fontWeight="Bold">
           <Text fontSize="24px" color="#3887C7" >{currentNickname}</Text>
@@ -66,7 +71,7 @@ const toggleAccess = () => {
 
     
       <Button w="full" m="0 0 15px 0" p={3} h="60px"  display="flex" gap="8px" 
-      bgColor="white" alignItems="center" color="black" justifyContent="flex-start">
+      bgColor="white" alignItems="center" color="black" justifyContent="flex-start"  onClick={()=>navigate("/setpassword")}>
       <RotateCcw/>
       비밀번호 변경
       </Button>
