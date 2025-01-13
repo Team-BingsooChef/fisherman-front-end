@@ -17,8 +17,8 @@ export const LotteryMachine = () => {
      </PopoverTrigger>
      <PopoverContent bg="#f9f9f9" borderColor="#e0e0e0" boxShadow="md" borderRadius="8px">
      <PopoverBody fontWeight="semibold">
-        3개의 코인을 사용하여 1개의 빙어를 뽑을 수 있어요.
-  뽑은 빙어는 가방에서 확인할 수 있어요.
+        3개의 코인을 사용하여 1개의 빙어를 뽑을 수 있습니다.
+  뽑은 빙어로 친구에게 편지를 써 보세요!
 </PopoverBody>
 
      </PopoverContent>
