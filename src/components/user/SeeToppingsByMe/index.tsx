@@ -7,10 +7,10 @@ import { toppingTypesData } from "../../../__mocks__/toppingtypes/data";
 export const SeeToppingsByMe = () => {
   return (
     <Flex
-      mt="20px"
+      m="20px 0 10px 0"
       flexDir="column"
-      w="full"
-      h="100vh"
+      w="calc(100% - 48px)"
+      h="100%"
       align="center"
       justify="center"
       overflowY="auto"
@@ -34,6 +34,7 @@ interface ToppingByMeElementProps {
   isHidden: boolean;
   wrongCount: number;
   isReplied: boolean;
+  repliedContent: string;
   toppingTypeId: number;
 }
 
@@ -43,6 +44,7 @@ const ToppingByMeElement = ({
   isHidden,
   wrongCount,
   isReplied,
+  repliedContent,
   toppingTypeId,
 }: ToppingByMeElementProps) => {
   // toppingTypeId를 기반으로 defrostedImg 가져오기
@@ -58,12 +60,12 @@ const ToppingByMeElement = ({
       justify="center"
       align="center"
       backgroundColor="#AFD5F4"
-      h="300px"
+      h="auto"
       borderRadius="16px"
       mb="16px"
     >
       <Box w="full" p="0 20px 0 20px">
-      <Text color="black" fontSize="16px" fontWeight="semibold">
+      <Text color="black" fontSize="16px" fontWeight="semibold" m="24px 0 10px 0">
         {nickname}에게
       </Text>
       </Box>
@@ -86,36 +88,54 @@ const ToppingByMeElement = ({
     right="0px"
     boxSize="50px"
     cursor="pointer"
-    transition="transform 0.2s ease-in-out" // 부드러운 크기 변화를 위한 트랜지션
+    transition="transform 0.2s ease-in-out" 
     _hover={{
-      transform: "scale(1.2)", // 호버 시 이미지 크기를 10% 확대
+      transform: "scale(1.2)",
     }}
   />
 )}
 
-          <Text fontSize="16px" color="#03526B">
+          <Text fontSize="16px" color="black" fontWeight="medium">
             {toppingContent}
           </Text>
         </Box>
       </ModalInsideWhiteContainer>
-      <Box mt="16px">
         {isHidden ? (
-          <Text fontSize="14px" color="black" fontWeight="semibold">
-            주인이 아직 편지를 열어보지 않았어요!
+          <Text fontSize="14px" color="black" m="20px 0 20px 0"fontWeight="semibold">
+            아직 열어 보지 않았어요.
           </Text>
         ) : (
           <>
-            <Text fontSize="14px" color="black"  fontWeight="semibold">
+        {/* 답장이 있을 경우 */}
+{isReplied && (
+  <>
+    <Box w="full" p="0 20px 0 20px">
+      <Text color="black" fontSize="16px" fontWeight="semibold" m="20px 0 10px 0">
+        답장
+      </Text>
+    </Box>
+    <ModalInsideWhiteContainer height="60px">
+      <Box
+        w="full"
+        h="full"
+        backgroundColor="white"
+        borderRadius="16px"
+        p="20px"
+        position="relative"
+      >
+        <Text fontSize="16px" color="black" fontWeight="medium">
+          {/* 답장 내용을 표시 (예: "답장 내용입니다.") */}
+          gdgd
+        </Text>
+      </Box>
+    </ModalInsideWhiteContainer>
+    </>
+)}
+          <Text fontSize="14px" color="black" m="20px 0 20px 0"fontWeight="semibold">
               이 편지는 {wrongCount}번 만에 열어봤어요!
-            </Text>
-            <Text fontSize="14px" color="black" mt="4px"  fontWeight="semibold">
-              {isReplied
-                ? "주인이 답장을 남겼어요! 답장 보러 가기"
-                : "주인이 답장을 남기지 않았어요."}
             </Text>
           </>
         )}
-      </Box>
     </Flex>
   );
 };
