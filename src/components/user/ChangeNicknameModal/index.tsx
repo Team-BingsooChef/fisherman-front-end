@@ -4,10 +4,13 @@ import {
     ModalContent,
     ModalHeader,
     ModalFooter,
+    Box,
     ModalBody,
     ModalCloseButton,
     Button
   } from '@chakra-ui/react'
+import { useState } from 'react';
+import { WhiteInput } from '../../common/CustomedInput';
 
 interface ChangeNicknameModalProps {
     isOpen: boolean;
@@ -15,22 +18,33 @@ interface ChangeNicknameModalProps {
   }
 
  export const ChangeNicknameModal = ({ isOpen, onClose }: ChangeNicknameModalProps) => {
-    return (
+  const [changedNickname, setChangedNickname] = useState<string>("");
+  const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChangedNickname(e.target.value);
+  };  
+  
+  return (
       <>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
+          <ModalContent bgColor="#F3F5F9" w="90%">
             <ModalCloseButton />
-            <ModalBody>
-            </ModalBody>
-  
-            <ModalFooter>
-              <Button colorScheme='blue' mr={3} onClick={onClose}>
-                Close
+            <ModalBody display="flex" flexDir="column" alignItems="center">
+              <Box mt="10px" w="full" display="flex" flexDir="column" alignItems="center">
+            <WhiteInput
+        value={changedNickname}
+        text="닉네임"
+        handleChange={handleChangeNickname}
+        placeholder="변경할 닉네임을 입력해 주세요"
+      />
+        <Button bgColor="#03526B" color="white" onClick={onClose}
+        _hover={{ bgColor: "#03526B" }}
+        w="160px" borderRadius="8px"
+        >
+                변경 완료
               </Button>
-              <Button variant='ghost'>Secondary Action</Button>
-            </ModalFooter>
+              </Box>
+            </ModalBody>
           </ModalContent>
         </Modal>
       </>

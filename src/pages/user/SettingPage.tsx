@@ -3,22 +3,27 @@ import { useState } from "react";
 import { useNavigate} from "react-router-dom";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import {ChangeNicknameModal} from "../../components/user/ChangeNicknameModal"; 
-import { Text, Flex, Box, Image, Button, IconButton, useDisclosure } from "@chakra-ui/react";
+import { Text, Flex, Box, Image, Button, IconButton, useDisclosure, useToast } from "@chakra-ui/react";
 import profile_example from "../../assets/profile_example.jpg";
 import { LockKeyhole, RotateCcw, Trash2, Pencil } from "lucide-react";
 
 export default function SettingPage() {
   const navigate = useNavigate();
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [currentNickname, setCurrentNickname] = useState<string>("호랭이");
-  const [changedNickname, setChangedNickname] = useState<string>("");
-
+  const onchangeNickname = () => {
+    onClose();
+      toast({
+        title: '닉네임이 변경되었습니다.',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
+    }
   const goHome = () => {
     navigate("/");
   };
-  const changeNickname = () => {
-    setCurrentNickname(changedNickname);
-  }
 
   // 상태를 나타내는 타입
   type SearchStatus = "허용" | "금지";
@@ -81,7 +86,7 @@ export default function SettingPage() {
                 onClick={onOpen}
                 ml="8px"
               />
-            <ChangeNicknameModal isOpen={isOpen} onClose={onClose} />
+          
           </Flex>
         </Box>
       </Flex>
@@ -136,6 +141,7 @@ export default function SettingPage() {
         <Trash2 color="red" />
         회원 탈퇴
       </Button>
+      <ChangeNicknameModal isOpen={isOpen} onClose={onchangeNickname} />
     </Wrapper>
   );
 }
