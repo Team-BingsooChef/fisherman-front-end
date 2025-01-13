@@ -99,6 +99,7 @@ const Wrapper = styled.div`
 
 const GreyTextButton = styled(Text)`
   font-size: 14px;
+  font-weight: bold;
   text-decoration: underline;
   color: #777c89;
   cursor: pointer;
@@ -115,7 +116,7 @@ const FlexChangeElement = ({text1,text2, onClick}: FlexChangeElementProps ) =>
 {
     return(
         <Flex justify="space-between" align="center" w="100%">
-    <Text color="#000000" fontWeight="600">{text1}</Text>
+    <Text color="#000000" fontWeight="600" fontSize="16px">{text1}</Text>
     <GreyTextButton onClick={onClick}>{text2}</GreyTextButton>
     </Flex>
     );
