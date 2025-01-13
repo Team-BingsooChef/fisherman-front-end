@@ -1,14 +1,16 @@
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { SettingHeader } from "../../components/user/SettingHeader";
-import { WhiteInput } from "../../components/user/CustomedInput";
-import { Search } from "lucide-react";
+import { WhiteLeftHeader } from "../../components/common/Header";
+import lotterymachine from "../../assets//pictures/lotterymachine.svg";
+import coin from "../../assets/pictures/coin.svg";
+import fishbag from "../../assets/pictures/fishbag.svg";
 import { Flex, Text, Box, VStack, Image } from "@chakra-ui/react";
 import { users } from "../../__mocks__/search/data";
 
 export default function FishDrawingPage() {
     const [otherNickname, setOtherNickname] = useState<string>("");
-
+    const navigate = useNavigate();
     // 검색 결과 필터링
     const filteredUsers = otherNickname.trim()
         ? users.filter((user) =>
@@ -18,47 +20,16 @@ export default function FishDrawingPage() {
 
     return (
         <Wrapper>
-            <h1>빙어뽑기맞음</h1>
-      
-            <Flex align="center" w="full" gap="8px" mt="20px">
-            
-                <WhiteInput
-                    icon={<Search size={24} color="#000000" />} 
-                    value={otherNickname}
-                    placeholder="낚시꾼 이름으로 찾기"
-                    handleChange={(e) => setOtherNickname(e.target.value)}>
-                </WhiteInput>
-            </Flex>
-            {/* 검색 결과 */}
-            <VStack align="center" mt="20px" w="full" spacing="8px">
-                {filteredUsers.length > 0 ? (
-                    filteredUsers.map((user) => (
-                        <Flex
-                            key={user.userId}
-                            p="12px"
-                            w="80%"
-                            borderWidth="1px"
-                            borderRadius="16px"
-                            borderColor="#E2E8F0"
-                            bg="#F7FAFC"
-                            align="center"
-                            cursor="pointer"
-                        >
-                            <Image src={user.profileImg} boxSize="40px" borderRadius="full" objectFit="contain" />
-                            <Text ml="8px" fontSize="16px" color="#03526B">
-                                {user.nickname}
-                            </Text>
-                        </Flex>
-                    ))
-                ) : (
-                    otherNickname.trim() && (
-                        <Text fontSize="14px" color="#777C89">
-                            검색 결과가 없습니다.
-                        </Text>
-                    )
-                )}
-            </VStack>
-        </Wrapper>
+            <WhiteLeftHeader text="빙어 뽑기" onBackClick={()=> (navigate("/"))}/>
+                <Flex direction="column">
+        <Box>
+            <img src=
+        </Box>
+                </Flex>
+          <Box>
+            <img src={lotterymachine} alt="lotterymachine" />
+            </Box>
+            </Wrapper>
     );
 }
 
