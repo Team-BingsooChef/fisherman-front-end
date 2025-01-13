@@ -21,7 +21,7 @@ export default function RootLayout() {
     );
 
   }
-  else if (["/emailcheck", "/search", "/setting", "/seetoppinglist"].includes(location.pathname)) {
+  else if (["/emailcheck", "/search", "/setting", "/seetoppinglist", "/fishdrawing"].includes(location.pathname)) {
     backgroundColor = COLOR.SERVE;
   } 
   else {
