@@ -18,19 +18,19 @@ export default function FishDrawingPage() {
     <Wrapper>
       <WhiteLeftHeader text="빙어 뽑기" onBackClick={() => navigate("/")} />
       <Flex direction="column" align="flex-end" w="full" gap="13px">
-        <Flex w="120px" h="44px" bgColor="#AFD5F4" borderRadius="8px"> 
-          <img src={coin} alt="coin" />
-          <Text fontSize="20px" fontWeight="semibold">X {coinCount}</Text>
+        <Flex w="120px" h="44px" borderRadius="8px" justify="center" align="center" gap="13px"> 
+          <img src={coin} alt="coin" width="40px" height="40px" />
+          <Text fontSize="24px" fontWeight="semibold">X {coinCount}</Text>
         </Flex>
-        <Flex w="120px" h="44px" bgColor="#AFD5F4" borderRadius="8px">
-          <img src={fishbag} alt="fishbag" />
+        <Flex w="120px" h="44px" bgColor="#AFD5F4" borderRadius="8px" justify="center" align="center" gap="13px">
+          <img src={fishbag} alt="fishbag" width="40px" height="40px" />
           <Text fontSize="20px" fontWeight="semibold">가방</Text>
         </Flex>
       </Flex>
       <Box>
         <img src={lotterymachine} alt="lotterymachine" />
       </Box>
-      <Box w="200px">
+      <Box w="200px" mt="24px">
         <BlueDrawingButton>
             뽑기
         </BlueDrawingButton>
