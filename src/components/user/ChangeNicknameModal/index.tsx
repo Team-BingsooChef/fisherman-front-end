@@ -2,12 +2,11 @@ import {
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
-    ModalFooter,
     Box,
     ModalBody,
     ModalCloseButton,
-    Button
+    Button,
+    useToast
   } from '@chakra-ui/react'
 import { useState } from 'react';
 import { WhiteInput } from '../../common/CustomedInput';
@@ -18,6 +17,7 @@ interface ChangeNicknameModalProps {
   }
 
  export const ChangeNicknameModal = ({ isOpen, onClose }: ChangeNicknameModalProps) => {
+  const toast = useToast()
   const [changedNickname, setChangedNickname] = useState<string>("");
   const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChangedNickname(e.target.value);
