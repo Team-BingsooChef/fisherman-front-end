@@ -8,6 +8,8 @@ import { Text, Box, Input, Image, useToast } from "@chakra-ui/react";
 import { BlueEllipseButton } from "../../common/CustomedButton";
 import { toppingTypesData } from '../../../__mocks__/toppingtypes/data';
 
+import { CreateTopping } from "../../../api/topping/apis";
+
 //백으로 createTopping을 보내는 기능 구현하기
 
 export const SetChefName = () => {
@@ -18,30 +20,41 @@ export const SetChefName = () => {
     useModalHeight("28%");
 
      // 선택된 toppingTypeId 가져오기
-  const selectedTopping = toppingTypesData.find(
-    (topping) => topping.toppingTypeId === requestBody.toppingTypeId
-  );
+     const selectedTopping = toppingTypesData.find(
+      (topping) => topping.toppingTypeId === requestBody.toppingTypeId
+    );
 
-  const handleToppingAdd = () => {
-    // 토핑 추가 완료 메시지
-    toast({
-        title: "토핑이 추가되었습니다.",
+  const handleToppingAdd = async () => {
+    try {
+      await CreateTopping(requestBody); // API 호출
+      toast({
+        title: "토핑이 성공적으로 추가되었습니다.",
         status: "success",
-        duration: 3000, // 3초 동안 표시
-        isClosable: true, // 닫기 버튼 표시
-        position: "top", // 화면 상단에 표시
-    });
-    onClose(); // 모달 닫기
-    setModalState(""); // 모달 상태 초기화
-};
-  
-    return (
-        <>
-        <Text color="white" fontSize="24px">
-          표시될 셰프님의 이름을 적어주세요
-        </Text>
-        <ChefNameInputContainer>
-          {selectedTopping && (
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+      onClose();
+      setModalState("");
+    } catch (error) {
+      console.error("토핑 추가 실패:", error);
+      toast({
+        title: "토핑 추가에 실패했습니다.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  };
+
+  return (
+    <>
+      <Text color="white" fontSize="24px">
+        표시될 셰프님의 이름을 적어주세요
+      </Text>
+      <ChefNameInputContainer>
+      {selectedTopping && (
             <Image
               src={selectedTopping.defrostedImg}
               alt={selectedTopping.toppingTypeName}
@@ -57,14 +70,16 @@ export const SetChefName = () => {
             onChange={(e) => setChefName(e.target.value)}
             value={requestBody.topping.chefName}
           />
-          <Text mr="50px">셰프님</Text>
+          <Text mr="50px">님</Text>
         </ChefNameInputContainer>
-        <Box w="calc(100% - 200px)" mt="20px" mb="10px">
-          <BlueEllipseButton onClick={handleToppingAdd}>토핑 추가 완료</BlueEllipseButton>
-        </Box>
-      </>
-    );
-  };
+        <Box w="calc(100% - 200px)" mt="20px">
+          <BlueEllipseButton onClick={handleToppingAdd}>
+            토핑 추가 완료
+          </BlueEllipseButton>
+      </Box>
+    </>
+  );
+};
   
 // ChefNameInput을 감싸는 스타일드 컴포넌트
 const ChefNameInputContainer = styled(Box)`
@@ -90,3 +105,4 @@ const ChefNameInput = styled(Input)`
     box-shadow: none; // Chakra UI는 기본적으로 focus 시 box-shadow가 추가됩니다.
   }
 `;
+
