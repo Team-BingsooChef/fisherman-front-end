@@ -9,6 +9,9 @@ import { OpenQuiz } from "../../owner/OpenQuiz";
 import { ReplyLetter, ViewReply } from "../../owner/ReplyLetter";
 import { ReadMessage } from "../../owner/ReadMessage";
 
+import { FishDrawingResult } from "../../owner/FishDrawing";
+import { MakeSureDrawing } from "../../owner/FishDrawing";
+
 //Chef의 Modal component들은 chef에, Owner의 Modal component들은 owner에 들어가져있음
 
 export const ModalContent = () => {
@@ -37,6 +40,10 @@ export const ModalContent = () => {
         return <ViewReply />;
     case "readMessage":
       return <ReadMessage />;
+    case "fishDrawingResult":
+      return <FishDrawingResult/>;
+    case "makeSureDrawing":
+      return <MakeSureDrawing/>;
     default:
       return <div>Default Modal Content</div>;
   }

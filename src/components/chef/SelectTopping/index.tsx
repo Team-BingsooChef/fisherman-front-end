@@ -36,7 +36,7 @@ export const SelectTopping = () => {
       <SelectToppingInsideGreyContainer height="80%">
         <Flex flexDir="column" m="0 10px 0 10px">
           {/* Fruits 카테고리 */}
-          <Text mt="16px">- 과일 </Text>
+          <Text mt="16px"> 과일 </Text>
           <Grid
             templateColumns="repeat(6, 1fr)"
             gap="16px"

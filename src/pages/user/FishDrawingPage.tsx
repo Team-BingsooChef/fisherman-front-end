@@ -9,10 +9,21 @@ import coin from "../../assets/pictures/coin.svg";
 import fishbag from "../../assets/pictures/fishbag.svg";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";
+import { useModalOpenStore, useModalStateStore } from "../../store/modal";
+import { useModalHeight } from "../../hook/useModalHeight";
+import { ModalLayout } from "../../components/home/ModalLayout";
 
 export default function FishDrawingPage() {
   const [coinCount, setCoinCount] = useState<number>(0);
   const navigate = useNavigate();
+  const { onOpen } = useModalOpenStore();
+  const { setModalState } = useModalStateStore();
+
+  useModalHeight("24%"); 
+  const onClickDrawing = () => {
+    setModalState("makeSureDrawing");
+    onOpen();
+  }
 
   return (
     <Wrapper>
@@ -54,8 +65,9 @@ export default function FishDrawingPage() {
 
       {/* 뽑기 버튼 */}
       <Box w="200px" mt="24px">
-        <BlueDrawingButton>뽑기</BlueDrawingButton>
+        <BlueDrawingButton onClick={onClickDrawing}>뽑기</BlueDrawingButton>
       </Box>
+      <ModalLayout/>
     </Wrapper>
   );
 }

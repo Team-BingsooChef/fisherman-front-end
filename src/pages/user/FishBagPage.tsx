@@ -1,11 +1,11 @@
 import { WhiteLeftHeader } from "../../components/common/Header";
 import styled from "@emotion/styled";
-import { Box, SimpleGrid, Flex, Text, Container } from "@chakra-ui/react";
+import { Box, SimpleGrid, Flex, Text} from "@chakra-ui/react";
+
 import { useNavigate } from "react-router-dom";
 import { fishdata } from "../../__mocks__/fish/data";
 export default function FishBagPage() {
   const navigate = useNavigate();
-
 
   const getStatusColor = (status) => {
     switch (status) {
