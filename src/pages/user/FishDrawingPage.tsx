@@ -1,70 +1,80 @@
 import styled from "@emotion/styled";
+import { Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { SettingHeader } from "../../components/user/SettingHeader";
-import { WhiteInput } from "../../components/user/CustomedInput";
-import { Search } from "lucide-react";
-import { Flex, Text, Box, VStack, Image } from "@chakra-ui/react";
-import { users } from "../../__mocks__/search/data";
+import { WhiteLeftHeader } from "../../components/common/Header";
+import { BlueDrawingButton } from "../../components/common/CustomedButton";
+import { LotteryMachine, InfoBox } from "../../components/user/FishDrawing";
+import coin from "../../assets/pictures/coin.svg";
+import fishbag from "../../assets/pictures/fishbag.svg";
+import { Flex, Text, Box } from "@chakra-ui/react";
+import { FaInfoCircle } from "react-icons/fa";
+import { useModalOpenStore, useModalStateStore } from "../../store/modal";
+import { useModalHeight } from "../../hook/useModalHeight";
+import { ModalLayout } from "../../components/home/ModalLayout";
 
 export default function FishDrawingPage() {
-    const [otherNickname, setOtherNickname] = useState<string>("");
+  const [coinCount, setCoinCount] = useState<number>(0);
+  const navigate = useNavigate();
+  const { onOpen } = useModalOpenStore();
+  const { setModalState } = useModalStateStore();
 
-    // 검색 결과 필터링
-    const filteredUsers = otherNickname.trim()
-        ? users.filter((user) =>
-              user.nickname.includes(otherNickname.trim())
-          )
-        : [];
+  useModalHeight("24%"); 
+  const onClickDrawing = () => {
+    setModalState("makeSureDrawing");
+    onOpen();
+  }
 
-    return (
-        <Wrapper>
-            <h1>빙어뽑기맞음</h1>
-      
-            <Flex align="center" w="full" gap="8px" mt="20px">
-            
-                <WhiteInput
-                    icon={<Search size={24} color="#000000" />} 
-                    value={otherNickname}
-                    placeholder="낚시꾼 이름으로 찾기"
-                    handleChange={(e) => setOtherNickname(e.target.value)}>
-                </WhiteInput>
-            </Flex>
-            {/* 검색 결과 */}
-            <VStack align="center" mt="20px" w="full" spacing="8px">
-                {filteredUsers.length > 0 ? (
-                    filteredUsers.map((user) => (
-                        <Flex
-                            key={user.userId}
-                            p="12px"
-                            w="80%"
-                            borderWidth="1px"
-                            borderRadius="16px"
-                            borderColor="#E2E8F0"
-                            bg="#F7FAFC"
-                            align="center"
-                            cursor="pointer"
-                        >
-                            <Image src={user.profileImg} boxSize="40px" borderRadius="full" objectFit="contain" />
-                            <Text ml="8px" fontSize="16px" color="#03526B">
-                                {user.nickname}
-                            </Text>
-                        </Flex>
-                    ))
-                ) : (
-                    otherNickname.trim() && (
-                        <Text fontSize="14px" color="#777C89">
-                            검색 결과가 없습니다.
-                        </Text>
-                    )
-                )}
-            </VStack>
-        </Wrapper>
-    );
+  return (
+    <Wrapper>
+      <WhiteLeftHeader text="빙어 뽑기" onBackClick={() => navigate("/")} />
+
+      <Flex direction="column" align="flex-end" w="full" gap="13px">
+        {/* 코인 정보 */}
+        <InfoBox
+          icon={<FaInfoCircle size="24px" color="#7c7c7c" />}
+          label={`코인은 빙어를 뽑을 때 사용됩니다.\n 친구에게 빙어를 보내거나 친구에게서 빙어를 받을 때 3개의 코인을 받을 수 있어요!`}
+        >
+          <img src={coin} alt="coin" width="40px" height="40px" />
+          <Text fontSize="24px" fontWeight="semibold" letterSpacing="-1px">
+            X {coinCount}
+          </Text>
+        </InfoBox>
+
+        {/* 가방 */}
+        <Button
+        onClick={() => navigate("/fishbag")}
+          w="110px"
+          h="46px"
+          bgColor="#AFD5F4"
+          borderRadius="8px"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap="13px"
+          _hover={{ bgColor: "#91C8E7" }} // 호버 시 약간 어두운 색상
+          _active={{ bgColor: "#7AB6D8" }} // 클릭 시 색상 변경
+        >
+          <img src={fishbag} alt="fishbag" width="40px" height="40px" />
+          <Text fontSize="20px" fontWeight="semibold">
+            가방
+          </Text>
+        </Button>
+      </Flex>
+      <LotteryMachine />
+
+      {/* 뽑기 버튼 */}
+      <Box w="200px" mt="24px">
+        <BlueDrawingButton onClick={onClickDrawing}>뽑기</BlueDrawingButton>
+      </Box>
+      <ModalLayout backgroundColor="#AFD5F4"/>
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
-    width: calc(100% - 60px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: calc(100% - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

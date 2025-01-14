@@ -4,8 +4,7 @@ import { ModalContent } from "../ModalContent";
 import { useModalStateStore } from "../../../store/modal";
 import styled from "@emotion/styled";
 
-
-export const ModalLayout = () => {
+export const ModalLayout = ({ backgroundColor = "#f0f8fb" }) => {
   const { isOpen, onClose } = useModalOpenStore();
   const { height } = useModalHeightStore();
   const { setModalState } = useModalStateStore();
@@ -24,7 +23,7 @@ export const ModalLayout = () => {
       <ModalWrapper>
         <ModalContainer
           onClick={(e) => e.stopPropagation()}
-          style={{ height: height }}
+          style={{ height: height, background: backgroundColor }}
         >
           <ModalContent />
         </ModalContainer>
@@ -54,6 +53,7 @@ const ModalWrapper = styled.div`
   max-width: 430px;
   display: flex;
   flex-direction: column;
+  margin-top: 100px;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -61,7 +61,6 @@ const ModalWrapper = styled.div`
 
 const ModalContainer = styled.div`
   margin-top: 100px;
-  background: #f0f8fb;
   width: calc(100% - 40px);
   border-radius: 30px;
   display: flex;

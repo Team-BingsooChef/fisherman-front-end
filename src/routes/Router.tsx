@@ -11,6 +11,7 @@ import SeeToppnigListPage from "../pages/user/SeeToppingListPage";
 import SearchPage from "../pages/user/SerachPage";
 import SetPasswordPage from "../pages/auth/SetPasswordPage";
 import FishDrawingPage from "../pages/user/FishDrawingPage";
+import FishBagPage from "../pages/user/FishBagPage";
 
 
 const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "fishdrawing",
         element: <FishDrawingPage />,
+      },
+      {
+        path: "fishbag",
+        element: <FishBagPage />,
       },
       {
         path: "seetoppinglist",

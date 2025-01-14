@@ -34,6 +34,30 @@ export const BlueEllipseButton: React.FC<BlueRectangleButtonProps> = ({ children
   return (
      <Button
        onClick={onClick} // onClick 이벤트 연결
+       bg="#3887C7"
+       color="white"
+       width="100%"
+       fontSize="20px"
+       fontWeight="bold"
+       height="40px"
+       borderRadius="16px"
+       _hover={{
+         bg: "#3887C7", // hover 시 배경색
+         color: "white", // hover 시 텍스트 색상 유지
+       }}
+       _active={{
+         transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
+       }}
+     >
+       {children}
+     </Button>
+   );
+ };
+
+ export const NavyEllipseButton: React.FC<BlueRectangleButtonProps> = ({ children, onClick }) => {
+  return (
+     <Button
+       onClick={onClick} // onClick 이벤트 연결
        bg="#03526B"
        color="#FDF0CC"
        width="100%"
@@ -106,3 +130,27 @@ export const LightBlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({ c
 
  };
 
+
+ export const BlueDrawingButton: React.FC<BlueRectangleButtonProps> = ({ children, onClick }) => {
+  return (
+ <Button
+ onClick={onClick} // onClick 이벤트 연결
+ bg={COLOR.DEEPBLUE}
+ color="white"
+ width="100%"
+ fontSize="20px"
+ fontWeight="extrabold"
+ height="45px"
+ borderRadius="16px"
+ _hover={{
+   bg: COLOR.DEEPBLUE, // hover 시 배경색
+   color: "white", // hover 시 텍스트 색상 유지
+ }}
+ // _active={{
+ //   transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
+ // }}
+>
+ {children}
+</Button>
+);
+}
