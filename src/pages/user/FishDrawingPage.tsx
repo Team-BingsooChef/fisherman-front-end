@@ -67,7 +67,7 @@ export default function FishDrawingPage() {
       <Box w="200px" mt="24px">
         <BlueDrawingButton onClick={onClickDrawing}>뽑기</BlueDrawingButton>
       </Box>
-      <ModalLayout/>
+      <ModalLayout backgroundColor="#AFD5F4"/>
     </Wrapper>
   );
 }
