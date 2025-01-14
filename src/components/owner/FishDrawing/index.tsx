@@ -1,36 +1,32 @@
 import { useModalHeight } from "../../../hook/useModalHeight";
 import { useModalOpenStore, useModalStateStore } from "../../../store/modal";
-import {Text, Flex} from "@chakra-ui/react";
+import {Text, Flex, IconButton, Box, Image} from "@chakra-ui/react";
 import { BlueEllipseButton } from "../../common/CustomedButton";
 import { useCreateToppingStore } from '../../../store/api/topping/index';
-
-type QuizType = "Multiple" | "OX";
+import { XIcon } from "lucide-react";
+import shark from "../../../assets/pictures/shark.svg";
 
 export const FishDrawingResult = () => {
-    const { setModalState } = useModalStateStore();
-    useModalHeight("24%"); 
+    const { onClose } = useModalOpenStore();
+    useModalHeight("70%"); 
 
-    const goSetChefName = () => {
-        setModalState("setChefName");
-        };
-    const goSelectQuizType = () => {
-        setModalState("selectQuizType");
-        };
     return (
-    <>
-    <Text color="white" fontSize="24px">퀴즈를 만드시겠습니까?</Text>
-    <Flex w="calc(100% - 90px)" gap="24px" mt="20px">
-    <BlueEllipseButton onClick={goSelectQuizType}>예</BlueEllipseButton>
-    <BlueEllipseButton onClick={goSetChefName}>아니요</BlueEllipseButton>
+    <Flex w="full"flexDir="column" align="center" position="relative">
+    <Box boxSize="20px">
+    <IconButton aria-label="close Modal" position="absolute" top="-30px" right="10px" variant="ghost" onClick={onClose}>
+  <XIcon/>
+</IconButton>
+</Box>
+      <Image boxSize="248px" src={shark}></Image>
+    <Text color="#13353B" fontWeight="bold" fontSize="24px" mt="90px" >상어 당첨!</Text>
+
     </Flex>
-    </>
     );
   };
   
   export const MakeSureDrawing = () => {
     const { onClose } = useModalOpenStore();
     const { setModalState } = useModalStateStore();
-    const { setQuizType } = useCreateToppingStore();
   
     // 퀴즈 타입 설정 후 모달 상태 변경
     const handleDrawing = () => {
