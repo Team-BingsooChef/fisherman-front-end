@@ -53,6 +53,7 @@ const ModalWrapper = styled.div`
   max-width: 430px;
   display: flex;
   flex-direction: column;
+  margin-top: 200px;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
