@@ -6,7 +6,7 @@ import { MakeQuizChoice } from "../../chef/MakeQuizChoice";
 import { SetChefName } from "../../chef/SetChefName";
 
 import { OpenQuiz } from "../../owner/OpenQuiz";
-import { ReplyLetter, ViewReply } from "../../owner/ReplyLetter";
+import { ReplyLetter} from "../../owner/ReplyLetter";
 import { ReadMessage } from "../../owner/ReadMessage";
 
 import { FishDrawingResult } from "../../owner/FishDrawing";
@@ -36,8 +36,6 @@ export const ModalContent = () => {
       return <OpenQuiz />;
     case "replyLetter":
       return <ReplyLetter />;
-      case "viewReply":
-        return <ViewReply />;
     case "readMessage":
       return <ReadMessage />;
     case "fishDrawingResult":
