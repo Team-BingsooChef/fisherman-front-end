@@ -6,7 +6,6 @@ import { MakeQuizChoice } from "../../chef/MakeQuizChoice";
 import { SetChefName } from "../../chef/SetChefName";
 
 import { OpenQuiz } from "../../owner/OpenQuiz";
-import { ReplyLetter} from "../../owner/ReplyLetter";
 import { ReadMessage } from "../../owner/ReadMessage";
 
 import { FishDrawingResult } from "../../owner/FishDrawing";
@@ -34,14 +33,12 @@ export const ModalContent = () => {
     //여기서부턴 owner 입장
     case "openQuiz":
       return <OpenQuiz />;
-    case "replyLetter":
-      return <ReplyLetter />;
     case "readMessage":
       return <ReadMessage />;
     case "fishDrawingResult":
-      return <FishDrawingResult/>;
+      return <FishDrawingResult />;
     case "makeSureDrawing":
-      return <MakeSureDrawing/>;
+      return <MakeSureDrawing />;
     default:
       return <div>Default Modal Content</div>;
   }
