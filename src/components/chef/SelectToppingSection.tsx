@@ -118,7 +118,8 @@ export const SelectToppingSection = () => {
         borderRadius="16px"
         h="45px"
         w="140px"
-        mt="30px"
+        position="absolute"
+        bottom="23px"
       >
         다음
       </Button>
