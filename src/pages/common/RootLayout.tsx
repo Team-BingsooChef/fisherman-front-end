@@ -27,6 +27,7 @@ export default function RootLayout() {
       "/seetoppinglist",
       "/fishdrawing",
       "/fishbag",
+      "/sending",
     ].includes(location.pathname)
   ) {
     backgroundColor = COLOR.SERVE;

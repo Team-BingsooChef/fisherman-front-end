@@ -1,7 +1,6 @@
 import { useModalStateStore } from "../../../store/modal";
 import { SelectTopping } from "../../chef/SelectTopping";
 import { WriteMessage } from "../../chef/WriteMessage";
-import { QuizOrNot, SelectQuizType } from "../../chef/AskAboutQuiz";
 import { MakeQuizChoice } from "../../chef/MakeQuizChoice";
 import { SetChefName } from "../../chef/SetChefName";
 
@@ -22,10 +21,10 @@ export const ModalContent = () => {
       return <SelectTopping />;
     case "writeMessage":
       return <WriteMessage />;
-    case "quizOrNot":
-      return <QuizOrNot />;
-    case "selectQuizType":
-      return <SelectQuizType />;
+    // case "quizOrNot":
+    //   return <QuizOrNot />;
+    // case "selectQuizType":
+    //   return <SelectQuizType />;
     case "makeQuizChoice":
       return <MakeQuizChoice />;
     case "setChefName":

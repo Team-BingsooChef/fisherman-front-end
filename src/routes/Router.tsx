@@ -13,6 +13,7 @@ import SetPasswordPage from "../pages/auth/SetPasswordPage";
 import FishDrawingPage from "../pages/user/FishDrawingPage";
 import FishBagPage from "../pages/user/FishBagPage";
 import RedirectPage from "../pages/auth/RedirectPage";
+import SendingPage from "../pages/chef/SendingPage";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "redirect",
         element: <RedirectPage />,
+      },
+      {
+        path: "sending",
+        element: <SendingPage />,
       },
     ],
   },
