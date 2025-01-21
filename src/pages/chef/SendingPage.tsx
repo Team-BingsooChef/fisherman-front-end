@@ -15,7 +15,7 @@ export default function SendingPage() {
         return (
           <WriteLetterSection
             onNext={() => setStep(2)}
-            onPrev={() => setStep(1)}
+            onPrev={() => setStep(0)}
           />
         );
       case 2:

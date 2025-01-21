@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { Box, SimpleGrid, Flex, Text, Button } from "@chakra-ui/react";
 import { fishdata } from "../../__mocks__/fish/data";
@@ -6,6 +7,10 @@ import { fishdata } from "../../__mocks__/fish/data";
 export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
   // onNext prop 추가
   const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState<string | null>(null); // 선택된 아이템 ID 저장
+  const handleItemClick = (id: string) => {
+    setSelectedItem((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
+  };
   const getStatusColor = (status) => {
     switch (status) {
       case "common":
@@ -59,7 +64,8 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
           {fishdata.map((item) => (
             <Box key={item.id}>
               <Box
-                bg="#d9d9d9"
+                onClick={() => handleItemClick(item.id.toString())} // 클릭 핸들러 추가
+                bg={selectedItem === item.id.toString() ? "#E0F7FA" : "#d9d9d9"} // 선택된 아이템 강조
                 boxSize="100px"
                 position="relative"
                 display="flex"
@@ -121,6 +127,8 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
         w="140px"
         position="absolute"
         bottom="23px"
+        _hover={{ bg: "#03526B" }}
+        isDisabled={!selectedItem} // 선택된 아이템 없을 시 비활성화
       >
         다음
       </Button>
