@@ -9,7 +9,7 @@ export default function RootLayout() {
   // 경로에 따라 배경 이미지 선택
   let backgroundColor;
 
-  if (["/bingsooId", "/"].includes(location.pathname)){
+  if (["/bingsooId", "/"].includes(location.pathname)) {
     backgroundColor = `url(${fish_background})`;
 
     return (
@@ -19,13 +19,20 @@ export default function RootLayout() {
         </ImgInsideWrapper>
       </Wrapper>
     );
-
-  }
-  else if (["/emailcheck", "/search", "/setting", "/seetoppinglist", "/fishdrawing", "/fishbag"].includes(location.pathname)) {
+  } else if (
+    [
+      "/emailcheck",
+      "/search",
+      "/setting",
+      "/seetoppinglist",
+      "/fishdrawing",
+      "/fishbag",
+      "/sending",
+    ].includes(location.pathname)
+  ) {
     backgroundColor = COLOR.SERVE;
-  } 
-  else {
-    backgroundColor= COLOR.PRIMARY;
+  } else {
+    backgroundColor = COLOR.PRIMARY;
   }
 
   return (

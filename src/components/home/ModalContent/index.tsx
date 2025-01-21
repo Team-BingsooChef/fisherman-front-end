@@ -1,12 +1,6 @@
 import { useModalStateStore } from "../../../store/modal";
-import { SelectTopping } from "../../chef/SelectTopping";
-import { WriteMessage } from "../../chef/WriteMessage";
-import { QuizOrNot, SelectQuizType } from "../../chef/AskAboutQuiz";
-import { MakeQuizChoice } from "../../chef/MakeQuizChoice";
-import { SetChefName } from "../../chef/SetChefName";
 
 import { OpenQuiz } from "../../owner/OpenQuiz";
-import { ReplyLetter, ViewReply } from "../../owner/ReplyLetter";
 import { ReadMessage } from "../../owner/ReadMessage";
 
 import { FishDrawingResult } from "../../owner/FishDrawing";
@@ -19,31 +13,16 @@ export const ModalContent = () => {
 
   switch (modalState) {
     //chef 입장
-    case "selectTopping":
-      return <SelectTopping />;
-    case "writeMessage":
-      return <WriteMessage />;
-    case "quizOrNot":
-      return <QuizOrNot />;
-    case "selectQuizType":
-      return <SelectQuizType />;
-    case "makeQuizChoice":
-      return <MakeQuizChoice />;
-    case "setChefName":
-      return <SetChefName />;
+    //     chef 입장의 기존 모달들 그냥 page로 바꿨음
     //여기서부턴 owner 입장
     case "openQuiz":
       return <OpenQuiz />;
-    case "replyLetter":
-      return <ReplyLetter />;
-      case "viewReply":
-        return <ViewReply />;
     case "readMessage":
       return <ReadMessage />;
     case "fishDrawingResult":
-      return <FishDrawingResult/>;
+      return <FishDrawingResult />;
     case "makeSureDrawing":
-      return <MakeSureDrawing/>;
+      return <MakeSureDrawing />;
     default:
       return <div>Default Modal Content</div>;
   }
