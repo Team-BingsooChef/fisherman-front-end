@@ -1,74 +1,48 @@
-/* 애니메이션 정의 */
-@keyframes move-slightly {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) translateX(0) translateY(0);
-  }
-  25% {
-    transform: translate(-50%, -50%) translateX(5px) translateY(-3px);
-  }
-  50% {
-    transform: translate(-50%, -50%) translateX(-5px) translateY(3px);
-  }
-  75% {
-    transform: translate(-50%, -50%) translateX(3px) translateY(-5px);
-  }
-}
-
-/* 공통 애니메이션 */
+/* 공통 스타일 */
 .topping-box {
   position: absolute;
   transform: translate(-50%, -50%); /* 가운데 정렬 */
-  animation: move-slightly 5s infinite ease-in-out; /* 애니메이션 */
 }
 
-/* 개별 그룹 위치 및 애니메이션 타이밍 */
+/* 개별 그룹 위치 */
 .group-0 {
   top: 30%;
   left: 50%;
-  animation-delay: 0s;
 }
 
 .group-1 {
   top: 30%;
   left: 15%;
-  animation-delay: 0.5s;
 }
 
 .group-2 {
   top: 30%;
   left: 80%;
-  animation-delay: 1s;
 }
 
 .group-3 {
   top: 60%;
   left: 65%;
   width: 100px;
-  animation-delay: 1.5s;
 }
 
 .group-4 {
   top: 60%;
   left: 30%;
-  animation-delay: 2s;
 }
 
 .group-5 {
   top: 85%;
   left: 20%;
-  animation-delay: 2.5s;
 }
 
 .group-6 {
   top: 85%;
   left: 50%;
-  animation-delay: 3s;
 }
 
 .group-7 {
   top: 85%;
   left: 80%;
   width: 100px;
-  animation-delay: 3.5s;
 }
