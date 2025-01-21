@@ -1,17 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import { WhiteLeftHeader } from "../../components/common/Header";
-import { Box, Input, Flex, Text, Button, Textarea } from "@chakra-ui/react";
+import {
+  Box,
+  Input,
+  Flex,
+  Text,
+  Button,
+  Textarea,
+  useToast,
+} from "@chakra-ui/react";
 import { useState } from "react";
 
 import { MultipleQuizSection } from "./MultipleQuizSection";
 import { OxQuizSection } from "./OxQuizSection";
 
-export const MakeQuizChoiceSection = () => {
+export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   const navigate = useNavigate();
+  const toast = useToast(); // useToast 훅 사용
   const [question, setQuestion] = useState("");
   const [quizType, setQuizType] = useState(null); // OX 또는 객관식 유형 관리
   const maxQuestionLength = 30;
-  const maxOptionContentLength = 30;
 
   const handleQuizTypeSelection = (type) => {
     if (quizType === type) {
@@ -19,6 +27,17 @@ export const MakeQuizChoiceSection = () => {
     } else {
       setQuizType(type); // 선택된 유형 설정
     }
+  };
+
+  const handleComplete = () => {
+    toast({
+      title: "빙어를 보냈습니다!",
+      status: "success",
+      duration: 3000, // 3초 동안 표시
+      isClosable: true,
+      position: "bottom", // 알림 위치
+    });
+    navigate("/"); // 필요 시 페이지 이동
   };
 
   return (
@@ -133,7 +152,7 @@ export const MakeQuizChoiceSection = () => {
           borderRadius="16px"
           h="45px"
           w="140px"
-          onClick={() => navigate(-1)}
+          onClick={onPrev}
           _hover={{ bg: "#D9D9D9" }}
         >
           뒤로가기
@@ -146,7 +165,7 @@ export const MakeQuizChoiceSection = () => {
           borderRadius="16px"
           h="45px"
           w="140px"
-          onClick={() => navigate(-1)}
+          onClick={handleComplete} // 완료 버튼 클릭 시 호출
           _hover={{ bg: "#03526B" }}
         >
           완료

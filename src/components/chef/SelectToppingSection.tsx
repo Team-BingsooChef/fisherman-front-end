@@ -3,7 +3,8 @@ import { WhiteLeftHeader } from "../../components/common/Header";
 import { Box, SimpleGrid, Flex, Text, Button } from "@chakra-ui/react";
 import { fishdata } from "../../__mocks__/fish/data";
 
-export const SelectToppingSection = () => {
+export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
+  // onNext prop 추가
   const navigate = useNavigate();
   const getStatusColor = (status) => {
     switch (status) {
@@ -88,7 +89,6 @@ export const SelectToppingSection = () => {
                 </Box>
 
                 {/* 물고기 이미지와 정보 */}
-
                 <Box
                   boxSize="90px"
                   display="flex"
@@ -111,6 +111,7 @@ export const SelectToppingSection = () => {
         </SimpleGrid>
       </Flex>
       <Button
+        onClick={onNext} // onNext 사용
         bg="#03526B"
         color="white"
         fontSize="20px"

@@ -3,7 +3,13 @@ import { WhiteLeftHeader } from "../../components/common/Header";
 import { Box, Input, Flex, Text, Button, Textarea } from "@chakra-ui/react";
 import { useState } from "react";
 
-export const WriteLetterSection = () => {
+export const WriteLetterSection = ({
+  onPrev,
+  onNext,
+}: {
+  onPrev: () => void;
+  onNext: () => void;
+}) => {
   const [chefName, setChefName] = useState("");
   const [toppingContent, setToppingContent] = useState("");
   const navigate = useNavigate();
@@ -89,7 +95,7 @@ export const WriteLetterSection = () => {
           borderRadius="16px"
           h="45px"
           w="140px"
-          onClick={() => navigate(-1)}
+          onClick={onPrev}
           _hover={{ bg: "#D9D9D9" }} // 호버 시 배경색 변경 방지
         >
           뒤로가기
@@ -103,7 +109,7 @@ export const WriteLetterSection = () => {
           h="45px"
           w="140px"
           isDisabled={!isNextButtonEnabled}
-          onClick={() => navigate("/next")}
+          onClick={onNext}
           _hover={{
             bg: isNextButtonEnabled ? "#03526B" : "#A0A0A0", // 호버 시 색상 유지
           }}
