@@ -16,6 +16,13 @@ export const OxQuizSection = () => {
     setOptions(updatedOptions);
   };
 
+  const handleInputChange = (index: number, value: string): void => {
+    const updatedOptions = options.map((option, i) =>
+      i === index ? { ...option, text: value } : option
+    );
+    setOptions(updatedOptions);
+  };
+
   return (
     <>
       <Text

@@ -1,8 +1,4 @@
 import { useModalStateStore } from "../../../store/modal";
-import { SelectTopping } from "../../chef/SelectTopping";
-import { WriteMessage } from "../../chef/WriteMessage";
-import { MakeQuizChoice } from "../../chef/MakeQuizChoice";
-import { SetChefName } from "../../chef/SetChefName";
 
 import { OpenQuiz } from "../../owner/OpenQuiz";
 import { ReadMessage } from "../../owner/ReadMessage";
@@ -17,18 +13,7 @@ export const ModalContent = () => {
 
   switch (modalState) {
     //chef 입장
-    case "selectTopping":
-      return <SelectTopping />;
-    case "writeMessage":
-      return <WriteMessage />;
-    // case "quizOrNot":
-    //   return <QuizOrNot />;
-    // case "selectQuizType":
-    //   return <SelectQuizType />;
-    case "makeQuizChoice":
-      return <MakeQuizChoice />;
-    case "setChefName":
-      return <SetChefName />;
+    //     chef 입장의 기존 모달들 그냥 page로 바꿨음
     //여기서부턴 owner 입장
     case "openQuiz":
       return <OpenQuiz />;

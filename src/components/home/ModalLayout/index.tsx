@@ -4,17 +4,16 @@ import { ModalContent } from "../ModalContent";
 import { useModalStateStore } from "../../../store/modal";
 import styled from "@emotion/styled";
 
-export const ModalLayout = ({ backgroundColor = "#f0f8fb" }) => {
+export const ModalLayout = ({ backgroundColor = "#F3F5F9" }) => {
   const { isOpen, onClose } = useModalOpenStore();
   const { height } = useModalHeightStore();
   const { setModalState } = useModalStateStore();
   if (!isOpen) return null;
-   
-  const clickOutside =() => {
+
+  const clickOutside = () => {
     onClose();
     setModalState("");
-    
-  }
+  };
   // 포탈 박스
   const portalElement = document.getElementById("portal");
   if (!portalElement) return null;

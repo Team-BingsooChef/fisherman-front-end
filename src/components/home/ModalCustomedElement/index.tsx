@@ -20,7 +20,6 @@ export const ModalInsideGreyContainer = styled.div<ModalInsideContainerProps>`
     props.height || "auto"}; // props로 받은 height 또는 기본값
 `;
 
-
 // 스타일드 컴포넌트 정의
 const StyledInput = styled(Input)<ModalInsideContainerProps>`
   background: #d9d9d9;
@@ -71,8 +70,8 @@ export const ModalInsideWhiteContainer = styled.div<ModalInsideContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
-  width: calc(100% - 20px);
+  border-radius: 16px;
+  width: calc(100% - 40px);
   height: ${(props) =>
     props.height || "auto"}; // props로 받은 height 또는 기본값
 `;
@@ -106,12 +105,13 @@ export const LetterTopInfo = ({ text, nickname }: LetterTopInfoProps) => {
         width="60%"
         alignContent="center"
       >
-        <Text fontSize="20px" justifySelf="center" color="#007DA4">{nickname}</Text>
+        <Text fontSize="20px" justifySelf="center" color="#007DA4">
+          {nickname}
+        </Text>
       </Box>
     </Flex>
   );
 };
-
 
 export const SelectToppingInsideGreyContainer = styled.div<ModalInsideContainerProps>`
   background: #d9d9d9;

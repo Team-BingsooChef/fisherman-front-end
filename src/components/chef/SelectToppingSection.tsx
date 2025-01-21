@@ -11,7 +11,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
   const handleItemClick = (id: string) => {
     setSelectedItem((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
   };
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case "common":
         return "green.400";

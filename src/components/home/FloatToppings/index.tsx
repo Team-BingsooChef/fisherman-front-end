@@ -40,9 +40,11 @@ const ToppingElement = ({ topping }: { topping: ToppingOutsideType }) => {
   const handleClick = () => {
     setSelectedToppingId(topping.toppingId);
     if (topping.isHidden) {
+      console.log("openquiz");
       setModalState("openQuiz");
       onOpen();
     } else {
+      console.log("readmessage");
       setModalState("readMessage");
       onOpen();
     }
