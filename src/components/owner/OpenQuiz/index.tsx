@@ -3,7 +3,7 @@ import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
 import { useModalHeight } from "../../../hook/useModalHeight";
 
 import { Circle, X, XIcon } from "lucide-react";
-import { Flex, IconButton, Button, useToast } from "@chakra-ui/react";
+import { Flex, IconButton, Button, useToast, Text } from "@chakra-ui/react";
 import {
   quizSampleOXData,
   quizSampleMultipleData,
@@ -19,7 +19,9 @@ export const OpenQuiz = () => {
   const exampleOXAnswer = "O";
   const exampleMultipleAnswer = 1;
 
-  useModalHeight(quizSampleOXData.quiz.quizType === "Multiple" ? "80%" : "50%");
+  useModalHeight(
+    quizSampleMultipleData.quiz.quizType === "Multiple" ? "70%" : "50%"
+  );
   // OX 퀴즈 상태
   const [selectedAnswer, setSelectedAnswer] = useState<"O" | "X" | null>(null);
   const [correctAnswer, setCorrectAnswer] = useState<"O" | "X" | null>(null);
@@ -124,13 +126,28 @@ export const OpenQuiz = () => {
   // OX 퀴즈 렌더링
   if (quizSampleMultipleData.quiz.quizType === "OX") {
     return (
-      <>
+      <Flex
+        w="100%"
+        h="100%"
+        flexDir="column"
+        align="center"
+        position="relative"
+      >
+        <Text
+          w="full"
+          fontSize="24px"
+          fontWeight="bold"
+          textAlign="center"
+          color="#03526B"
+        >
+          퀴즈
+        </Text>
         <Flex w="100%" h="30%" mt="20px" justify="center" position="relative">
           <IconButton
             aria-label="close"
             icon={<XIcon onClick={clickClose} />}
             position="absolute"
-            top="-50px"
+            top="0px"
             right="10px"
           />
           <ModalInsideWhiteContainer height="100%">
@@ -171,32 +188,34 @@ export const OpenQuiz = () => {
             onClick={() => handleOXAnswerClick("X")}
           />
         </Flex>
-      </>
+      </Flex>
     );
   }
   // 객관식 퀴즈 렌더링
   if (quizSampleMultipleData.quiz.quizType === "Multiple") {
     return (
-      <Flex
-        w="100%"
-        h="100%"
-        flexDir="column"
-        mt="20px"
-        justify="center"
-        align="center"
-        position="relative"
-      >
-        <IconButton
-          aria-label="close"
-          icon={<XIcon onClick={clickClose} />}
-          position="absolute"
-          top="-10px"
-          right="10px"
-        />
-        <ModalInsideWhiteContainer height="20%">
-          Q. {quizSampleMultipleData.quiz.quizTitle}
-        </ModalInsideWhiteContainer>
-
+      <>
+        <Text
+          w="full"
+          fontSize="24px"
+          fontWeight="bold"
+          textAlign="center"
+          color="#03526B"
+        >
+          퀴즈
+        </Text>
+        <Flex w="100%" h="30%" mt="20px" justify="center" position="relative">
+          <IconButton
+            aria-label="close"
+            icon={<XIcon onClick={clickClose} />}
+            position="absolute"
+            top="-70px"
+            right="10px"
+          />
+          <ModalInsideWhiteContainer height="100%">
+            Q. {quizSampleOXData.quiz.quizTitle}
+          </ModalInsideWhiteContainer>
+        </Flex>
         <Flex
           direction="column"
           gap="10px"
@@ -225,7 +244,7 @@ export const OpenQuiz = () => {
             </Button>
           ))}
         </Flex>
-      </Flex>
+      </>
     );
   }
 
