@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
 import { useModalHeight } from "../../../hook/useModalHeight";
 
@@ -19,65 +19,76 @@ export const OpenQuiz = () => {
   const exampleOXAnswer = "O";
   const exampleMultipleAnswer = 1;
 
-  useModalHeight(
-    quizSampleMultipleData.quiz.quizType === "Multiple" ? "70%" : "50%"
-  );
-  // OX 퀴즈 상태
+  // 객관식 퀴즈 여부 확인
+  const isMultipleQuiz = true;
+
+  // 모달 높이 동적 계산
+  const [modalHeight, setModalHeight] = useState("50%");
+
+  useEffect(() => {
+    if (isMultipleQuiz) {
+      const questionCount = quizSampleMultipleData.questions.length;
+      const height =
+        questionCount <= 2 ? "50%" : questionCount === 3 ? "60%" : "70%";
+      setModalHeight(height);
+    } else {
+      setModalHeight("50%");
+    }
+  }, [isMultipleQuiz]);
+
+  useModalHeight(modalHeight);
+
+  // 상태 관리
   const [selectedAnswer, setSelectedAnswer] = useState<"O" | "X" | null>(null);
   const [correctAnswer, setCorrectAnswer] = useState<"O" | "X" | null>(null);
-
-  // 객관식 퀴즈 상태
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [correctOption, setCorrectOption] = useState<number | null>(null);
 
-  // OX 버튼 클릭 핸들러
+  const handleClose = () => onClose();
+
+  // 공통 Toast 핸들러
+  const showToast = (
+    title: string,
+    description: string,
+    status: "success" | "error"
+  ) => {
+    toast({
+      title,
+      description,
+      status,
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
+  // OX 퀴즈 핸들러
   const handleOXAnswerClick = async (answer: "O" | "X") => {
     try {
-      // 선택한 답변에 따라 questionId 추출
       const question = quizSampleOXData.questions.find(
         (q) => q.questionContent === answer
       );
-
       const requestData = {
-        userId: 1, // 사용자 ID
-        quizId: quizSampleOXData.quiz.quizId, // 퀴즈 ID
-        questionId: question ? question.questionId : 0, // questionId가 없을 경우 기본값 0
+        userId: 1,
+        quizId: quizSampleOXData.quiz.quizId,
+        questionId: question?.questionId || 0,
       };
+
       const response = await SendAnswer(requestData);
-      setSelectedAnswer(answer); // 선택한 답변 저장
-      setCorrectAnswer(exampleOXAnswer); // 정답 저장
-      //const isCorrect = exampleOXAnswer === answer; // 정답 확인
+      setSelectedAnswer(answer);
+      setCorrectAnswer(exampleOXAnswer);
+
       if (response.result) {
-        toast({
-          title: "정답입니다!",
-          description: "토핑이 오픈됩니다.",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
+        showToast("정답입니다!", "토핑이 오픈됩니다.", "success");
         setModalState("readMessage");
       } else {
-        toast({
-          title: "틀렸습니다.",
-          description: "다시 시도해 주세요.",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
+        showToast("틀렸습니다.", "다시 시도해 주세요.", "error");
       }
-    } catch (error: unknown) {
-      console.error("OX 퀴즈 정답 제출 실패:", error);
-      toast({
-        title: "오답입니다.",
-        description: "다시 시도해 주세요.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+    } catch {
+      showToast("오답입니다.", "다시 시도해 주세요.", "error");
     }
   };
 
-  // 객관식 버튼 클릭 핸들러
+  // 객관식 퀴즈 핸들러
   const handleMultipleAnswerClick = async (index: number) => {
     try {
       const requestData = {
@@ -88,165 +99,109 @@ export const OpenQuiz = () => {
 
       const response = await SendAnswer(requestData);
       setSelectedOption(index);
-      setCorrectOption(exampleMultipleAnswer); // 정답 저장
+      setCorrectOption(exampleMultipleAnswer);
 
-      //onst isCorrect = exampleMultipleAnswer === index; // 정답 확인
       if (response.result) {
-        toast({
-          title: "정답입니다!",
-          description: "토핑이 오픈됩니다.",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
+        showToast("정답입니다!", "토핑이 오픈됩니다.", "success");
         setModalState("readMessage");
       } else {
-        toast({
-          title: "틀렸습니다.",
-          description: "다시 시도해 주세요.",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
+        showToast("틀렸습니다.", "다시 시도해 주세요.", "error");
       }
     } catch {
-      toast({
-        title: "오답입니다.",
-        description: "다시 시도해 주세요.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+      showToast("오답입니다.", "다시 시도해 주세요.", "error");
     }
   };
 
-  const clickClose = () => {
-    onClose();
-  };
-  // OX 퀴즈 렌더링
-  if (quizSampleMultipleData.quiz.quizType === "OX") {
-    return (
-      <Flex
-        w="100%"
-        h="100%"
-        flexDir="column"
-        align="center"
-        position="relative"
-      >
-        <Text
-          w="full"
-          fontSize="24px"
-          fontWeight="bold"
-          textAlign="center"
-          color="#03526B"
-        >
-          퀴즈
-        </Text>
-        <Flex w="100%" h="30%" mt="20px" justify="center" position="relative">
+  // OX 퀴즈 UI
+  const renderOXQuiz = () => (
+    <Flex w="100%" h="100%" flexDir="column" align="center" position="relative">
+      <Header onClose={handleClose} />
+      <Question title={quizSampleOXData.quiz.quizTitle} />
+      <Flex gap="20px" mt="20px" justify="center">
+        {["O", "X"].map((answer) => (
           <IconButton
-            aria-label="close"
-            icon={<XIcon onClick={clickClose} />}
-            position="absolute"
-            top="0px"
-            right="10px"
-          />
-          <ModalInsideWhiteContainer height="100%">
-            Q. {quizSampleOXData.quiz.quizTitle}
-          </ModalInsideWhiteContainer>
-        </Flex>
-        <Flex gap="20px" mt="20px" justify="center">
-          <IconButton
-            bg="#03526B"
+            key={answer}
+            bg={answer === "O" ? "#03526B" : "#BF2A2A"}
             borderRadius="30px"
             boxSize="140px"
-            aria-label="O"
-            icon={<Circle size={100} color="white" />}
+            aria-label={answer}
+            icon={
+              answer === "O" ? (
+                <Circle size={100} color="white" />
+              ) : (
+                <X size={120} color="white" />
+              )
+            }
             _hover={{ bg: "blue.600" }}
             border={
-              selectedAnswer === "O"
-                ? correctAnswer === "O"
+              selectedAnswer === answer
+                ? correctAnswer === answer
                   ? "5px solid green"
                   : "5px solid red"
                 : "none"
             }
-            onClick={() => handleOXAnswerClick("O")}
+            onClick={() => handleOXAnswerClick(answer as "O" | "X")}
           />
-          <IconButton
-            bg="#BF2A2A"
-            borderRadius="30px"
-            boxSize="140px"
-            aria-label="X"
-            icon={<X size={120} color="white" />}
-            _hover={{ bg: "blue.600" }}
-            border={
-              selectedAnswer === "X"
-                ? correctAnswer === "X"
-                  ? "5px solid green"
-                  : "5px solid red"
-                : "none"
-            }
-            onClick={() => handleOXAnswerClick("X")}
-          />
-        </Flex>
+        ))}
       </Flex>
-    );
-  }
-  // 객관식 퀴즈 렌더링
-  if (quizSampleMultipleData.quiz.quizType === "Multiple") {
-    return (
-      <>
-        <Text
-          w="full"
-          fontSize="24px"
-          fontWeight="bold"
-          textAlign="center"
-          color="#03526B"
-        >
-          퀴즈
-        </Text>
-        <Flex w="100%" h="30%" mt="20px" justify="center" position="relative">
-          <IconButton
-            aria-label="close"
-            icon={<XIcon onClick={clickClose} />}
-            position="absolute"
-            top="-70px"
-            right="10px"
-          />
-          <ModalInsideWhiteContainer height="100%">
-            Q. {quizSampleOXData.quiz.quizTitle}
-          </ModalInsideWhiteContainer>
-        </Flex>
-        <Flex
-          direction="column"
-          gap="10px"
-          mt="20px"
-          width="100%"
-          align="center"
-        >
-          {quizSampleMultipleData.questions.map((option, index) => (
-            <Button
-              width="calc(100% - 40px)"
-              key={index}
-              borderRadius="12px"
-              onClick={() => handleMultipleAnswerClick(index)}
-              border={
-                selectedOption === index
-                  ? correctOption === index
-                    ? "5px solid green"
-                    : "5px solid red"
-                  : "none"
-              }
-              bg="#03526B"
-              color="white"
-              _hover={{ bg: "blue.600" }}
-            >
-              {option.questionContent}
-            </Button>
-          ))}
-        </Flex>
-      </>
-    );
-  }
+    </Flex>
+  );
 
-  return null;
+  // 객관식 퀴즈 UI
+  const renderMultipleQuiz = () => (
+    <>
+      <Header onClose={handleClose} />
+      <Question title={quizSampleMultipleData.quiz.quizTitle} />
+      <Flex direction="column" gap="10px" mt="20px" width="100%" align="center">
+        {quizSampleMultipleData.questions.map((option, index) => (
+          <Button
+            key={index}
+            width="calc(100% - 40px)"
+            borderRadius="12px"
+            onClick={() => handleMultipleAnswerClick(index)}
+            border={
+              selectedOption === index
+                ? correctOption === index
+                  ? "5px solid green"
+                  : "5px solid red"
+                : "none"
+            }
+            bg="#03526B"
+            color="white"
+            _hover={{ bg: "blue.600" }}
+          >
+            {option.questionContent}
+          </Button>
+        ))}
+      </Flex>
+    </>
+  );
+
+  return isMultipleQuiz ? renderMultipleQuiz() : renderOXQuiz();
 };
+
+// 공통 컴포넌트: 헤더
+const Header = ({ onClose }: { onClose: () => void }) => (
+  <Flex w="full" justify="center" align="center" p="10px">
+    <Text fontSize="24px" fontWeight="bold" color="#03526B">
+      퀴즈
+    </Text>
+    <IconButton
+      aria-label="close"
+      icon={<XIcon />}
+      onClick={onClose}
+      position="absolute"
+      top="10px"
+      right="10px"
+    />
+  </Flex>
+);
+
+// 공통 컴포넌트: 질문
+const Question = ({ title }: { title: string }) => (
+  <Flex w="100%" h="30%" mt="20px" justify="center" position="relative">
+    <ModalInsideWhiteContainer height="100%">
+      Q. {title}
+    </ModalInsideWhiteContainer>
+  </Flex>
+);
