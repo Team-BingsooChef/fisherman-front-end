@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import { SelectToppingSection } from "../../components/chef/SelectToppingSection";
 import { WriteLetterSection } from "../../components/chef/WriteLetterSection";
+import { MakeQuizChoiceSection } from "../../components/chef/MakeQuizChoiceSection";
 
 export default function SendingPage() {
   return (
     <Wrapper>
-      <WriteLetterSection />
+      <MakeQuizChoiceSection />
     </Wrapper>
   );
 }
