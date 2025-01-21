@@ -4,6 +4,7 @@ import { Box, Input, Flex, Text, Button, Textarea } from "@chakra-ui/react";
 import { useState } from "react";
 
 import { MultipleQuizSection } from "./MultipleQuizSection";
+import { OxQuizSection } from "./OxQuizSection";
 
 export const MakeQuizChoiceSection = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ export const MakeQuizChoiceSection = () => {
       <Text w="full" fontSize="12px" color="black" textAlign="right">
         {question.length}/{maxQuestionLength}
       </Text>
-      <MultipleQuizSection />
+      <OxQuizSection />
       <Flex position="absolute" bottom="23px" gap="23px">
         <Button
           bg="#D9D9D9"
