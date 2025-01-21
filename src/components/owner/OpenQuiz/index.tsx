@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
 import { useModalHeight } from "../../../hook/useModalHeight";
-
+import shark from "../../../assets/pictures/shark.svg";
 import { Circle, X, XIcon } from "lucide-react";
-import { Flex, IconButton, Button, useToast, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  IconButton,
+  Button,
+  useToast,
+  Text,
+  Image,
+} from "@chakra-ui/react";
 import {
   quizSampleOXData,
   quizSampleMultipleData,
@@ -183,6 +190,7 @@ export const OpenQuiz = () => {
 // 공통 컴포넌트: 헤더
 const Header = ({ onClose }: { onClose: () => void }) => (
   <Flex w="full" justify="center" align="center" p="10px">
+    <Image src={shark} boxSize="80px" position="absolute" top="-40px" />
     <Text fontSize="24px" fontWeight="bold" color="#03526B">
       퀴즈
     </Text>
