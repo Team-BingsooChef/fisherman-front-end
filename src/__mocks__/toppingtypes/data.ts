@@ -1,7 +1,6 @@
 import ice_banana from "../../assets/toppings/ice_banana.svg";
 import banana from "../../assets/toppings/banana.svg";
 import ice_cherry from "../../assets/toppings/ice_cherry.svg";
-import cherry from "../../assets/toppings/cherry.svg";
 import ice_kiwi from "../../assets/toppings/ice_kiwi.svg";
 import kiwi from "../../assets/toppings/kiwi.svg";
 import ice_mango from "../../assets/toppings/ice_mango.svg";
@@ -117,5 +116,5 @@ export const toppingTypesData = [
     toppingTypeName: "mochi",
     frozenImg: ice_mochi,
     defrostedImg: mochi,
-  }
+  },
 ];

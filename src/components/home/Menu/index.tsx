@@ -4,7 +4,6 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
   Flex,
   Box,
   Image,
@@ -34,7 +33,7 @@ export const Menu = () => {
         <Button onClick={onOpen} variant="unstyled" aria-label="Open Menu">
           <MenuIcon size="28" />
         </Button>
-        </Flex>
+      </Flex>
       {/* Drawer 컴포넌트 */}
       <Drawer
         isOpen={isOpen}
@@ -74,7 +73,7 @@ export const Menu = () => {
                 bg="#F9F7F7"
                 _hover={{ bg: "#AFD5F4" }}
                 color="#595353"
-                      fontWeight="semibold"
+                fontWeight="semibold"
                 width="100%"
                 justifyContent="flex-start"
               >
@@ -132,7 +131,7 @@ export const Menu = () => {
               bg="#F9F7F7"
               _hover={{ bg: "#AFD5F4" }}
               color="#595353"
-                fontWeight="semibold"
+              fontWeight="semibold"
               width="100%"
               justifyContent="flex-start"
             >
@@ -144,7 +143,7 @@ export const Menu = () => {
               bg="#F9F7F7"
               _hover={{ bg: "#AFD5F4" }}
               color="#595353"
-                fontWeight="semibold"
+              fontWeight="semibold"
               width="100%"
               justifyContent="flex-start"
             >

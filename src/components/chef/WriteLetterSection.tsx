@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { WhiteLeftHeader } from "../../components/common/Header";
-import { Box, Input, Flex, Text, Button, Textarea } from "@chakra-ui/react";
+import { Input, Flex, Text, Button, Textarea } from "@chakra-ui/react";
 import { useState } from "react";
 
 export const WriteLetterSection = ({

@@ -1,26 +1,35 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { WhiteLeftHeader } from "../../components/common/Header";
-import {ChangeNicknameModal} from "../../components/user/ChangeNicknameModal"; 
-import { Text, Flex, Box, Image, Button, IconButton, useDisclosure, useToast } from "@chakra-ui/react";
+import { ChangeNicknameModal } from "../../components/user/ChangeNicknameModal";
+import {
+  Text,
+  Flex,
+  Box,
+  Image,
+  Button,
+  IconButton,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
 import profile_example from "../../assets/profile_example.jpg";
 import { LockKeyhole, RotateCcw, Trash2, Pencil } from "lucide-react";
 
 export default function SettingPage() {
   const navigate = useNavigate();
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [currentNickname, setCurrentNickname] = useState<string>("호랭이");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [currentNickname] = useState<string>("호랭이");
   const onchangeNickname = () => {
     onClose();
-      toast({
-        title: '닉네임이 변경되었습니다.',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      })
-    }
+    toast({
+      title: "닉네임이 변경되었습니다.",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
   const goHome = () => {
     navigate("/");
   };
@@ -62,7 +71,7 @@ export default function SettingPage() {
               bottom="8px"
             >
               <IconButton
-              size="sm"
+                size="sm"
                 aria-label="Edit Profile"
                 icon={<Pencil size={20} />}
                 borderRadius="50%"
@@ -71,7 +80,6 @@ export default function SettingPage() {
           </Box>
 
           <Flex align="center" justify="center" gap="2px" fontWeight="Bold">
-
             <Text fontSize="24px" color="#3887C7">
               {currentNickname}
             </Text>
@@ -79,14 +87,13 @@ export default function SettingPage() {
               님
             </Text>
             <IconButton
-                aria-label="Edit Profile"
-                icon={<Pencil size={20}/>}
-                borderRadius="50%" 
-                size="sm"
-                onClick={onOpen}
-                ml="8px"
-              />
-          
+              aria-label="Edit Profile"
+              icon={<Pencil size={20} />}
+              borderRadius="50%"
+              size="sm"
+              onClick={onOpen}
+              ml="8px"
+            />
           </Flex>
         </Box>
       </Flex>

@@ -1,14 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { WhiteLeftHeader } from "../../components/common/Header";
-import {
-  Box,
-  Input,
-  Flex,
-  Text,
-  Button,
-  Textarea,
-  useToast,
-} from "@chakra-ui/react";
+import { Flex, Text, Button, Textarea, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 
 import { MultipleQuizSection } from "./MultipleQuizSection";
@@ -18,10 +10,10 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   const navigate = useNavigate();
   const toast = useToast(); // useToast 훅 사용
   const [question, setQuestion] = useState("");
-  const [quizType, setQuizType] = useState(null); // OX 또는 객관식 유형 관리
+  const [quizType, setQuizType] = useState<string | null>(null); // OX 또는 객관식 유형 관리
   const maxQuestionLength = 30;
 
-  const handleQuizTypeSelection = (type) => {
+  const handleQuizTypeSelection = (type: string) => {
     if (quizType === type) {
       setQuizType(null); // 같은 버튼을 다시 누르면 선택 해제
     } else {
