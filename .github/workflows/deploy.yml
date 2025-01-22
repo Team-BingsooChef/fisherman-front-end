@@ -39,8 +39,8 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile --force
 
-      - name: Lint Code # ESLint 실행하기
-        run: pnpm lint
+      - name: Lint Code & fix # ESLint 실행하기
+        run: pnpm lint --fix
 
       - name: Build # Build 실행하기
         run: pnpm run build
