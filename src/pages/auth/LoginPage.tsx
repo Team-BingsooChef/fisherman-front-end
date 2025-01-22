@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { PlatformLogin } from "../../components/auth/Login/PlatformLogin";
 import { EmailLogin } from "../../components/auth/Login/EmailLogin";
-import { BlueBackHeader, BlueHeader} from "../../components/common/Header";
+import { BlueBackHeader, BlueHeader } from "../../components/common/Header";
 
 export default function LoginPage() {
   const [currentComponent, setCurrentComponent] = useState("PlatformLogin"); // 현재 렌더링할 컴포넌트 상태
@@ -15,18 +15,14 @@ export default function LoginPage() {
 
   return (
     <Wrapper>
-      {currentComponent === "PlatformLogin" && (
-      <BlueHeader text="로그인하기" />
-      )}
+      {currentComponent === "PlatformLogin" && <BlueHeader text="로그인하기" />}
       {currentComponent === "EmailLogin" && (
         <BlueBackHeader text="로그인하기" onBackClick={handlePlatformLogin} />
       )}
-           {currentComponent === "PlatformLogin" && (
+      {currentComponent === "PlatformLogin" && (
         <PlatformLogin onEmailClick={handleEmailLogin} />
       )}
-      {currentComponent === "EmailLogin" && (
-        <EmailLogin/>
-      )}
+      {currentComponent === "EmailLogin" && <EmailLogin />}
     </Wrapper>
   );
 }

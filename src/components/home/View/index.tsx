@@ -15,7 +15,7 @@ export const OwnerView = () => {
       <CopyLink />
       <Box h="164px" />
       <FishingSpot />
-      <Flex mt="8px" justify="center" alignItems="center">
+      <Flex mt="4px" justify="center" alignItems="center">
         <ToppingsPagination />
       </Flex>
       {/* <Bingsoo viewType="owner" /> viewType 넣어서 topping 클릭 여부*/}
