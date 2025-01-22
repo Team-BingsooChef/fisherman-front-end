@@ -1,3 +1,5 @@
+import shark from "../assets/pictures/shark.svg";
+
 export const fishdata = [
   {
     id: 1,
@@ -5,7 +7,7 @@ export const fishdata = [
     text: "빙어",
     count: 3,
     status: "common",
-    image: "/src/assets/toppings/oreo.svg",
+    image: shark,
   },
   {
     id: 2,
@@ -13,7 +15,7 @@ export const fishdata = [
     text: "송어",
     count: 2,
     status: "common",
-    image: "/src/assets/toppings/oreo.svg",
+    image: shark,
   },
   {
     id: 3,
@@ -21,7 +23,7 @@ export const fishdata = [
     text: "복어",
     count: 1,
     status: "common",
-    image: "/src/assets/toppings/oreo.svg",
+    image: shark,
   },
   {
     id: 4,
@@ -29,7 +31,7 @@ export const fishdata = [
     text: "비단잉어",
     count: 1,
     status: "rare",
-    image: "/src/assets/toppings/oreo.svg",
+    image: shark,
   },
   {
     id: 5,
@@ -37,7 +39,7 @@ export const fishdata = [
     text: "베타",
     count: 1,
     status: "rare",
-    image: "/src/assets/toppings/oreo.svg",
+    image: shark,
   },
   {
     id: 6,
@@ -45,7 +47,7 @@ export const fishdata = [
     text: "갈치",
     count: 1,
     status: "rare",
-    image: "/src/assets/toppings/oreo.svg",
+    image: shark,
   },
   {
     id: 7,
@@ -53,7 +55,7 @@ export const fishdata = [
     text: "황금 빙어",
     count: 1,
     status: "legendary",
-    image: "/src/assets/toppings/oreo.svg",
+    image: shark,
   },
   {
     id: 8,
@@ -61,7 +63,7 @@ export const fishdata = [
     text: "상어",
     count: 1,
     status: "legendary",
-    image: "/src/assets/toppings/oreo.svg",
+    image: shark,
   },
   {
     id: 9,
@@ -69,6 +71,6 @@ export const fishdata = [
     text: "붕어빵",
     count: 1,
     status: "funny",
-    image: "/src/assets/toppings/oreo.svg",
+    image: shark,
   },
 ];

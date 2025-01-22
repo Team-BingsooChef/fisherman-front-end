@@ -8,7 +8,9 @@ export const ModalLayout = ({ backgroundColor = "#F3F5F9" }) => {
   const { isOpen, onClose } = useModalOpenStore();
   const { height } = useModalHeightStore();
   const { setModalState } = useModalStateStore();
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   const clickOutside = () => {
     onClose();
@@ -16,7 +18,9 @@ export const ModalLayout = ({ backgroundColor = "#F3F5F9" }) => {
   };
   // 포탈 박스
   const portalElement = document.getElementById("portal");
-  if (!portalElement) return null;
+  if (!portalElement) {
+    return null;
+  }
   return ReactDOM.createPortal(
     <Overlay onClick={clickOutside}>
       <ModalWrapper>

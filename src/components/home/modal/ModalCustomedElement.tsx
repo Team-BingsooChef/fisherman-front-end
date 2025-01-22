@@ -44,8 +44,12 @@ export const ModalInsideGreyInput: React.FC<ModalInsideContainerProps> = ({
         value={value} // 외부에서 전달된 value
         placeholder={placeholder}
         onChange={(e) => {
-          if (maxLength && e.target.value.length > maxLength) return; // 최대 글자 수 제한
-          if (onChange) onChange(e); // 외부 핸들러 호출
+          if (maxLength && e.target.value.length > maxLength) {
+            return;
+          } // 최대 글자 수 제한
+          if (onChange) {
+            onChange(e);
+          } // 외부 핸들러 호출
         }}
         {...props}
       />
