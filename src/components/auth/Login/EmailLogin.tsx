@@ -5,7 +5,7 @@ import { PasswordInput } from "../PasswordInput";
 import { BlueRectangleButton } from "../../common/CustomedButton";
 import { WhiteInput } from "../../common/CustomedInput";
 import { AuthBottomWrapper } from "../../auth/AuthWrapper";
-import { Checkbox} from '@chakra-ui/react'
+import { Checkbox } from '@chakra-ui/react';
 
 
 export const EmailLogin = () => {

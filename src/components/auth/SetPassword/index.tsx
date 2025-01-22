@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { PasswordInput } from "../PasswordInput";
 import { BlueRectangleButton } from "../../common/CustomedButton";
 import { useToast, Box, Flex } from "@chakra-ui/react";

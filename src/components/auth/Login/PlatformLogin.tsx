@@ -9,7 +9,7 @@ interface PlatformLoginProps {
   onEmailClick: () => void;
 }
 
-export const PlatformLogin = ({onEmailClick}: PlatformLoginProps) => {
+export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
   return (
     <>
       <Flex

@@ -1,8 +1,8 @@
-import {SyncLoader} from "react-spinners";
-import {useEffect, useState} from "react";
+import { SyncLoader } from "react-spinners";
+import { useEffect, useState } from "react";
 import shark from "../../../assets/pictures/shark.svg";
 
-export default function LoadingSpinner({timeout = 200}) {
+export default function LoadingSpinner({ timeout = 200 }) {
   const [showSpinner, setShowSpinner] = useState(false);
 
   /**

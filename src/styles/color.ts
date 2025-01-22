@@ -5,9 +5,9 @@ export const COLOR = {
     DEEPBLUE: '#3887C7',
     LIGHTBLUE: '#78B8EC',
     GREY: '#D9D9D9',
-}
+};
 
 export const TEXTCOLOR = {
     HEADER_BLACK: '#13353B',
     HEADER_WHITE: '#FFFEFE'
-}
+};

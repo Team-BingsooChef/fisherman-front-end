@@ -1,4 +1,4 @@
-import {InputGroup, InputLeftElement, Input } from "@chakra-ui/react";
+import { InputGroup, InputLeftElement, Input } from "@chakra-ui/react";
 
 interface SettingInputProps {
   value: string;
