@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SyncLoader } from "react-spinners";
 import { useModalHeight } from "../../../hook/useModalHeight";
 import { useModalOpenStore, useModalStateStore } from "../../../store/modal";
@@ -80,7 +80,7 @@ export const MakeSureDrawing = () => {
       <Flex w="full" h="100%" flexDir="column" align="center" justify="center">
         <SyncLoader color="#3887C7" size={10} />
         <Text mt={4} color="#13353B" fontWeight="semibold" fontSize="18px">
-          뽑는 중 
+          뽑는 중
         </Text>
       </Flex>
     );
@@ -99,7 +99,9 @@ export const MakeSureDrawing = () => {
       </Text>
       <Flex w="calc(100% - 60px)" gap="26px" mt="20px">
         <BlueEllipseButton onClick={handleDrawing}>예</BlueEllipseButton>
-        <BlueEllipseButton onClick={handleCancleDrawing}>아니요</BlueEllipseButton>
+        <BlueEllipseButton onClick={handleCancleDrawing}>
+          아니요
+        </BlueEllipseButton>
       </Flex>
     </Flex>
   );

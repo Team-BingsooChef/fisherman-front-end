@@ -11,7 +11,7 @@ import { Flex, Text, Box } from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";
 import { useModalOpenStore, useModalStateStore } from "../../store/modal";
 import { useModalHeight } from "../../hook/useModalHeight";
-import { ModalLayout } from "../../components/home/ModalLayout";
+import { ModalLayout } from "../../components/home/modal/ModalLayout";
 
 export default function FishDrawingPage() {
   const [coinCount] = useState<number>(0);

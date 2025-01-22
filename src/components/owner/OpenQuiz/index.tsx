@@ -15,7 +15,7 @@ import {
   quizSampleOXData,
   quizSampleMultipleData,
 } from "../../../__mocks__/quizData";
-import { ModalInsideWhiteContainer } from "../../home/ModalCustomedElement";
+import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 
 import { SendAnswer } from "../../../api/quiz/apis";
 

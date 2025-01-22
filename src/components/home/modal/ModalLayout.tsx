@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { useModalOpenStore, useModalHeightStore } from "../../../store/modal";
-import { ModalContent } from "../ModalContent";
+import { ModalContent } from "./ModalContent";
 import { useModalStateStore } from "../../../store/modal";
 import styled from "@emotion/styled";
 
