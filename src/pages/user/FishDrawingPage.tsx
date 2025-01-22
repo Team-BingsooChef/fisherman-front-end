@@ -14,16 +14,16 @@ import { useModalHeight } from "../../hook/useModalHeight";
 import { ModalLayout } from "../../components/home/ModalLayout";
 
 export default function FishDrawingPage() {
-  const [coinCount, setCoinCount] = useState<number>(0);
+  const [coinCount] = useState<number>(0);
   const navigate = useNavigate();
   const { onOpen } = useModalOpenStore();
   const { setModalState } = useModalStateStore();
 
-  useModalHeight("24%"); 
+  useModalHeight("24%");
   const onClickDrawing = () => {
     setModalState("makeSureDrawing");
     onOpen();
-  }
+  };
 
   return (
     <Wrapper>
@@ -43,7 +43,7 @@ export default function FishDrawingPage() {
 
         {/* 가방 */}
         <Button
-        onClick={() => navigate("/fishbag")}
+          onClick={() => navigate("/fishbag")}
           w="110px"
           h="46px"
           bgColor="#AFD5F4"
@@ -67,7 +67,7 @@ export default function FishDrawingPage() {
       <Box w="200px" mt="24px">
         <BlueDrawingButton onClick={onClickDrawing}>뽑기</BlueDrawingButton>
       </Box>
-      <ModalLayout backgroundColor="#AFD5F4"/>
+      <ModalLayout backgroundColor="#AFD5F4" />
     </Wrapper>
   );
 }

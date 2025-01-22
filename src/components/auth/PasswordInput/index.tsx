@@ -7,7 +7,7 @@ interface InputProps {
   placeholder: string;
 }
 
-export const PasswordInput: React.FC<PasswordInputProps> = ({
+export const PasswordInput: React.FC<InputProps> = ({
   value,
   text,
   handleChange,

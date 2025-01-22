@@ -1,17 +1,14 @@
 import styled from "@emotion/styled";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BlueBackHeader } from "../../components/common/Header";
-import {
-  AuthBottomWrapper,
-} from "../../components/auth/AuthWrapper";
+import { AuthBottomWrapper } from "../../components/auth/AuthWrapper";
 import { CheckDuplicate } from "../../components/auth/CheckDuplicate";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
   const goLogin = () => {
     navigate("/login");
-  }
-  
+  };
 
   return (
     <Wrapper>

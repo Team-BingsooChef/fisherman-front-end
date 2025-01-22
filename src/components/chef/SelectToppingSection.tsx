@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { Box, SimpleGrid, Flex, Text, Button } from "@chakra-ui/react";
-import { fishdata } from "../../__mocks__/fish/data";
+import { fishdata } from "../../__mocks__/fishData";
 
 export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
   // onNext prop 추가

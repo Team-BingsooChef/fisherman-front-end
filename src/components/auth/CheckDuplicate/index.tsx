@@ -1,5 +1,5 @@
 import { Flex, Box, Button, Input, Text } from "@chakra-ui/react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, MouseEventHandler } from "react";
 import { COLOR } from "../../../styles/color";
 import { BlueRectangleButton } from "../../common/CustomedButton";
@@ -38,7 +38,7 @@ export const CheckDuplicate = () => {
           size="sm"
           width={"100%"}
           height="60px"
-           fontWeight="medium"
+          fontWeight="medium"
           borderRadius="16px"
           backgroundColor="#FFFEFE"
           mb="24px"
@@ -47,9 +47,9 @@ export const CheckDuplicate = () => {
         />
         <CheckDuplicateButton />
       </Flex>
-            <BlueRectangleButton onClick={goToEmailCheck}>
-              인증하기
-            </BlueRectangleButton>
+      <BlueRectangleButton onClick={goToEmailCheck}>
+        인증하기
+      </BlueRectangleButton>
     </Box>
   );
 };
@@ -57,8 +57,8 @@ export const CheckDuplicate = () => {
 const CheckDuplicateButton: React.FC<CheckDuplicateProps> = ({ onClick }) => {
   return (
     <Button
-      onClick={onClick} 
-      bg={COLOR.LIGHTBLUE} 
+      onClick={onClick}
+      bg={COLOR.LIGHTBLUE}
       color="#ffffff"
       width="80px"
       fontSize="12px"

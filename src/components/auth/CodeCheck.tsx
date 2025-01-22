@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 import { useState, useEffect, useRef } from "react";
 import { Box, Flex, Text, useToast } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { NavyRectangleButton } from "../../common/CustomedButton";
-import {COLOR} from "../../../styles/color";
+import { NavyRectangleButton } from "../common/CustomedButton";
 
 export const CodeCheck = () => {
   const [timeLeft, setTimeLeft] = useState(300); // 300초 = 5분
@@ -14,8 +13,8 @@ export const CodeCheck = () => {
   const location = useLocation();
   const toast = useToast();
 
- // 이전 페이지 정보 확인
- const from = location.state?.from || "unknown"; // 기본값 설정
+  // 이전 페이지 정보 확인
+  const from = location.state?.from || "unknown"; // 기본값 설정
   // 타이머 로직
   useEffect(() => {
     if (timeLeft > 0) {
@@ -77,14 +76,14 @@ export const CodeCheck = () => {
         duration: 3000,
         isClosable: true,
       });
-     if (from === "signup") {
-      // 비밀번호 설정은 같은 페이지에서, but 이전 페이지 정보를 전달
-      navigate("/setpassword", { state: { action: "setpassword" } });
-    } else if (from === "findpassword") {
-      navigate("/setpassword", { state: { action: "resetpassword" } });
-    } else {
-      console.error("Unknown navigation source");
-    }
+      if (from === "signup") {
+        // 비밀번호 설정은 같은 페이지에서, but 이전 페이지 정보를 전달
+        navigate("/setpassword", { state: { action: "setpassword" } });
+      } else if (from === "findpassword") {
+        navigate("/setpassword", { state: { action: "resetpassword" } });
+      } else {
+        console.error("Unknown navigation source");
+      }
     } else {
       toast({
         title: "인증 번호가 틀렸습니다.",
@@ -123,7 +122,9 @@ export const CodeCheck = () => {
         ))}
       </InputsContainer>
       <Text color="#13353B" mt="25px">
-        코드 입력까지   <span style={{ fontWeight: "bold" }}>{formatTime(timeLeft)}</span> 남았습니다
+        코드 입력까지{" "}
+        <span style={{ fontWeight: "bold" }}>{formatTime(timeLeft)}</span>{" "}
+        남았습니다
       </Text>
 
       <Box mt="148px" w="100%">
@@ -131,15 +132,13 @@ export const CodeCheck = () => {
           인증하기
         </NavyRectangleButton>
         {timeExpired && (
-        <Flex justify="center" mt="42px" gap="8px">
-        <Text fontSize="14px">메일이 전송되지 않았나요? 
-        </Text>
-        <ResendButton onClick={handleResend}>
-          다시 전송</ResendButton>
+          <Flex justify="center" mt="42px" gap="8px">
+            <Text fontSize="14px">메일이 전송되지 않았나요?</Text>
+            <ResendButton onClick={handleResend}>다시 전송</ResendButton>
           </Flex>
-      )}
+        )}
       </Box>
-      </CodeCheckWrapper>
+    </CodeCheckWrapper>
   );
 };
 
@@ -173,7 +172,7 @@ const ResendButton = styled.button`
   background-color: transparent;
   border: none;
   font-size: 14px;
-  color: #0075FF;
+  color: #0075ff;
   text-decoration: underline;
   cursor: pointer;
 `;

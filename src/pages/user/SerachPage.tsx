@@ -5,7 +5,7 @@ import { WhiteLeftHeader } from "../../components/common/Header";
 import { WhiteInput } from "../../components/user/CustomedInput";
 import { Search } from "lucide-react";
 import { Flex, Text, VStack, Image } from "@chakra-ui/react";
-import { users } from "../../__mocks__/search/data";
+import { users } from "../../__mocks__/searchData";
 
 export default function SearchPage() {
   const navigate = useNavigate();
@@ -49,7 +49,12 @@ export default function SearchPage() {
                   borderRadius="full"
                   objectFit="contain"
                 />
-                <Text ml="8px" fontSize="20px" fontWeight="semibold" color="#737373">
+                <Text
+                  ml="8px"
+                  fontSize="20px"
+                  fontWeight="semibold"
+                  color="#737373"
+                >
                   {user.nickname}
                 </Text>
               </Flex>
