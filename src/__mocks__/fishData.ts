@@ -1,4 +1,4 @@
-import shark from "../assets/pictures/shark.svg";
+import shark from "../assets/icon/shark_icon.svg";
 
 export const fishdata = [
   {
