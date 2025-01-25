@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: ap-northeast-2
-  S3_BUCKET_NAME: s3-fisherman
+  S3_BUCKET_NAME: fisherman-front
 
 permissions:
   contents: read
