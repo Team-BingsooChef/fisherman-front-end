@@ -5,39 +5,46 @@ import {
   ToppingOutsideParams,
   ToppingInsideResponseBody,
   ToppingInsideParams,
-  PostCommentRequestBody
+  PostCommentRequestBody,
 } from "./types";
 
 export function CreateTopping(req: CreateToppingRequestBody): Promise<void> {
-  return api.post('/users/bingsoos/toppings', req);
+  return api.post("/users/bingsoos/toppings", req);
 }
 
-
-export async function QueryToppingOutside(params: ToppingOutsideParams): Promise<ToppingOutsideResponseBody>{
-
-  const res = await api.get('/users/bingsoos/toppings',{
-        params:{
-            ...params
-        }
-    });
-    return res.data;
-}
-
-export async function QueryToppingInside(params: ToppingInsideParams): Promise<ToppingInsideResponseBody>{
-  const hyphenParams = {
-    "topping-id": params.toppingId, // 하이픈 포함된 키로 변환
-    "user-id": params.userId,
-  }; 
-
-  const res = await api.get(`/users/bingsoos/toppings/${params.toppingId}`,{
+export async function QueryToppingOutside(
+  params: ToppingOutsideParams
+): Promise<ToppingOutsideResponseBody> {
+  const res = await api.get("/users/bingsoos/toppings", {
     params: {
-    "user-id": hyphenParams["user-id"],
-    }
+      ...params,
+    },
   });
   return res.data;
 }
 
-export async function PostComment(req: PostCommentRequestBody): Promise<ToppingInsideResponseBody> {
-  const res = await api.post<ToppingInsideResponseBody>('/users/bingsoos/toppings/comments', req);
+export async function QueryToppingInside(
+  params: ToppingInsideParams
+): Promise<ToppingInsideResponseBody> {
+  const hyphenParams = {
+    "topping-id": params.toppingId, // 하이픈 포함된 키로 변환
+    "user-id": params.userId,
+  };
+
+  const res = await api.get(`/users/bingsoos/toppings/${params.toppingId}`, {
+    params: {
+      "user-id": hyphenParams["user-id"],
+    },
+  });
+  return res.data;
+}
+
+export async function PostComment(
+  req: PostCommentRequestBody
+): Promise<ToppingInsideResponseBody> {
+  const res = await api.post<ToppingInsideResponseBody>(
+    "/users/bingsoos/toppings/comments",
+    req
+  );
   return res.data;
 }
