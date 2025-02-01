@@ -1,120 +1,75 @@
-import ice_banana from "../../assets/toppings/ice_banana.svg";
-import banana from "../../assets/toppings/banana.svg";
-import ice_cherry from "../../assets/toppings/ice_cherry.svg";
-import ice_kiwi from "../../assets/toppings/ice_kiwi.svg";
-import kiwi from "../../assets/toppings/kiwi.svg";
-import ice_mango from "../../assets/toppings/ice_mango.svg";
-import mango from "../../assets/toppings/mango.svg";
-import ice_shine from "../../assets/toppings/ice_shine.svg";
-import shine from "../../assets/toppings/shine.svg";
-import ice_strawberry from "../../assets/toppings/ice_strawberry.svg";
-import strawberry from "../../assets/toppings/strawberry.svg";
-import ice_chex from "../../assets/toppings/ice_chex.svg";
-import chex from "../../assets/toppings/chex.svg";
-import ice_maltesers from "../../assets/toppings/ice_maltesers.svg";
-import maltesers from "../../assets/toppings/maltesers.svg";
-import ice_marshmallow from "../../assets/toppings/ice_marshmallow.svg";
-import marshmallow from "../../assets/toppings/marshmallow.svg";
-import ice_oreo from "../../assets/toppings/ice_oreo.svg";
-import oreo from "../../assets/toppings/oreo.svg";
-import ice_stick from "../../assets/toppings/ice_stick.svg";
-import stick from "../../assets/toppings/stick.svg";
-import ice_injeolmi from "../../assets/toppings/ice_injeolmi.svg";
-import injeolmi from "../../assets/toppings/injeolmi.svg";
-import ice_mochi from "../../assets/toppings/ice_mochi.svg";
-import mochi from "../../assets/toppings/mochi.svg";
-import shark from "../../assets/toppings/shark.svg";
+import Betta from "../../assets/fish/Betta.svg";
+import ice_Betta from "../../assets/fish/ice_Betta.svg";
+import Bungeoppang from "../../assets/fish/Bungeoppang.svg";
+import ice_Bungeoppang from "../../assets/fish/ice_Bungeoppang.svg";
+import GoldenSmelt from "../../assets/fish/GoldenSmelt.svg";
+import ice_GoldenSmelt from "../../assets/fish/ice_GoldenSmelt.svg";
+import Koi from "../../assets/fish/Koi.svg";
+import ice_Koi from "../../assets/fish/ice_Koi.svg";
+import PufferFish from "../../assets/fish/PufferFish.svg";
+import ice_PufferFish from "../../assets/fish/ice_PufferFish.svg";
+import RibbonFish from "../../assets/fish/RibbonFish.svg";
+import ice_RibbonFish from "../../assets/fish/ice_RibbonFish.svg";
+import Shark from "../../assets/fish/Shark.svg";
+import ice_Shark from "../../assets/fish/ice_shark.svg";
+import Smelt from "../../assets/fish/Smelt.svg";
+import ice_Smelt from "../../assets/fish/ice_Smelt.svg";
+import Trout from "../../assets/fish/Trout.svg";
+import ice_Trout from "../../assets/fish/ice_Trout.svg";
 
 export const toppingTypesData = [
   {
     toppingTypeId: 0,
-    toppingTypeCategory: "fruits",
-    toppingTypeName: "banana",
-    frozenImg: ice_banana,
-    defrostedImg: banana,
+    toppingTypeName: "Smelt",
+    frozenImg: ice_Smelt,
+    defrostedImg: Smelt,
   },
   {
     toppingTypeId: 1,
-    toppingTypeCategory: "fruits",
-    toppingTypeName: "shark",
-    frozenImg: ice_cherry,
-    defrostedImg: shark,
+    toppingTypeName: "Trout",
+    frozenImg: ice_Trout,
+    defrostedImg: Trout,
   },
   {
     toppingTypeId: 2,
-    toppingTypeCategory: "fruits",
-    toppingTypeName: "kiwi",
-    frozenImg: ice_kiwi,
-    defrostedImg: kiwi,
+    toppingTypeName: "PufferFish",
+    frozenImg: ice_PufferFish,
+    defrostedImg: PufferFish,
   },
   {
     toppingTypeId: 3,
-    toppingTypeCategory: "fruits",
-    toppingTypeName: "mango",
-    frozenImg: ice_mango,
-    defrostedImg: mango,
+    toppingTypeName: "Koi",
+    frozenImg: ice_Koi,
+    defrostedImg: Koi,
   },
   {
     toppingTypeId: 4,
-    toppingTypeCategory: "fruits",
-    toppingTypeName: "shine",
-    frozenImg: ice_shine,
-    defrostedImg: shine,
+    toppingTypeName: "RibbonFish",
+    frozenImg: ice_RibbonFish,
+    defrostedImg: RibbonFish,
   },
   {
     toppingTypeId: 5,
-    toppingTypeCategory: "fruits",
-    toppingTypeName: "strawberry",
-    frozenImg: ice_strawberry,
-    defrostedImg: strawberry,
+    toppingTypeName: "GoldenSmelt",
+    frozenImg: ice_GoldenSmelt,
+    defrostedImg: GoldenSmelt,
   },
   {
     toppingTypeId: 6,
-    toppingTypeCategory: "snacks",
-    toppingTypeName: "chex",
-    frozenImg: ice_chex,
-    defrostedImg: chex,
+    toppingTypeName: "Betta",
+    frozenImg: ice_Betta,
+    defrostedImg: Betta,
   },
   {
     toppingTypeId: 7,
-    toppingTypeCategory: "snacks",
-    toppingTypeName: "maltesers",
-    frozenImg: ice_maltesers,
-    defrostedImg: maltesers,
+    toppingTypeName: "Shark",
+    frozenImg: ice_Shark,
+    defrostedImg: Shark,
   },
   {
     toppingTypeId: 8,
-    toppingTypeCategory: "snacks",
-    toppingTypeName: "marshmallow",
-    frozenImg: ice_marshmallow,
-    defrostedImg: marshmallow,
-  },
-  {
-    toppingTypeId: 9,
-    toppingTypeCategory: "snacks",
-    toppingTypeName: "oreo",
-    frozenImg: ice_oreo,
-    defrostedImg: oreo,
-  },
-  {
-    toppingTypeId: 10,
-    toppingTypeCategory: "snacks",
-    toppingTypeName: "stick",
-    frozenImg: ice_stick,
-    defrostedImg: stick,
-  },
-  {
-    toppingTypeId: 11,
-    toppingTypeCategory: "ricecakes",
-    toppingTypeName: "injeolmi",
-    frozenImg: ice_injeolmi,
-    defrostedImg: injeolmi,
-  },
-  {
-    toppingTypeId: 12,
-    toppingTypeCategory: "ricecakes",
-    toppingTypeName: "mochi",
-    frozenImg: ice_mochi,
-    defrostedImg: mochi,
+    toppingTypeName: "Bungeoppang",
+    frozenImg: ice_Bungeoppang,
+    defrostedImg: Bungeoppang,
   },
 ];
