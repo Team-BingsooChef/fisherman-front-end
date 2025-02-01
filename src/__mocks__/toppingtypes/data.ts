@@ -11,7 +11,7 @@ import ice_PufferFish from "../../assets/fish/ice_PufferFish.svg";
 import RibbonFish from "../../assets/fish/RibbonFish.svg";
 import ice_RibbonFish from "../../assets/fish/ice_RibbonFish.svg";
 import Shark from "../../assets/fish/Shark.svg";
-import ice_Shark from "../../assets/fish/ice_shark.svg";
+import ice_Shark from "../../assets/fish/ice_Shark.svg";
 import Smelt from "../../assets/fish/Smelt.svg";
 import ice_Smelt from "../../assets/fish/ice_Smelt.svg";
 import Trout from "../../assets/fish/Trout.svg";
