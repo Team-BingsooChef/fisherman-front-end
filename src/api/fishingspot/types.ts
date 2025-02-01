@@ -1,11 +1,11 @@
-export interface PostSmeltsRequestBody {
+export interface SmeltsPostRequestBody {
   smeltId: number;
   title: string;
   content: string;
   senderName: string;
 }
 
-export interface QuerysmeltsResponseBody {
+export interface FishingSpotQueryResponseBody {
   nickname: string;
   currPage: number;
   totalPages: number;
