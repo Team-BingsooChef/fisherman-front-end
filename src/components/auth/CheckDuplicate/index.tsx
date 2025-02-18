@@ -45,7 +45,7 @@ export const CheckDuplicate = () => {
           _hover={{ backgroundColor: "#FFFEFE" }} // Keeps the background white on hover
           _focus={{ backgroundColor: "#FFFEFE", boxShadow: "none" }} // Keeps the background white on focus
         />
-        <CheckDuplicateButton />
+        {/* <CheckDuplicateButton /> */}
       </Flex>
       <BlueRectangleButton onClick={goToEmailCheck}>
         인증하기
@@ -54,26 +54,26 @@ export const CheckDuplicate = () => {
   );
 };
 
-const CheckDuplicateButton: React.FC<CheckDuplicateProps> = ({ onClick }) => {
-  return (
-    <Button
-      onClick={onClick}
-      bg={COLOR.LIGHTBLUE}
-      color="#ffffff"
-      width="80px"
-      fontSize="12px"
-      fontWeight="extrabold"
-      height="60px"
-      borderRadius="16px"
-      _hover={{
-        bg: COLOR.LIGHTBLUE, // hover 시 배경색
-        color: "#ffffff", // hover 시 텍스트 색상 유지
-      }}
-      _active={{
-        transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
-      }}
-    >
-      중복 확인
-    </Button>
-  );
-};
+// const CheckDuplicateButton: React.FC<CheckDuplicateProps> = ({ onClick }) => {
+//   return (
+//     <Button
+//       onClick={onClick}
+//       bg={COLOR.LIGHTBLUE}
+//       color="#ffffff"
+//       width="80px"
+//       fontSize="12px"
+//       fontWeight="extrabold"
+//       height="60px"
+//       borderRadius="16px"
+//       _hover={{
+//         bg: COLOR.LIGHTBLUE, // hover 시 배경색
+//         color: "#ffffff", // hover 시 텍스트 색상 유지
+//       }}
+//       _active={{
+//         transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
+//       }}
+//     >
+//       중복 확인
+//     </Button>
+//   );
+// };
