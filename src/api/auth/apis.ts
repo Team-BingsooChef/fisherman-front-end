@@ -1,26 +1,44 @@
 import { api } from "../../config/axios";
-import { 
-    SignUpRequestBody,
-    SendEmailCodeRequestBody,
-    VerifyEmailCodeRequestBody,
-    VerifyEmailCodeParams
+
+import {
+  EmailCodeSendRequest,
+  EmailSignUpRequest,
+  EmailSignInRequest,
 } from "./types";
 
-export function SignUp(req: SignUpRequestBody): Promise<void> {
-    return api.post('/auth/signup', req);
+export function getEmailCode(req: EmailCodeSendRequest): Promise<void> {
+  return api.post(`/auth/email`, req);
 }
 
-export function SendEmailCode(req: SendEmailCodeRequestBody): Promise<void> {
-    return api.post('/auth/email', req);
-}
-
-export function VerifyEmailCode(
-    req: VerifyEmailCodeRequestBody, 
-    params: VerifyEmailCodeParams
+export function verifyEmailCode(
+  auth_code: string,
+  req: EmailCodeSendRequest
 ): Promise<void> {
-    return api.post('/auth/email/verify', req, {
-        params: {
-            ...params
-        }
-    });
+  return api.post(`/auth/email/verify`, req, {
+    params: { auth_code },
+  });
+}
+
+export function signUpEmail(req: EmailSignUpRequest): Promise<void> {
+  return api.post(`/users/sing-up`, req);
+}
+
+export interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export async function emailLogin(
+  req: EmailSignInRequest
+): Promise<LoginResponse> {
+  const formData = new FormData();
+  formData.append("email", req.email);
+  formData.append("password", req.password);
+
+  const res = await api.post("/api/login", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return res.data;
 }

@@ -17,8 +17,6 @@ import {
 } from "../../../__mocks__/quizData";
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 
-import { SendAnswer } from "../../../api/quiz/apis";
-
 export const OpenQuiz = () => {
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();

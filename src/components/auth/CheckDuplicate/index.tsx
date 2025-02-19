@@ -1,26 +1,46 @@
-import { Flex, Box, Button, Input, Text } from "@chakra-ui/react";
+import { Flex, Box, Text, Input, useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useState, MouseEventHandler } from "react";
-import { COLOR } from "../../../styles/color";
+import { useState } from "react";
 import { BlueRectangleButton } from "../../common/CustomedButton";
-// import { useState, MouseEventHandler } from "react";
+import { getEmailCode } from "../../../api/auth/apis";
+import { EmailCodeSendRequest } from "../../../api/auth/types";
 
-interface CheckDuplicateProps {
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  text?: string;
-}
-
-// export const CheckDuplicate: React.FC<CheckDuplicateProps> = ({ onClick }) => {
 export const CheckDuplicate = () => {
   const [email, setEmail] = useState("");
+  const toast = useToast();
   const navigate = useNavigate();
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-  const goToEmailCheck = () => {
-    navigate("/emailcheck", { state: { from: "signup" } });
+
+  const handleEmailVerification = async () => {
+    if (!email) {
+      toast({
+        title: "이메일을 입력해 주세요.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    localStorage.setItem("user_email", email);
+
+    const req: EmailCodeSendRequest = { email };
+
+    try {
+      await getEmailCode(req);
+      navigate("/emailcheck", { state: { from: "signup" } });
+    } catch (error) {
+      console.error("이메일 인증 요청 실패:", error);
+      toast({
+        title: "이메일 인증 요청에 실패했습니다.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -42,38 +62,13 @@ export const CheckDuplicate = () => {
           borderRadius="16px"
           backgroundColor="#FFFEFE"
           mb="24px"
-          _hover={{ backgroundColor: "#FFFEFE" }} // Keeps the background white on hover
-          _focus={{ backgroundColor: "#FFFEFE", boxShadow: "none" }} // Keeps the background white on focus
+          _hover={{ backgroundColor: "#FFFEFE" }}
+          _focus={{ backgroundColor: "#FFFEFE", boxShadow: "none" }}
         />
-        <CheckDuplicateButton />
       </Flex>
-      <BlueRectangleButton onClick={goToEmailCheck}>
+      <BlueRectangleButton onClick={handleEmailVerification}>
         인증하기
       </BlueRectangleButton>
     </Box>
-  );
-};
-
-const CheckDuplicateButton: React.FC<CheckDuplicateProps> = ({ onClick }) => {
-  return (
-    <Button
-      onClick={onClick}
-      bg={COLOR.LIGHTBLUE}
-      color="#ffffff"
-      width="80px"
-      fontSize="12px"
-      fontWeight="extrabold"
-      height="60px"
-      borderRadius="16px"
-      _hover={{
-        bg: COLOR.LIGHTBLUE, // hover 시 배경색
-        color: "#ffffff", // hover 시 텍스트 색상 유지
-      }}
-      _active={{
-        transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
-      }}
-    >
-      중복 확인
-    </Button>
   );
 };

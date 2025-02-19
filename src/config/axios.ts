@@ -46,17 +46,14 @@ api.interceptors.response.use(
         },
       });
       if (resp.ok) {
-        console.log("토큰 재발급 성공");
         const res = await resp.json();
         localStorage.setItem("accessToken", res.accessToken);
         localStorage.setItem("refreshToken", res.refreshToken);
         return api(originalRequest);
       } else {
-        console.log("토큰 재발급 실패");
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         window.location.href = "/login";
-
       }
       return Promise.reject(error);
     }

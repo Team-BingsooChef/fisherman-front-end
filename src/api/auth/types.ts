@@ -1,16 +1,14 @@
-export interface SignUpRequestBody {
-    username: string;
-    password: string;
-};
+export interface EmailCodeSendRequest {
+  email: string;
+}
 
-export interface SendEmailCodeRequestBody {
-    email: string;
-};
+export interface EmailSignUpRequest {
+  email: string;
+  password: string;
+  nickname: string;
+}
 
-export interface VerifyEmailCodeRequestBody {
-    email: string;
-};
-
-export interface VerifyEmailCodeParams {
-    code: string;
-};
+export interface EmailSignInRequest {
+  email: string;
+  password: string;
+}
