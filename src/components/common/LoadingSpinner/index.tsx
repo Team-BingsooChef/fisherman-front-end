@@ -14,16 +14,16 @@ export default function LoadingSpinner({ timeout = 200 }) {
     }, timeout);
 
     return () => clearTimeout(timer); // 메모리 누수 방지
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       {showSpinner && (
         <>
-          <img className="w-[60px] h-[60px]" src={shark}/>
-          <div className="h-[12px]"/>
-          <SyncLoader color="#C6CFF8" size={10}/>
+          <img className="w-[60px] h-[60px]" src={shark} />
+          <div className="h-[12px]" />
+          <SyncLoader color="#C6CFF8" size={10} />
         </>
       )}
     </div>

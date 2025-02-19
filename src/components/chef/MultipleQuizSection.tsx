@@ -13,6 +13,7 @@ export const MultipleQuizSection = () => {
     }
   };
   // 입력값 변경
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleInputChange = (index: number, value: any) => {
     const updatedOptions = options.map((option, i) =>
       i === index ? { ...option, text: value } : option
