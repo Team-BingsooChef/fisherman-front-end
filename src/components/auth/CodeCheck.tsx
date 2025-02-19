@@ -3,9 +3,11 @@ import { useState, useEffect, useRef } from "react";
 import { Box, Flex, Text, useToast } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavyRectangleButton } from "../common/CustomedButton";
+import { verifyEmailCode } from "../../api/auth/apis"; // API 함수 임포트
+import { EmailCodeSendRequest } from "../../api/auth/types"; // 요청 타입
 
 export const CodeCheck = () => {
-  const [timeLeft, setTimeLeft] = useState(300); // 300초 = 5분
+  const [timeLeft, setTimeLeft] = useState(300); // 5분 타이머
   const [timeExpired, setTimeExpired] = useState(false);
   const [code, setCode] = useState<string[]>(Array(6).fill(""));
   const inputRefs = useRef<HTMLInputElement[]>([]);
@@ -13,14 +15,12 @@ export const CodeCheck = () => {
   const location = useLocation();
   const toast = useToast();
 
-  // 이전 페이지 정보 확인
-  const from = location.state?.from || "unknown"; // 기본값 설정
-  // 타이머 로직
+  const from = location.state?.from || "unknown";
+  const email = localStorage.getItem("user_email");
+
   useEffect(() => {
     if (timeLeft > 0) {
-      const timer = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1);
-      }, 1000);
+      const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
       return () => clearInterval(timer);
     } else {
       setTimeExpired(true);
@@ -34,30 +34,26 @@ export const CodeCheck = () => {
     }
   }, [timeLeft, toast]);
 
-  // 포맷된 타이머 출력
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${minutes}분 ${secs < 10 ? `0${secs}` : secs}초`;
   };
 
-  // 입력 필드 변경 핸들러
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const value = e.target.value.slice(0, 1); // 한 글자만 허용
+    const value = e.target.value.slice(0, 1);
     const newCode = [...code];
     newCode[index] = value;
     setCode(newCode);
 
-    // 다음 입력 필드로 이동
     if (value && index < inputRefs.current.length - 1) {
       inputRefs.current[index + 1]?.focus();
     }
   };
 
-  // 백스페이스 핸들러
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number
@@ -67,24 +63,50 @@ export const CodeCheck = () => {
     }
   };
 
-  // 인증 코드 제출
-  const handleSubmit = () => {
-    if (code.join("") === "123456") {
+  const handleSubmit = async () => {
+    if (!email) {
+      toast({
+        title: "이메일 정보가 없습니다.",
+        description: "다시 시도해주세요.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    const auth_code = code.join("");
+    if (auth_code.length !== 6) {
+      toast({
+        title: "인증 코드가 올바르지 않습니다.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    const req: EmailCodeSendRequest = { email };
+
+    try {
+      await verifyEmailCode(auth_code, req);
+
       toast({
         title: "인증되었습니다.",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
+
       if (from === "signup") {
-        // 비밀번호 설정은 같은 페이지에서, but 이전 페이지 정보를 전달
         navigate("/setpassword", { state: { action: "setpassword" } });
       } else if (from === "findpassword") {
         navigate("/setpassword", { state: { action: "resetpassword" } });
       } else {
         console.error("Unknown navigation source");
       }
-    } else {
+    } catch (error) {
+      console.error("인증 코드 검증 실패:", error);
       toast({
         title: "인증 번호가 틀렸습니다.",
         status: "error",
@@ -94,7 +116,6 @@ export const CodeCheck = () => {
     }
   };
 
-  // 인증 코드 재전송
   const handleResend = () => {
     toast({
       title: "인증 코드를 다시 전송했습니다.",
@@ -102,8 +123,8 @@ export const CodeCheck = () => {
       duration: 3000,
       isClosable: true,
     });
-    setTimeLeft(300); // 타이머 리셋
-    setTimeExpired(false); // 만료 상태 초기화
+    setTimeLeft(300);
+    setTimeExpired(false);
   };
 
   return (
@@ -117,7 +138,7 @@ export const CodeCheck = () => {
             value={code[index]}
             onChange={(e) => handleInputChange(e, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            ref={(el) => (inputRefs.current[index] = el!)} // ref 배열에 추가
+            ref={(el) => (inputRefs.current[index] = el!)}
           />
         ))}
       </InputsContainer>

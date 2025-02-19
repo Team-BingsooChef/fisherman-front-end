@@ -23,3 +23,9 @@ export interface UserInfoQueryResponseBody {
   nickname: string;
   public: boolean;
 }
+
+export interface UserModel {
+  email: string;
+  nickname: string;
+  isPublic: boolean;
+}
