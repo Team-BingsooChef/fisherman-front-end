@@ -3,42 +3,38 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Text, Image } from "@chakra-ui/react";
 import { toppingData } from "../../../__mocks__/topping/data";
 import { toppingTypesData } from "../../../__mocks__/toppingtypes/data";
-import { ToppingOutsideType } from "../../../api/topping/types";
 import { usePaginationStore } from "../../../store/home";
 import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
-import { useSelectedToppingStore } from "../../../store/api/topping";
 import "./ToppingPosition.css";
 
 export const Toppings = () => {
-  const currentPage = usePaginationStore((state) => state.currentPage); // Zustand에서 currentPage 가져오기
-  // 현재 페이지 데이터
+  const currentPage = usePaginationStore((state) => state.currentPage);
 
   return (
     <>
-      {toppingData[currentPage]?.toppings.map((topping: ToppingOutsideType) => (
+      {toppingData[currentPage]?.toppings.map((topping) => (
         <ToppingElement key={topping.toppingId} topping={topping} />
       ))}
     </>
   );
 };
 
-const ToppingElement = ({ topping }: { topping: ToppingOutsideType }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ToppingElement = ({ topping }: { topping: any }) => {
   const { setModalState } = useModalStateStore();
   const { onOpen } = useModalOpenStore();
-  const { setSelectedToppingId } = useSelectedToppingStore();
-  // toppingTypeId와 isHidden을 기반으로 이미지 가져오기
+
   const matchingToppingType = toppingTypesData.find(
     (type) => type.toppingTypeId === topping.toppingTypeId
   );
   const imgSrc = topping.isHidden
-    ? matchingToppingType?.frozenImg // isHidden이면 frozenImg 사용
-    : matchingToppingType?.defrostedImg; // isHidden이 아니면 defrostedImg 사용
+    ? matchingToppingType?.frozenImg
+    : matchingToppingType?.defrostedImg;
 
-  // `toppingId % 8` 값을 기반으로 스타일 구분
   const groupClass = `group-${topping.toppingId % 8}`;
 
   const handleClick = () => {
-    setSelectedToppingId(topping.toppingId);
+    localStorage.setItem("selectedToppingId", topping.toppingId);
     if (topping.isHidden) {
       setModalState("openQuiz");
       onOpen();
@@ -47,12 +43,13 @@ const ToppingElement = ({ topping }: { topping: ToppingOutsideType }) => {
       onOpen();
     }
   };
+
   return (
     <Box
-      className={`topping-box ${groupClass}`} // CSS 클래스 적용
-      data-group={topping.toppingId % 8} // 데이터 속성으로도 구분 가능
+      className={`topping-box ${groupClass}`}
+      data-group={topping.toppingId % 8}
       textAlign="center"
-      onClick={handleClick} // 클릭 이벤트 추가
+      onClick={handleClick}
       cursor="pointer"
     >
       <Image
