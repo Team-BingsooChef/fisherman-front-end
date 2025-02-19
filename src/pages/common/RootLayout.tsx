@@ -13,7 +13,8 @@ export default function RootLayout() {
   // 경로에 따라 배경 이미지 선택
 
   useEffect(() => {
-    if (!localStorage.getItem(accessToken) && !isAuthPath) {
+    const token = localStorage.getItem("accessToken");
+    if (!token && !isAuthPath) {
       navigate("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
