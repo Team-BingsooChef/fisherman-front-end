@@ -1,9 +1,9 @@
-export interface CommentSendRequestBody {
+export type CommentSendRequestBody = {
   content: string;
-}
+};
 
 //퀴즈
-export interface QuizQueryResponseBody {
+export type QuizQueryResponseBody = {
   quiz: {
     id: number;
     title: string;
@@ -11,26 +11,23 @@ export interface QuizQueryResponseBody {
     wrongCount: number;
     isSolved: boolean;
   };
-  questions: [
-    {
-      id: number;
-      content: string;
-      isAnswer: boolean;
-    }
-  ];
-}
+  questions: {
+    id: number;
+    content: string;
+    isAnswer: boolean;
+  }[];
+};
 
-export interface QuizSolveRequestBody {
-  quizId: number;
+export type QuizSolveRequestBody = {
   questionId: number;
-}
+};
 
-export interface QuizSolveResponseBody {
+export type QuizSolveResponseBody = {
   result: boolean;
   wrongCount: number;
-}
+};
 
-export interface SmeltsLetterQueryResponseBody {
+export type SmeltsLetterQueryResponseBody = {
   smelt: {
     id: number;
     senderId: number;
@@ -50,15 +47,13 @@ export interface SmeltsLetterQueryResponseBody {
       createdTime: string;
     };
   };
-}
+};
 
-export interface SmeltsCategoryQueryResponseBody {
-  smeltTypes: [
-    {
-      id: number;
-      name: string;
-      image: string;
-      iceImage: string;
-    }
-  ];
-}
+export type SmeltsCategoryQueryResponseBody = {
+  smeltTypes: {
+    id: number;
+    name: string;
+    imageUrl: string;
+    iceImageUrl: string;
+  }[];
+};

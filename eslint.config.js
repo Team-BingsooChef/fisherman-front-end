@@ -37,7 +37,6 @@ export default tseslint.config(
 
       // General ESLint Rules
       "no-unused-vars": "off", // Delegated to @typescript-eslint/no-unused-vars
-      "no-console": ["warn", { allow: ["warn", "error"] }],
       eqeqeq: ["error", "always"],
       curly: ["error", "all"],
       semi: ["error", "always"],

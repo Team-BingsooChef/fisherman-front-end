@@ -12,7 +12,7 @@ export async function drawSmelts(
   return res.data;
 }
 
-export async function querySmeltsInventory(
+export async function querySmeltsStatistics(
   inventoryId: number
 ): Promise<SmeltsInventoryQueryResponseBody> {
   const res = await api.get(`/inventories/${inventoryId}/smelts/statistics`);
@@ -23,5 +23,15 @@ export async function querySentSmelts(
   inventoryId: number
 ): Promise<SentSmeltsQueryResponseBody> {
   const res = await api.get(`/inventories/${inventoryId}/smelts/sent`);
+  return res.data;
+}
+
+interface MyInventoryResponse {
+  id: number;
+  coin: number;
+}
+//inventory id랑 coin
+export async function queryMyInventory(): Promise<MyInventoryResponse> {
+  const res = await api.get(`/inventories/mine`);
   return res.data;
 }

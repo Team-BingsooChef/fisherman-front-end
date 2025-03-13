@@ -7,39 +7,35 @@ export interface SmeltsDrawResponseBody {
   };
 }
 
-export interface SmeltsInventoryQueryResponseBody {
-  counts: [
-    {
-      count: number;
-      smeltTypeId: number;
-    }
-  ];
-}
+export type SmeltsInventoryQueryResponseBody = {
+  counts: {
+    smeltTypeId: number;
+    count: number;
+  }[];
+};
 
-export interface SentSmeltsQueryResponseBody {
-  nickname: string;
+export type SentSmeltsQueryResponseBody = {
   currPage: number;
   totalPages: number;
   totalElements: number;
-  smelts: [
-    {
+  smelts: {
+    id: number;
+    inventoryId: number;
+    fishingSpotId: number;
+    fishermanNickname: string;
+    smeltTypeId: number;
+    status: string;
+    letter: {
       id: number;
-      inventoryId: number;
-      fishingSpotId: number;
-      smeltTypeId: number;
-      status: string;
-      letter: {
+      senderName: string;
+      title: string;
+      content: string;
+      createdTime: string;
+      comment: {
         id: number;
-        senderName: string;
-        title: string;
         content: string;
         createdTime: string;
-        comment: {
-          id: number;
-          content: string;
-          createdTime: string;
-        };
       };
-    }
-  ];
-}
+    };
+  }[];
+};

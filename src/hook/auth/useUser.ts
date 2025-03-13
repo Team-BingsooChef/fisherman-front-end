@@ -1,63 +1,74 @@
-// import { UserModel } from "@/user/api/user-response.ts";
-// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-// import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/global/const/const.ts";
-// import { getMyInfo } from "@/user/api/user-api.ts";
-// import { ApiError } from "@/global/api/response.ts";
-// import { LoginResponse } from "@/user/api/auth-response.ts";
-// import { emailLogin, EmailLoginRequest, signup } from "@/user/api/auth-api.ts";
-// import { SignupRequest } from "@/user/api/auth-request.ts";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants/const.ts";
+import { ApiError } from "../../api/global/apis.ts";
+import { EmailSignInRequest } from "../../api/auth/types.ts";
+import { LoginResponse, emailLogin } from "../../api/auth/apis.ts";
+import { getUserId, queryUserInfo } from "../../api/user/apis.ts";
+import { getFishingSpotId } from "../../api/fishingspot/apis.ts";
 
-// interface UserState {
-//   user?: UserModel;
-//   error: ApiError | null;
-//   signup: (req: SignupRequest) => Promise<void>;
-//   login: (req: EmailLoginRequest) => Promise<void>;
-// }
+export interface UserModel {
+  email: string;
+  nickname: string;
+  fishingSpotId: number;
+  userId: number;
+}
 
-// export function useUser(): UserState {
-//   const { data, error } = useQuery<UserModel, ApiError, UserModel>({
-//     queryKey: ["userInfo"],
-//     enabled: localStorage.getItem(ACCESS_TOKEN) != null, // 토큰이 없으면 쿼리를 실행x
-//     queryFn: getMyInfo,
-//     staleTime: 1000 * 60 * 60, // 1시간동안 캐시 유지
-//     gcTime: 1000 * 60 * 30, // 30분 후에 캐시 삭제
-//   });
+interface UserState {
+  user?: UserModel;
+  error: ApiError | null;
+  login: (req: EmailSignInRequest) => Promise<void>;
+}
 
-//   const queryClient = useQueryClient();
+export function useUser(): UserState {
+  const queryClient = useQueryClient();
 
-//   const loginMutation = useMutation<
-//     LoginResponse,
-//     ApiError,
-//     EmailLoginRequest,
-//     LoginResponse
-//   >({
-//     mutationFn: emailLogin,
-//     onSuccess: async (response) => {
-//       localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-//       localStorage.setItem(REFRESH_TOKEN, response.refreshToken);
-//       const userInfo = await getMyInfo();
-//       await queryClient.setQueryData(["userInfo"], userInfo);
-//     },
-//   });
+  const { data: user, error } = useQuery<UserModel, ApiError>({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const userId = await getUserId();
+      const userInfo = await queryUserInfo(userId);
+      const fishingSpotIdResponse = await getFishingSpotId();
+      const fishingSpotId = fishingSpotIdResponse.fishingSpotId;
 
-//   const signupMutation = useMutation<void, ApiError, SignupRequest, void>({
-//     mutationFn: signup,
-//     onSuccess: async (data, req) => {
-//       await loginMutation.mutateAsync({
-//         username: req.username,
-//         password: req.password,
-//       });
-//     },
-//   });
+      return {
+        email: userInfo.email,
+        nickname: userInfo.nickname,
+        fishingSpotId: fishingSpotId,
+        userId: userId,
+      };
+    },
+    enabled: !!localStorage.getItem(ACCESS_TOKEN), // 토큰이 있을 때만 실행
+  });
 
-//   return {
-//     user: data,
-//     error: error,
-//     signup: async (req) => {
-//       await signupMutation.mutateAsync(req);
-//     },
-//     login: async (req) => {
-//       await loginMutation.mutateAsync(req);
-//     },
-//   };
-// }
+  const loginMutation = useMutation<
+    LoginResponse,
+    ApiError,
+    EmailSignInRequest
+  >(emailLogin, {
+    onSuccess: async (response) => {
+
+
+      const userId = await getUserId();
+      const userInfo = await queryUserInfo(userId);
+      const fishingSpotIdResponse = await getFishingSpotId();
+      const fishingSpotId = fishingSpotIdResponse.fishingSpotId;
+
+      const userModel: UserModel = {
+        email: userInfo.email,
+        nickname: userInfo.nickname,
+        fishingSpotId: fishingSpotId,
+        userId: userId,
+      };
+
+      queryClient.setQueryData(["user"], userModel);
+    },
+  });
+
+  return {
+    user,
+    error,
+    login: async (req) => {
+      await loginMutation.mutateAsync(req);
+    },
+  };
+}

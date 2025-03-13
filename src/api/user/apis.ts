@@ -3,8 +3,6 @@ import { api } from "../../config/axios";
 import {
   FishingSpotSearchResponseBody,
   CoinQueryResponseBody,
-  UserInfoChangeParams,
-  UserInfoChangeRequestBody,
   UserInfoQueryResponseBody,
 } from "./types";
 
@@ -26,17 +24,14 @@ export function deleteUser(userId: number): Promise<void> {
   return api.delete(`/users/${userId}`);
 }
 
-export function changeUserInfo(
-  userId: number,
-  req: UserInfoChangeRequestBody,
-  params: UserInfoChangeParams
-): Promise<void> {
-  return api.patch(`/users/${userId}`, req, { params });
-}
-
 export async function queryUserInfo(
   userId: number
 ): Promise<UserInfoQueryResponseBody> {
   const res = await api.get(`/users/${userId}`);
+  return res.data;
+}
+
+export async function getUserId(): Promise<number> {
+  const res = await api.get(`/users/mine`);
   return res.data;
 }

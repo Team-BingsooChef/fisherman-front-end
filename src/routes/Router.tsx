@@ -14,7 +14,7 @@ import FishDrawingPage from "../pages/user/FishDrawingPage";
 import FishBagPage from "../pages/user/FishBagPage";
 import RedirectPage from "../pages/auth/RedirectPage";
 import SendingPage from "../pages/chef/SendingPage";
-
+import TestPage from "./TestPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: ":bingsooId", // 동적 경로
+        path: ":fishingSpotId", // 동적 경로
         element: <HomePage />, // 동일한 페이지를 렌더링하거나 다른 컴포넌트를 설정할 수 있음
       },
       {
@@ -79,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "sending",
         element: <SendingPage />,
+      },
+      {
+        path: "test",
+        element: <TestPage />,
       },
     ],
   },

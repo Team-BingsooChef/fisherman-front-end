@@ -58,18 +58,7 @@ export const EmailLogin = () => {
     const req: EmailSignInRequest = { email, password };
 
     try {
-      const response = await emailLogin(req);
-      localStorage.setItem("accessToken", response.accessToken);
-      localStorage.setItem("refreshToken", response.refreshToken);
-
-      toast({
-        title: "로그인 성공!",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-
-      navigate("/");
+      await emailLogin(req);
     } catch {
       toast({
         title: "로그인 실패",
