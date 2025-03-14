@@ -2,13 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { Box, SimpleGrid, Flex, Text, Button } from "@chakra-ui/react";
-import { fishdata } from "../../__mocks__/fishData";
+
+import useSmeltsStatistics from "../../hook/inventory/useSmeltsStatistics";
 
 export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
+  const { data } = useSmeltsStatistics(1);
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
-  const handleItemClick = (id: string) => {
-    setSelectedItem((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
+  const [selectedTypeId, setSelectedTypeId] = useState<number | null>(null);
+  const handleItemClick = (id: number) => {
+    setSelectedTypeId((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
   };
 
   return (
@@ -46,11 +48,11 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
         borderRadius="8px"
       >
         <SimpleGrid columns={3} spacing="20px" mt={4}>
-          {fishdata.map((item) => (
-            <Box key={item.id}>
+          {data?.map((item) => (
+            <Box key={item.smeltTypeId}>
               <Box
-                onClick={() => handleItemClick(item.id.toString())} // 클릭 핸들러 추가
-                bg={selectedItem === item.id.toString() ? "#E0F7FA" : "#d9d9d9"} // 선택된 아이템 강조
+                onClick={() => handleItemClick(item.smeltTypeId)} // 클릭 핸들러 추가
+                bg={selectedTypeId === item.smeltTypeId ? "#E0F7FA" : "#d9d9d9"} // 선택된 아이템 강조
                 boxSize="100px"
                 position="relative"
                 display="flex"
@@ -68,7 +70,12 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
                   justifyContent="center"
                   alignItems="center"
                 >
-                  <img src={item.image} alt="fish" width="70px" height="70px" />
+                  <img
+                    src={item.smeltImageUrl}
+                    alt="fish"
+                    width="70px"
+                    height="70px"
+                  />
                 </Box>
               </Box>
               <Text
@@ -77,7 +84,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
                 textAlign="center"
                 mt="4px"
               >
-                {item.text} {item.count} 개
+                {item.smeltTypeName} {item.count} 개
               </Text>
             </Box>
           ))}
@@ -95,7 +102,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
         position="absolute"
         bottom="23px"
         _hover={{ bg: "#03526B" }}
-        isDisabled={!selectedItem} // 선택된 아이템 없을 시 비활성화
+        isDisabled={!selectedTypeId} // 선택된 아이템 없을 시 비활성화
       >
         다음
       </Button>
