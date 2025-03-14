@@ -1,41 +1,71 @@
 import { Box, IconButton } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Text, Image } from "@chakra-ui/react";
-import { toppingData } from "../../../__mocks__/topping/data";
-import { toppingTypesData } from "../../../__mocks__/toppingtypes/data";
-import { usePaginationStore } from "../../../store/home";
 import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
+
+import useFishingSpot from "../../../hook/fishingspot/useFishingSpot";
+import {
+  querySmeltsCategory,
+  querySmeltsDetail,
+} from "../../../api/smelts/apis";
+import { SmeltStatus } from "../../../api/fishingspot/types";
+import { SmeltsCategoryQueryResponseBody } from "../../../api/smelts/types";
 import "./ToppingPosition.css";
+import { useEffect, useState } from "react";
+import { get } from "http";
 
 export const Toppings = () => {
-  const currentPage = usePaginationStore((state) => state.currentPage);
+  const { data, currentPage, totalPages, nextPage, prevPage } =
+    useFishingSpot(1);
 
   return (
     <>
-      {toppingData[currentPage]?.toppings.map((topping) => (
-        <ToppingElement key={topping.toppingId} topping={topping} />
+      {data?.smelts.map((smelt) => (
+        <ToppingElement key={smelt.id} topping={smelt} />
       ))}
     </>
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ToppingElement = ({ topping }: { topping: any }) => {
+type ToppingProps = {
+  topping: {
+    id: number;
+    smeltTypeId: number;
+    status: SmeltStatus;
+  };
+};
+
+const ToppingElement = ({ topping }: ToppingProps) => {
   const { setModalState } = useModalStateStore();
   const { onOpen } = useModalOpenStore();
 
-  const matchingToppingType = toppingTypesData.find(
-    (type) => type.toppingTypeId === topping.toppingTypeId
-  );
-  const imgSrc = topping.isHidden
-    ? matchingToppingType?.frozenImg
-    : matchingToppingType?.defrostedImg;
+  const [smeltTypes, setSmeltTypes] = useState<
+    SmeltsCategoryQueryResponseBody["smeltTypes"]
+  >([]);
 
-  const groupClass = `group-${topping.toppingId % 8}`;
+  useEffect(() => {
+    const getSmeltsType = async () => {
+      const res = await querySmeltsCategory();
+      setSmeltTypes(res.smeltTypes);
+    };
+
+    getSmeltsType();
+  }, []);
+
+  const matchingSmeltType = smeltTypes.find(
+    (smelt) => smelt.id === topping.smeltTypeId
+  );
+
+  const imgSrc =
+    topping.status === "UNREAD"
+      ? matchingSmeltType?.iceImageUrl
+      : matchingSmeltType?.imageUrl;
+
+  const groupClass = `group-${topping.id % 8}`;
 
   const handleClick = () => {
-    localStorage.setItem("selectedToppingId", topping.toppingId);
-    if (topping.isHidden) {
+    localStorage.setItem("selectedToppingId", topping.id.toString());
+    if (topping.status === "UNREAD") {
       setModalState("openQuiz");
       onOpen();
     } else {
@@ -47,14 +77,14 @@ const ToppingElement = ({ topping }: { topping: any }) => {
   return (
     <Box
       className={`topping-box ${groupClass}`}
-      data-group={topping.toppingId % 8}
+      data-group={topping.id % 8}
       textAlign="center"
       onClick={handleClick}
       cursor="pointer"
     >
       <Image
         src={imgSrc}
-        alt={matchingToppingType?.toppingTypeName}
+        alt={matchingSmeltType?.name}
         boxSize="100px"
         objectFit="contain"
       />
