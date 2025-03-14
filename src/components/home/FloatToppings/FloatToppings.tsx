@@ -4,24 +4,25 @@ import { Text, Image } from "@chakra-ui/react";
 import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
 
 import useFishingSpot from "../../../hook/fishingspot/useFishingSpot";
-import {
-  querySmeltsCategory,
-  querySmeltsDetail,
-} from "../../../api/smelts/apis";
+import { querySmeltsCategory } from "../../../api/smelts/apis";
 import { SmeltStatus } from "../../../api/fishingspot/types";
 import { SmeltsCategoryQueryResponseBody } from "../../../api/smelts/types";
 import "./ToppingPosition.css";
 import { useEffect, useState } from "react";
-import { get } from "http";
 
 export const Toppings = () => {
-  const { data, currentPage, totalPages, nextPage, prevPage } =
-    useFishingSpot(1);
+  const { smeltsWithSender } = useFishingSpot(1);
 
   return (
     <>
-      {data?.smelts.map((smelt) => (
-        <ToppingElement key={smelt.id} topping={smelt} />
+      {smeltsWithSender?.map((smelt) => (
+        <ToppingElement
+          key={smelt.id}
+          topping={{
+            ...smelt,
+            status: smelt.status as SmeltStatus,
+          }}
+        />
       ))}
     </>
   );
@@ -32,6 +33,7 @@ type ToppingProps = {
     id: number;
     smeltTypeId: number;
     status: SmeltStatus;
+    senderName?: string;
   };
 };
 
@@ -88,23 +90,23 @@ const ToppingElement = ({ topping }: ToppingProps) => {
         boxSize="100px"
         objectFit="contain"
       />
-      <Text>{topping.chefName}</Text>
+      <Text>{topping.senderName}</Text>
     </Box>
   );
 };
 
 export const ToppingsPagination = () => {
-  const { currentPage, setCurrentPage, totalPages } = usePaginationStore();
+  const { currentPage, totalPages, nextPage, prevPage } = useFishingSpot(1);
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
-      setCurrentPage(currentPage + 1);
+      nextPage();
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
+      prevPage();
     }
   };
 

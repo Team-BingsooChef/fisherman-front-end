@@ -1,6 +1,6 @@
 import { Menu } from "../Menu";
 import { FishingSpot } from "../Bingsoo";
-import { ToppingsPagination } from "../FloatToppings";
+import { ToppingsPagination } from "../FloatToppings/FloatToppings";
 import { AddToppingButton, CopyLink } from "../HomeBottomButton";
 import { Text, Flex, IconButton, Box } from "@chakra-ui/react";
 import { House } from "lucide-react";

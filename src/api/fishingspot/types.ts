@@ -1,5 +1,5 @@
 export interface SmeltsPostRequestBody {
-  smeltId: number;
+  smeltTypeId: number;
   title: string;
   content: string;
   senderName: string;

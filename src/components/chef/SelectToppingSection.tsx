@@ -5,25 +5,10 @@ import { Box, SimpleGrid, Flex, Text, Button } from "@chakra-ui/react";
 import { fishdata } from "../../__mocks__/fishData";
 
 export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
-  // onNext prop 추가
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState<string | null>(null); // 선택된 아이템 ID 저장
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const handleItemClick = (id: string) => {
     setSelectedItem((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
-  };
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "common":
-        return "green.400";
-      case "rare":
-        return "pink.300";
-      case "legendary":
-        return "red.500";
-      case "funny":
-        return "yellow.400";
-      default:
-        return "gray.200";
-    }
   };
 
   return (
@@ -76,24 +61,6 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
                 _hover={{ transform: "translateY(-2px)", boxShadow: "md" }}
                 transition="all 0.2s"
               >
-                {/* 상태 표시 */}
-                <Box
-                  position="absolute"
-                  top="0"
-                  left="0"
-                  bg={getStatusColor(item.status)}
-                  color="white"
-                  px={2}
-                  py={1}
-                  fontSize="xs"
-                  fontWeight="bold"
-                  borderRadius="8px"
-                  zIndex="1"
-                  transform="translate(-10%, -10%) rotate(-25deg)"
-                >
-                  {item.status}
-                </Box>
-
                 {/* 물고기 이미지와 정보 */}
                 <Box
                   boxSize="90px"
