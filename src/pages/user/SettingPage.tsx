@@ -17,23 +17,26 @@ import profile_example from "../../assets/profile_example.jpg";
 import { LockKeyhole, RotateCcw, Trash2, Pencil } from "lucide-react";
 
 import { useQueryUserInfo } from "../../hook/user/useQueryUserInfo";
+import { useChangeFishingSpotPublic } from "../../hook/fishingspot/useChangeFishingSpotPublic";
 
 export default function SettingPage() {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: userInfoData } = useQueryUserInfo();
-
+  const { changeFishingSpotPublic } = useChangeFishingSpotPublic();
   const goHome = () => {
     navigate("/");
   };
 
   // 상태를 나타내는 타입
-  type SearchStatus = "허용" | "금지";
+  type publicStatusType = "허용" | "금지";
 
-  const [accessStatus, setAccessStatus] = useState<SearchStatus>("금지");
+  const [publicStatus, setPublicStatus] = useState<publicStatusType>("금지");
 
-  const toggleAccess = () => {
-    setAccessStatus((prev) => (prev === "허용" ? "금지" : "허용"));
+  const togglePublic = () => {
+    const isPublic = Boolean(publicStatus === "허용"); // "허용"이면 true, "금지"이면 false
+    changeFishingSpotPublic(isPublic);
+    setPublicStatus((prev) => (prev === "허용" ? "금지" : "허용")); // 상태 토글
   };
 
   return (
@@ -105,8 +108,8 @@ export default function SettingPage() {
         <LockKeyhole />
         <FlexChangeElement
           text1="검색 허용"
-          text2={accessStatus}
-          onClick={toggleAccess}
+          text2={publicStatus}
+          onClick={togglePublic}
         />
       </Box>
 
