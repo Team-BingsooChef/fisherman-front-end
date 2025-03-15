@@ -1,8 +1,6 @@
-import { useEffect } from "react";
 import { querySmeltsStatistics } from "../../api/inventory/apis";
-import { SmeltsInventoryQueryResponseBody } from "../../api/inventory/types";
 import { querySmeltsCategory } from "../../api/smelts/apis";
-import { useQuery, useQueries } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 
 export default function useSmeltsStatistics(inventoryId: number) {
   const results = useQueries({

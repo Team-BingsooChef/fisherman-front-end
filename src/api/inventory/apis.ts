@@ -26,10 +26,11 @@ export async function querySentSmelts(
   return res.data;
 }
 
-interface MyInventoryResponse {
+export interface MyInventoryResponse {
   id: number;
   coin: number;
 }
+
 //inventory id랑 coin
 export async function queryMyInventory(): Promise<MyInventoryResponse> {
   const res = await api.get(`/inventories/mine`);
