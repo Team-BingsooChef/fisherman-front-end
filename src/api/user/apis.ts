@@ -32,7 +32,7 @@ export async function queryUserInfo(
 }
 
 export async function getUserId(): Promise<number> {
-  const res = await api.get(`/users/mine`);
+  const res = await api.get(`/users/heath-check`);
   return res.data;
 }
 

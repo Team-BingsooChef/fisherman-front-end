@@ -5,14 +5,19 @@ import { BlueRectangleButton } from "../../common/CustomedButton";
 import { useToast, Box, Flex } from "@chakra-ui/react";
 import fisherman from "../../../assets/pictures/fisherman_small.svg";
 
+import { useChangeUserInfo } from "../../../hook/user/useChangeUserInfo";
+import { changePassword } from "../../../api/user/apis";
+
 export const SetPassword = () => {
+  const changePassword = useChangeUserInfo();
+
   const toast = useToast();
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // 두 번째 비밀번호
+  const [newPassword, setnewPassword] = useState(""); // 두 번째 비밀번호
 
   const handleSubmit = () => {
-    if (password !== confirmPassword) {
+    if (password !== newPassword) {
       toast({
         title: "비밀번호가 동일하지 않습니다.",
         status: "error",
@@ -44,10 +49,10 @@ export const SetPassword = () => {
           handleChange={(e) => setPassword(e.target.value)}
         />
         <PasswordInput
-          value={confirmPassword}
+          value={newPassword}
           text="비밀번호 확인"
           placeholder="비밀번호를 한 번 더 입력해 주세요"
-          handleChange={(e) => setConfirmPassword(e.target.value)}
+          handleChange={(e) => setnewPassword(e.target.value)}
         />
         <Box w="100%" mt="80px">
           <BlueRectangleButton onClick={handleSubmit}>
@@ -64,48 +69,45 @@ export const SetPassword = () => {
   );
 };
 export const ReSetPassword = () => {
+  const { changePw } = useChangeUserInfo();
+
   const toast = useToast();
   const navigate = useNavigate();
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // 두 번째 비밀번호
+  const [originPassword, setOriginPassword] = useState("");
+  const [newPassword, setNewPassword] = useState(""); // 두 번째 비밀번호
 
   const handleSubmit = () => {
-    if (password !== confirmPassword) {
-      toast({
-        title: "비밀번호가 동일하지 않습니다.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
-
-    // 비밀번호가 동일한 경우 로직
-    toast({
-      title: "비밀번호가 설정되었습니다.",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
+    const req = {
+      originPassword: originPassword,
+      newPassword: newPassword,
+    };
+    changePw(req, {
+      onSuccess: () => {
+        toast({
+          title: "비밀번호가 변경되었습니다.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        navigate("/setting");
+      },
     });
-
-    // 다음 단계로 이동 로직 추가
-    navigate("/setting");
   };
 
   return (
     <>
       <Box w="full" marginTop="160px">
         <PasswordInput
-          value={password}
-          text="비밀번호"
-          placeholder="10~15자, 특수문자 포함"
-          handleChange={(e) => setPassword(e.target.value)}
+          value={originPassword}
+          text="현재 비밀번호"
+          placeholder="현재 비밀번호를 입력해 주세요."
+          handleChange={(e) => setOriginPassword(e.target.value)}
         />
         <PasswordInput
-          value={confirmPassword}
-          text="비밀번호 확인"
-          placeholder="비밀번호를 한 번 더 입력해 주세요"
-          handleChange={(e) => setConfirmPassword(e.target.value)}
+          value={newPassword}
+          text="새 비밀번호"
+          placeholder="10~15자, 특수문자 포함"
+          handleChange={(e) => setNewPassword(e.target.value)}
         />
         <Box w="100%" mt="80px">
           <BlueRectangleButton onClick={handleSubmit}>
