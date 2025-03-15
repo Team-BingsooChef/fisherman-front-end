@@ -1,12 +1,25 @@
 import { api } from "../../config/axios";
 import { pageableParams } from "../global/types";
 
-import { SmeltsPostRequestBody, FishingSpotQueryResponseBody } from "./types";
+import {
+  SmeltsPostRequestBody,
+  FishingSpotQueryResponseBody,
+  FishingSpotSearchResponseBody,
+} from "./types";
 export function sendSmelts(
   fishingSpotId: number,
   req: SmeltsPostRequestBody
 ): Promise<void> {
   return api.post(`/fishing-spots/${fishingSpotId}/smelts`, req);
+}
+
+export async function searchFishingSpot(
+  keyword: string
+): Promise<FishingSpotSearchResponseBody> {
+  const res = await api.get(`/fishing-spots`, {
+    params: keyword,
+  });
+  return res.data;
 }
 
 export async function queryFishingSpot(

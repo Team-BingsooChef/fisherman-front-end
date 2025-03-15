@@ -1,7 +1,3 @@
-export interface FishingSpotSearchResponseBody {
-  nothing: string;
-}
-
 export interface CoinQueryResponseBody {
   coin: number;
 }

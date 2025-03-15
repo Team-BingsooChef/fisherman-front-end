@@ -1,17 +1,6 @@
 import { api } from "../../config/axios";
 
-import {
-  FishingSpotSearchResponseBody,
-  CoinQueryResponseBody,
-  UserInfoQueryResponseBody,
-} from "./types";
-
-export async function searchFishingSpot(
-  keyword: string
-): Promise<FishingSpotSearchResponseBody> {
-  const res = await api.get(`/fishing-spots?keyword=${keyword}`);
-  return res.data;
-}
+import { CoinQueryResponseBody, UserInfoQueryResponseBody } from "./types";
 
 export async function queryCoin(
   userId: number

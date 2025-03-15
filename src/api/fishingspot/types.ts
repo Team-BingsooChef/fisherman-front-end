@@ -35,3 +35,8 @@ export interface FishingSpotQueryResponseBody {
     }
   ];
 }
+
+export interface FishingSpotSearchResponseBody {
+  fishingSpotId: number;
+  nickname: string;
+}
