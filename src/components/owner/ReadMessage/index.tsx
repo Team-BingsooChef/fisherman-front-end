@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useModalHeight } from "../../../hook/useModalHeight";
 import { useModalOpenStore, useModalStateStore } from "../../../store/modal";
 import shark from "../../../assets/pictures/shark.svg";
@@ -7,13 +7,27 @@ import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement
 import { Flex, Box, Text, Image, IconButton, Textarea } from "@chakra-ui/react";
 import { XIcon } from "lucide-react";
 
+import { useSmeltsDetail } from "../../../hook/smelts/useReadMessage";
+import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
+
 export const ReadMessage = () => {
+  const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
+  const { data } = useSmeltsDetail(selectedToppingId);
+  const { getImageUrl } = useSmeltsImg();
+
+  const imgURL =
+    data?.smelt.status === "READ"
+      ? getImageUrl(data?.smelt.smeltTypeId ?? 1)
+      : getImageUrl(data?.smelt.smeltTypeId ?? 1, true);
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
-  const letterText =
-    "오늘은 아침부터 맑은 날씨가 이어져서 기분이 좋습니다. 이렇게 날씨가 좋을 때는 산책이나 운동을 하기 딱 좋은 날이죠. 하지만 하루를 보내는 방법은 사람마다 다르기 마련입니다. 어떤 사람은 책을 읽으며 조용한 시간을 보내고, 또 어떤 사람은 친구를 만나며 활기찬 시간을 보낼 것입니다.";
-  const [sender] = useState("희연이");
-  const [isReplied] = useState(true); // 답장이 작성되었는지 상태 관리
+
+  const [isReplied, setIsReplied] = useState<boolean>(false);
+  // data가 변경될 때마다 isReplied 상태 업데이트
+  useEffect(() => {
+    setIsReplied(data?.letter.comment !== null);
+  }, [data]);
+
   const [replyContent, setReplyContent] = useState(
     "오늘도 열심히 하면 좋은 일이 생길 거야!"
   ); // 답장 내용 관리
@@ -43,7 +57,7 @@ export const ReadMessage = () => {
         top="10px"
         right="10px"
       />
-      <Image src={shark} boxSize="80px" position="absolute" top="-40px" />
+      <Image src={imgURL} boxSize="80px" position="absolute" top="-40px" />
       <Text
         width=" calc(100% - 40px)"
         fontSize="16px"
@@ -52,12 +66,12 @@ export const ReadMessage = () => {
         mt="60px"
         mb="10px"
       >
-        {sender}가 보낸 편지
+        {data?.letter.senderName}가 보낸 편지
       </Text>
       <Flex w="100%" h="44%" justify="center">
         <ModalInsideWhiteContainer height="240px">
           <Text p="10px" fontSize="16px" fontWeight="regular">
-            {letterText}
+            {data?.letter.content}
           </Text>
         </ModalInsideWhiteContainer>
       </Flex>
@@ -76,7 +90,7 @@ export const ReadMessage = () => {
           </Text>
           <Box w="full" bg="white" p="10px" h="70px" borderRadius="16px">
             <Text fontSize="16px" fontWeight="regular" borderRadius="md">
-              {replyContent}
+              {data?.letter.comment?.content}
             </Text>
           </Box>
         </Box>

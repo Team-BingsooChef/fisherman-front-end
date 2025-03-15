@@ -45,7 +45,7 @@ export type SmeltsLetterQueryResponseBody = {
       id: number;
       content: string;
       createdTime: string;
-    };
+    } | null;
   };
 };
 

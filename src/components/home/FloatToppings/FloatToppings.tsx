@@ -66,7 +66,7 @@ const ToppingElement = ({ topping }: ToppingProps) => {
   const groupClass = `group-${topping.id % 8}`;
 
   const handleClick = () => {
-    localStorage.setItem("selectedToppingId", topping.id.toString());
+    localStorage.setItem("selectedToppingId", topping.id);
     if (topping.status === "UNREAD") {
       setModalState("openQuiz");
       onOpen();
