@@ -6,11 +6,7 @@ import {
 import { SentSmeltsQueryResponseBody } from "../../api/inventory/types";
 import { useQuery } from "@tanstack/react-query";
 
-export const useQuerySentSmelts = (
-  page: number = 0,
-  size: number = 1,
-  sort: string[] = ["string"]
-) => {
+export const useQuerySentSmelts = (page: number = 0, size: number = 1) => {
   const { data: inventoryData } = useQuery<MyInventoryResponse>({
     queryKey: ["myInventory"],
     queryFn: queryMyInventory,
@@ -18,11 +14,14 @@ export const useQuerySentSmelts = (
 
   const InventoryId = inventoryData?.id;
 
-  const { data, error } = useQuery<SentSmeltsQueryResponseBody, Error>({
-    queryKey: ["sentSmelts", page, size, sort],
-    queryFn: () => querySentSmelts(InventoryId as number, page, size, sort),
+  const { data, error, isLoading } = useQuery<
+    SentSmeltsQueryResponseBody,
+    Error
+  >({
+    queryKey: ["sentSmelts", page, size],
+    queryFn: () => querySentSmelts(InventoryId as number, page, size),
     enabled: !!InventoryId,
   });
 
-  return { data, error };
+  return { data, error, isLoading };
 };
