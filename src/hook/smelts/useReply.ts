@@ -6,7 +6,7 @@ export const useReply = (smeltId: number) => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation<void, Error, CommentSendRequestBody>({
-    mutationFn: (req: CommentSendRequestBody) => sendComment(smeltId, req), // smeltId와 req를 전달
+    mutationFn: (req: CommentSendRequestBody) => sendComment(smeltId, req),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["smeltsDetail", smeltId] });
     },

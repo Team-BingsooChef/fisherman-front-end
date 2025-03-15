@@ -14,7 +14,7 @@ export const useSmeltsImg = () => {
   ): string | undefined => {
     if (!data) {
       return undefined;
-    } // 데이터가 없으면 undefined 반환
+    }
 
     const smeltType = data.smeltTypes.find((type) => type.id === smeltTypeId);
 

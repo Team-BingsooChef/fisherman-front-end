@@ -1,73 +1,92 @@
 import { useState, useEffect } from "react";
 import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
 import { useModalHeight } from "../../../hook/useModalHeight";
-import shark from "../../../assets/pictures/shark.svg";
 import { Circle, X, XIcon } from "lucide-react";
 import { Flex, IconButton, Button, Text, Image } from "@chakra-ui/react";
-import {
-  quizSampleOXData,
-  quizSampleMultipleData,
-} from "../../../__mocks__/quizData";
+
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 
+import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";
+import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
+import { useSmeltsDetail } from "../../../hook/smelts/useSmeltsDetail";
+import { useSolveQuiz } from "../../../hook/smelts/useSolveQuiz"; // 추가
+
 export const OpenQuiz = () => {
+  const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
+  const { data } = useQueryQuiz(selectedToppingId);
+  const { getImageUrl } = useSmeltsImg();
+  const { data: smeltsDetail } = useSmeltsDetail(selectedToppingId);
+  const { mutate: solveQuizMutate } = useSolveQuiz(selectedToppingId); // 추가
+
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null); // 선택한 답변
+  const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null); // 정답 여부
+
+  const imgURL =
+    smeltsDetail?.smelt.status === "READ"
+      ? getImageUrl(smeltsDetail?.smelt.smeltTypeId ?? 1) || ""
+      : getImageUrl(smeltsDetail?.smelt.smeltTypeId ?? 1, true) || "";
+
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
-  const exampleOXAnswer = "O";
-  const exampleMultipleAnswer = 1;
-
-  const isMultipleQuiz = true;
 
   const [modalHeight, setModalHeight] = useState("50%");
 
   useEffect(() => {
-    if (isMultipleQuiz) {
-      const questionCount = quizSampleMultipleData.questions.length;
+    if (data?.quiz.type === "MULTIPLE") {
+      const questionCount = data.questions.length;
       const height =
         questionCount <= 2 ? "50%" : questionCount === 3 ? "60%" : "70%";
       setModalHeight(height);
     } else {
       setModalHeight("50%");
     }
-  }, [isMultipleQuiz]);
+  }, [data]);
 
   useModalHeight(modalHeight);
 
-  const [selectedAnswer, setSelectedAnswer] = useState<"O" | "X" | null>(null);
-  const [correctAnswer, setCorrectAnswer] = useState<"O" | "X" | null>(null);
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [correctOption, setCorrectOption] = useState<number | null>(null);
-
   const handleClose = () => onClose();
 
-  // OX 퀴즈 핸들러 (정답 체크 X, 단순 UI 변경만)
-  const handleOXAnswerClick = (answer: "O" | "X") => {
-    setSelectedAnswer(answer);
-    setCorrectAnswer(exampleOXAnswer);
-    setModalState("readMessage");
-  };
+  // 답변 선택 시 호출되는 함수
+  const clickAnswer = (questionId: number) => {
+    if (selectedAnswer !== null) {
+      return;
+    } // 이미 답변을 선택한 경우 무시
 
-  // 객관식 퀴즈 핸들러 (정답 체크 X, 단순 UI 변경만)
-  const handleMultipleAnswerClick = (index: number) => {
-    setSelectedOption(index);
-    setCorrectOption(exampleMultipleAnswer);
-    setModalState("readMessage");
+    setSelectedAnswer(questionId.toString());
+
+    // 퀴즈 정답 제출
+    solveQuizMutate(
+      { questionId },
+      {
+        onSuccess: (response) => {
+          setCorrectAnswer(response.result); // 정답 여부 저장
+          if (response.result) {
+            setTimeout(() => {
+              setModalState("readmessage"); // 정답이면 모달 상태 변경
+            }, 1000); // 1초 후에 모달 상태 변경
+          }
+        },
+        onError: (error) => {
+          console.error("퀴즈 제출 실패:", error);
+        },
+      }
+    );
   };
 
   const renderOXQuiz = () => (
     <Flex w="100%" h="100%" flexDir="column" align="center" position="relative">
-      <Header onClose={handleClose} />
-      <Question title={quizSampleOXData.quiz.quizTitle} />
+      <Header onClose={handleClose} img={imgURL} />
+      <Question title={data?.quiz.title ?? "퀴즈 조회 X"} />
       <Flex gap="20px" mt="20px" justify="center">
-        {["O", "X"].map((answer) => (
+        {data?.questions.map((option, index) => (
           <IconButton
-            key={answer}
-            bg={answer === "O" ? "#03526B" : "#BF2A2A"}
+            key={index}
+            bg={option.content === "O" ? "#03526B" : "#BF2A2A"}
             borderRadius="30px"
             boxSize="140px"
-            aria-label={answer}
+            aria-label={option.content}
             icon={
-              answer === "O" ? (
+              option.content === "O" ? (
                 <Circle size={100} color="white" />
               ) : (
                 <X size={120} color="white" />
@@ -75,55 +94,58 @@ export const OpenQuiz = () => {
             }
             _hover={{ bg: "blue.600" }}
             border={
-              selectedAnswer === answer
-                ? correctAnswer === answer
+              selectedAnswer === option.content
+                ? correctAnswer === true
                   ? "5px solid green"
-                  : "5px solid red"
+                  : correctAnswer === false
+                  ? "5px solid red"
+                  : "none"
                 : "none"
             }
-            onClick={() => handleOXAnswerClick(answer as "O" | "X")}
+            onClick={() => clickAnswer(option.id)}
           />
         ))}
       </Flex>
     </Flex>
   );
 
-  // 객관식 퀴즈 UI
   const renderMultipleQuiz = () => (
     <>
-      <Header onClose={handleClose} />
-      <Question title={quizSampleMultipleData.quiz.quizTitle} />
+      <Header onClose={handleClose} img={imgURL} />
+      <Question title={data?.quiz.title ?? "퀴즈 조회 X"} />
       <Flex direction="column" gap="10px" mt="20px" width="100%" align="center">
-        {quizSampleMultipleData.questions.map((option, index) => (
+        {data?.questions.map((option, index) => (
           <Button
             key={index}
             width="calc(100% - 40px)"
             borderRadius="12px"
-            onClick={() => handleMultipleAnswerClick(index)}
+            onClick={() => clickAnswer(option.id)}
             border={
-              selectedOption === index
-                ? correctOption === index
+              selectedAnswer === option.id.toString()
+                ? correctAnswer === true
                   ? "5px solid green"
-                  : "5px solid red"
+                  : correctAnswer === false
+                  ? "5px solid red"
+                  : "none"
                 : "none"
             }
             bg="#03526B"
             color="white"
             _hover={{ bg: "blue.600" }}
           >
-            {option.questionContent}
+            {option.content}
           </Button>
         ))}
       </Flex>
     </>
   );
 
-  return isMultipleQuiz ? renderMultipleQuiz() : renderOXQuiz();
+  return data?.quiz.type === "MULTIPLE" ? renderMultipleQuiz() : renderOXQuiz();
 };
 
-const Header = ({ onClose }: { onClose: () => void }) => (
+const Header = ({ onClose, img }: { onClose: () => void; img: string }) => (
   <Flex w="full" justify="center" align="center" p="10px">
-    <Image src={shark} boxSize="80px" position="absolute" top="-40px" />
+    <Image src={img} boxSize="80px" position="absolute" top="-40px" />
     <Text fontSize="24px" fontWeight="bold" color="#03526B">
       퀴즈
     </Text>
