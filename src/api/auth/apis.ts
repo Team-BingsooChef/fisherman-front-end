@@ -1,5 +1,4 @@
 import { api } from "../../config/axios";
-import { useLocation } from "react-router-dom";
 
 import {
   EmailCodeSendRequest,
@@ -62,16 +61,4 @@ export async function emailLogin(req: EmailSignInRequest): Promise<void> {
     console.log(error);
     throw error;
   }
-}
-
-export interface ChangePasswordRequest {
-  originPassword: string;
-  newPassword: string;
-}
-
-export function changePassword(
-  userId: number,
-  req: ChangePasswordRequest
-): Promise<void> {
-  return api.patch(`/users/${userId}/password`, req);
 }

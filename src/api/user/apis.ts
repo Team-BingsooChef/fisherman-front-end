@@ -35,3 +35,22 @@ export async function getUserId(): Promise<number> {
   const res = await api.get(`/users/mine`);
   return res.data;
 }
+
+export interface ChangePasswordRequest {
+  originPassword: string;
+  newPassword: string;
+}
+
+export function changePassword(
+  userId: number,
+  req: ChangePasswordRequest
+): Promise<void> {
+  return api.patch(`/users/${userId}/password`, req);
+}
+
+export function changeNickName(
+  userId: number,
+  nickname: string
+): Promise<void> {
+  return api.patch(`/users/${userId}/nickname`, { nickname });
+}
