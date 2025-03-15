@@ -19,11 +19,7 @@ export async function queryFishingSpot(
   return res.data;
 }
 
-export interface FishingSpotIdResponse {
-  fishingSpotId: number;
-  nickname: string;
-}
-export async function getFishingSpotId(): Promise<FishingSpotIdResponse> {
+export async function getFishingSpotId(): Promise<number> {
   const res = await api.get(`/fishing-spots/mine`);
   return res.data;
 }
