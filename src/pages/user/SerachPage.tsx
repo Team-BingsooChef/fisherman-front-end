@@ -5,16 +5,14 @@ import { WhiteLeftHeader } from "../../components/common/Header";
 import { WhiteInput } from "../../components/user/CustomedInput";
 import { Search } from "lucide-react";
 import { Flex, Text, VStack, Image } from "@chakra-ui/react";
-import { users } from "../../__mocks__/searchData";
+
+import { useSearchFishingSpot } from "../../hook/fishingspot/useSerachFishingSpot";
 
 export default function SearchPage() {
   const navigate = useNavigate();
   const [otherNickname, setOtherNickname] = useState<string>("");
 
-  // 검색 결과 필터링
-  const filteredUsers = otherNickname.trim()
-    ? users.filter((user) => user.nickname.includes(otherNickname.trim()))
-    : [];
+  const { data, isLoading } = useSearchFishingSpot(otherNickname);
 
   return (
     <Wrapper>
@@ -30,40 +28,41 @@ export default function SearchPage() {
       </Flex>
       {/* 검색 결과 */}
       <VStack align="center" mt="20px" w="full" spacing="8px">
-        {filteredUsers.length > 0
-          ? filteredUsers.map((user) => (
-              <Flex
-                key={user.userId}
-                p="12px"
-                w="90%"
-                borderWidth="1px"
-                borderRadius="16px"
-                borderColor="#E2E8F0"
-                bg="#F7FAFC"
-                align="center"
-                cursor="pointer"
-              >
-                <Image
-                  src={user.profileImg}
-                  boxSize="40px"
-                  borderRadius="full"
-                  objectFit="contain"
-                />
-                <Text
-                  ml="8px"
-                  fontSize="20px"
-                  fontWeight="semibold"
-                  color="#737373"
-                >
-                  {user.nickname}
-                </Text>
-              </Flex>
-            ))
-          : otherNickname.trim() && (
-              <Text fontSize="14px" color="#777C89">
-                검색 결과가 없습니다.
-              </Text>
-            )}
+        {/* {data?.map((user) => ( */}
+        {data && (
+          <Flex
+            key={data.fishingSpotId}
+            p="12px"
+            w="90%"
+            borderWidth="1px"
+            borderRadius="16px"
+            borderColor="#E2E8F0"
+            bg="#F7FAFC"
+            align="center"
+            cursor="pointer"
+            onClick={() => navigate(`/${data.fishingSpotId}`)}
+          >
+            {/* <Image
+              src={user.profileImg}
+              boxSize="40px"
+              borderRadius="full"
+              objectFit="contain"
+            /> */}
+            <Text
+              ml="8px"
+              fontSize="20px"
+              fontWeight="semibold"
+              color="#737373"
+            >
+              {data.nickname}
+            </Text>
+          </Flex>
+        )}
+        {!data && (
+          <Text fontSize="14px" color="#777C89">
+            검색 결과가 없습니다.
+          </Text>
+        )}
       </VStack>
     </Wrapper>
   );
