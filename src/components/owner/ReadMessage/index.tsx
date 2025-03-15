@@ -8,6 +8,7 @@ import { XIcon } from "lucide-react";
 
 import { useSmeltsDetail } from "../../../hook/smelts/useSmeltsDetail";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
+import { useReply } from "../../../hook/smelts/useReply";
 
 export const ReadMessage = () => {
   const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
@@ -27,12 +28,11 @@ export const ReadMessage = () => {
     setIsReplied(data?.letter.comment !== null);
   }, [data]);
 
-  const [replyContent, setReplyContent] = useState(
-    "오늘도 열심히 하면 좋은 일이 생길 거야!"
-  ); // 답장 내용 관리
   const [replyDraft, setReplyDraft] = useState(""); // 답장 작성란 입력값 관리
   const [isReplying, setIsReplying] = useState(false); // 답장 작성 중인지 상태 관리
   const maxReplyLength = 30;
+
+  const mutate = useReply(selectedToppingId);
 
   // 모달 높이 설정 (isReplying에 따라 변경)
   useModalHeight(isReplying ? "76%" : "64%");
@@ -43,8 +43,8 @@ export const ReadMessage = () => {
   };
 
   const handleReplySubmit = () => {
-    setReplyContent(replyDraft); // 작성된 답장을 저장
-    setIsReplying(true); // 답장 작성 중 상태를 false로 변경
+    setIsReplying(false);
+    mutate.mutate({ content: replyDraft });
   };
 
   return (
