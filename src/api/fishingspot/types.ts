@@ -3,15 +3,18 @@ export interface SmeltsPostRequestBody {
   title: string;
   content: string;
   senderName: string;
-  quiz: {
+  quiz?: {
     title: string;
     content: string;
     type: string;
-    questions: string;
+    questions: string[];
     answerIndex: number;
-  };
+  } | null;
 }
-
+export enum QuizType {
+  multiple = "MULTIPLE",
+  ox = "OX",
+}
 export enum SmeltStatus {
   DREW = "DREW", // 뽑음: 다른 낚시터에 보내지 않음
   UNREAD = "UNREAD", // 읽지 않음 - 퀴즈가 있다면 풀지 않음

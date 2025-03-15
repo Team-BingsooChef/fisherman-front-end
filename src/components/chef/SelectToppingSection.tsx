@@ -4,13 +4,18 @@ import { WhiteLeftHeader } from "../../components/common/Header";
 import { Box, SimpleGrid, Flex, Text, Button } from "@chakra-ui/react";
 
 import useSmeltsStatistics from "../../hook/inventory/useSmeltsStatistics";
+import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 
 export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
   const { data } = useSmeltsStatistics(1);
   const navigate = useNavigate();
+  const { setSmeltTypeId } = useSmeltStore();
   const [selectedTypeId, setSelectedTypeId] = useState<number | null>(null);
   const handleItemClick = (id: number) => {
     setSelectedTypeId((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
+    if (selectedTypeId !== null) {
+      setSmeltTypeId(selectedTypeId);
+    }
   };
 
   return (
@@ -51,8 +56,8 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
           {data?.map((item) => (
             <Box key={item.smeltTypeId}>
               <Box
-                onClick={() => handleItemClick(item.smeltTypeId)} // 클릭 핸들러 추가
-                bg={selectedTypeId === item.smeltTypeId ? "#E0F7FA" : "#d9d9d9"} // 선택된 아이템 강조
+                onClick={() => handleItemClick(item.smeltTypeId)}
+                bg={selectedTypeId === item.smeltTypeId ? "#E0F7FA" : "#d9d9d9"}
                 boxSize="100px"
                 position="relative"
                 display="flex"
@@ -91,7 +96,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
         </SimpleGrid>
       </Flex>
       <Button
-        onClick={onNext} // onNext 사용
+        onClick={onNext}
         bg="#03526B"
         color="white"
         fontSize="20px"

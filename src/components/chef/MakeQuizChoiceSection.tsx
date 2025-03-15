@@ -5,31 +5,51 @@ import { useState } from "react";
 
 import { MultipleQuizSection } from "./MultipleQuizSection";
 import { OxQuizSection } from "./OxQuizSection";
-
+import { useSendSmelts } from "../../hook/fishingspot/useSendSmelts";
+import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   const navigate = useNavigate();
-  const toast = useToast(); // useToast 훅 사용
+  const toast = useToast();
   const [question, setQuestion] = useState("");
   const [quizType, setQuizType] = useState<string | null>(null); // OX 또는 객관식 유형 관리
   const maxQuestionLength = 30;
 
-  const handleQuizTypeSelection = (type: string) => {
-    if (quizType === type) {
+  const { quiz, setQuiz } = useSmeltStore();
+
+  const handleQuizTypeSelection = (clickType: string) => {
+    if (quizType === clickType) {
       setQuizType(null); // 같은 버튼을 다시 누르면 선택 해제
+      setQuiz({
+        title: "",
+        content: "",
+        type: "",
+        questions: [],
+        answerIndex: 0,
+      });
     } else {
-      setQuizType(type); // 선택된 유형 설정
+      setQuizType(clickType); // 선택된 유형 설정
+      setQuiz({
+        title: question,
+        content: question,
+        type: clickType,
+        questions: quiz?.questions || [],
+        answerIndex: quiz?.answerIndex || 0,
+      });
     }
   };
 
-  const handleComplete = () => {
+  const mutation = useSendSmelts(1);
+  const submitSmelts = () => {
+    mutation.mutate(); // ✅ zustand의 데이터를 바로 useMutation에서 전송
+
     toast({
       title: "빙어를 보냈습니다!",
       status: "success",
-      duration: 3000, // 3초 동안 표시
+      duration: 3000,
       isClosable: true,
-      position: "bottom", // 알림 위치
+      position: "bottom",
     });
-    navigate("/"); // 필요 시 페이지 이동
+    navigate("/");
   };
 
   return (
@@ -88,14 +108,14 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
           OX
         </Button>
         <Button
-          bg={quizType === "Multiple" ? "#B5B5B5" : "#D9D9D9"}
+          bg={quizType === "MULTIPLE" ? "#B5B5B5" : "#D9D9D9"}
           color="black"
           fontSize="20px"
           fontWeight="semiBold"
           borderRadius="16px"
           h="52px"
           w="160px"
-          onClick={() => handleQuizTypeSelection("Multiple")}
+          onClick={() => handleQuizTypeSelection("MULTIPLE")}
           _hover={{ bg: "#B5B5B5" }}
         >
           객관식
@@ -131,7 +151,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
             {question.length}/{maxQuestionLength}
           </Text>
           {quizType === "OX" && <OxQuizSection />}
-          {quizType === "Multiple" && <MultipleQuizSection />}
+          {quizType === "MULTIPLE" && <MultipleQuizSection />}
         </>
       )}
 
@@ -157,7 +177,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
           borderRadius="16px"
           h="45px"
           w="140px"
-          onClick={handleComplete} // 완료 버튼 클릭 시 호출
+          onClick={submitSmelts} // 완료 버튼 클릭 시 호출
           _hover={{ bg: "#03526B" }}
         >
           완료

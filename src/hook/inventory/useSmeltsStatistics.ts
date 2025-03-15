@@ -33,7 +33,7 @@ export default function useSmeltsStatistics(inventoryId: number) {
       return {
         ...smelt,
         smeltTypeName: matchingSmeltType?.name ?? "알 수 없음",
-        smeltTypeImageUrl: matchingSmeltType?.imageUrl ?? "default.jpg",
+        smeltImageUrl: matchingSmeltType?.imageUrl ?? "default.jpg",
       };
     }
   );
