@@ -2,6 +2,7 @@ import { Box, Text, Flex, Image } from "@chakra-ui/react";
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SentSmeltsQueryResponseBody } from "../../../api/inventory/types";
 import { useQuerySentSmelts } from "../../../hook/inventory/useQuerySentSmelts";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
@@ -50,6 +51,7 @@ const ToppingByMeElement = ({
   topping: SentSmeltsQueryResponseBody["smelts"][number];
 }) => {
   const { getImageUrl } = useSmeltsImg();
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -81,9 +83,10 @@ const ToppingByMeElement = ({
           p="20px"
           position="relative"
         >
-          {/* 모서리에 defrostedImg 아이콘 표시 */}
+          {/* 상대 낚시터로 navigate */}
           <Image
             src={getImageUrl(topping.smeltTypeId)}
+            onClick={() => navigate(`/${topping.fishingSpotId}`)}
             alt="topping icon"
             position="absolute"
             top="-20px"
