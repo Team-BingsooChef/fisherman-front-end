@@ -2,9 +2,10 @@ import { Box, Text, Flex, Image } from "@chakra-ui/react";
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 import { toppingExamples } from "../../../__mocks__/toppingbyme/data";
 import { toppingTypesData } from "../../../__mocks__/toppingtypes/data";
-
+import { useQuerySentSmelts } from "../../../hook/inventory/useQuerySentSmelts";
 // SeeToppingsByMe 컴포넌트
 export const SeeToppingsByMe = () => {
+  const { data } = useQuerySentSmelts();
   return (
     <Flex
       m="20px 0 10px 0"
@@ -16,7 +17,7 @@ export const SeeToppingsByMe = () => {
       overflowY="auto"
     >
       <Box w="full" h="100%" bg="none">
-        {toppingExamples.map((topping) => (
+        {data?.smelts.map((topping) => (
           <ToppingByMeElement key={topping.id} {...topping} />
         ))}
       </Box>
@@ -24,31 +25,8 @@ export const SeeToppingsByMe = () => {
   );
 };
 
-interface ToppingByMeElementProps {
-  nickname: string;
-  toppingContent: string;
-  isHidden: boolean;
-  wrongCount: number;
-  isReplied: boolean;
-  repliedContent: string;
-  toppingTypeId: number;
-}
-
-const ToppingByMeElement = ({
-  nickname,
-  toppingContent,
-  isHidden,
-  wrongCount,
-  isReplied,
-  repliedContent,
-  toppingTypeId,
-}: ToppingByMeElementProps) => {
+const ToppingByMeElement = () => {
   // toppingTypeId를 기반으로 defrostedImg 가져오기
-  const toppingType = toppingTypesData.find(
-    (type: { toppingTypeId: number; defrostedImg: string }) =>
-      type.toppingTypeId === toppingTypeId
-  );
-  const defrostedImg = toppingType?.defrostedImg;
 
   return (
     <Flex

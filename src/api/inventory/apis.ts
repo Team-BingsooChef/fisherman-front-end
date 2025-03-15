@@ -20,9 +20,19 @@ export async function querySmeltsStatistics(
 }
 
 export async function querySentSmelts(
-  inventoryId: number
+  inventoryId: number,
+  page: number = 0,
+  size: number = 1,
+  sort: string[] = ["string"]
 ): Promise<SentSmeltsQueryResponseBody> {
-  const res = await api.get(`/inventories/${inventoryId}/smelts/sent`);
+  const params = {
+    page,
+    size,
+    sort,
+  };
+  const res = await api.get(`/inventories/${inventoryId}/smelts/sent`, {
+    params,
+  });
   return res.data;
 }
 
