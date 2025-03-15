@@ -63,3 +63,15 @@ export async function emailLogin(req: EmailSignInRequest): Promise<void> {
     throw error;
   }
 }
+
+export interface ChangePasswordRequest {
+  originPassword: string;
+  newPassword: string;
+}
+
+export function changePassword(
+  userId: number,
+  req: ChangePasswordRequest
+): Promise<void> {
+  return api.patch(`/users/${userId}/password`, req);
+}
