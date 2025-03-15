@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
 import { useModalHeight } from "../../../hook/useModalHeight";
 import { useModalOpenStore, useModalStateStore } from "../../../store/modal";
@@ -6,12 +6,27 @@ import { Text, Flex, IconButton, Box, Image } from "@chakra-ui/react";
 import { BlueEllipseButton } from "../../common/CustomedButton";
 import { XIcon } from "lucide-react";
 import { motion } from "framer-motion"; // Framer Motion import
-import shark from "../../../assets/pictures/shark.svg";
 
-// FishDrawingResult 컴포넌트
+import { useDrawSmelts } from "../../../hook/inventory/useDraw";
+import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
+
 export const FishDrawingResult = () => {
+  const InventoryId = Number(localStorage.getItem("InventoryId"));
+  const { mutate, data } = useDrawSmelts();
+
+  const { getImageUrl, data: smeltsCategoryInfo } = useSmeltsImg();
+  const imgURL = getImageUrl(data?.smelt.smeltTypeId ?? 1);
   const { onClose } = useModalOpenStore();
   useModalHeight("70%");
+
+  const smeltTypeName = smeltsCategoryInfo?.smeltTypes.find(
+    (smelt) => smelt.id === data?.smelt.smeltTypeId
+  )?.name;
+
+  useEffect(() => {
+    mutate(InventoryId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Flex w="full" flexDir="column" align="center" position="relative">
@@ -39,7 +54,7 @@ export const FishDrawingResult = () => {
           duration: 0.8,
         }}
       >
-        <Image boxSize="248px" src={shark}></Image>
+        <Image boxSize="248px" src={imgURL}></Image>
       </motion.div>
       <Text
         color="#13353B"
@@ -48,7 +63,7 @@ export const FishDrawingResult = () => {
         mt="90px"
         textAlign="center"
       >
-        상어 당첨!
+        {smeltTypeName} 당첨!
       </Text>
     </Flex>
   );
@@ -59,6 +74,8 @@ export const MakeSureDrawing = () => {
   const { onClose } = useModalOpenStore();
   const { setModalState } = useModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
+
+  const InventoryId = Number(localStorage.getItem("InventoryId"));
 
   // 로딩 후 결과 표시
   const handleDrawing = () => {
