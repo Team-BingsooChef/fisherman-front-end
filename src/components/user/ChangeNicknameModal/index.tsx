@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { WhiteInput } from "../../common/CustomedInput";
 
+import { useChangeUserInfo } from "../../../hook/user/useChangeUserInfo";
 interface ChangeNicknameModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -24,6 +25,11 @@ export const ChangeNicknameModal = ({
     setChangedNickname(e.target.value);
   };
 
+  const { changeNickname } = useChangeUserInfo();
+  const handleComplete = () => {
+    changeNickname(changedNickname);
+    onClose();
+  };
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -47,7 +53,7 @@ export const ChangeNicknameModal = ({
               <Button
                 bgColor="#03526B"
                 color="white"
-                onClick={onClose}
+                onClick={handleComplete}
                 _hover={{ bgColor: "#03526B" }}
                 w="160px"
                 borderRadius="8px"

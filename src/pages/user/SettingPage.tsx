@@ -11,25 +11,18 @@ import {
   Button,
   IconButton,
   useDisclosure,
-  useToast,
 } from "@chakra-ui/react";
+
 import profile_example from "../../assets/profile_example.jpg";
 import { LockKeyhole, RotateCcw, Trash2, Pencil } from "lucide-react";
 
+import { useQueryUserInfo } from "../../hook/user/useQueryUserInfo";
+
 export default function SettingPage() {
   const navigate = useNavigate();
-  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [currentNickname] = useState<string>("호랭이");
-  const onchangeNickname = () => {
-    onClose();
-    toast({
-      title: "닉네임이 변경되었습니다.",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
-  };
+  const { data: userInfoData } = useQueryUserInfo();
+
   const goHome = () => {
     navigate("/");
   };
@@ -81,7 +74,7 @@ export default function SettingPage() {
 
           <Flex align="center" justify="center" gap="2px" fontWeight="Bold">
             <Text fontSize="24px" color="#3887C7">
-              {currentNickname}
+              {userInfoData?.nickname}
             </Text>
             <Text fontSize="24px" color="black">
               님
@@ -148,7 +141,7 @@ export default function SettingPage() {
         <Trash2 color="red" />
         회원 탈퇴
       </Button>
-      <ChangeNicknameModal isOpen={isOpen} onClose={onchangeNickname} />
+      <ChangeNicknameModal isOpen={isOpen} onClose={onClose} />
     </Wrapper>
   );
 }

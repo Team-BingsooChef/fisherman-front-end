@@ -27,3 +27,10 @@ export async function getFishingSpotId(): Promise<FishingSpotIdResponse> {
   const res = await api.get(`/fishing-spots/mine`);
   return res.data;
 }
+
+export function changeFishingSpotPublic(
+  fishingSpotId: number,
+  isPublic: boolean
+): Promise<void> {
+  return api.patch(`/fishing-spots/${fishingSpotId}/public`, { isPublic });
+}
