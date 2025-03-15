@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useModalHeight } from "../../../hook/useModalHeight";
 import { useModalOpenStore, useModalStateStore } from "../../../store/modal";
-import shark from "../../../assets/pictures/shark.svg";
 import { NavyEllipseButton } from "../../common/CustomedButton";
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 import { Flex, Box, Text, Image, IconButton, Textarea } from "@chakra-ui/react";
 import { XIcon } from "lucide-react";
 
-import { useSmeltsDetail } from "../../../hook/smelts/useReadMessage";
+import { useSmeltsDetail } from "../../../hook/smelts/useSmeltsDetail";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 
 export const ReadMessage = () => {
