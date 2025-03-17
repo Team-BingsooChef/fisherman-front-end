@@ -17,7 +17,6 @@ import { useQueryInventory } from "../../hook/inventory/useQueryInventory";
 
 export default function FishDrawingPage() {
   const { data: inventoryData } = useQueryInventory();
-  localStorage.setItem("InventoryId", inventoryData?.id?.toString() || "");
 
   const navigate = useNavigate();
   const { onOpen } = useModalOpenStore();

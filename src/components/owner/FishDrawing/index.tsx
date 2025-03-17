@@ -11,7 +11,6 @@ import { useDrawSmelts } from "../../../hook/inventory/useDraw";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 
 export const FishDrawingResult = () => {
-  const InventoryId = Number(localStorage.getItem("InventoryId"));
   const { mutate, data } = useDrawSmelts();
 
   const { getImageUrl, data: smeltsCategoryInfo } = useSmeltsImg();
@@ -24,7 +23,7 @@ export const FishDrawingResult = () => {
   )?.name;
 
   useEffect(() => {
-    mutate(InventoryId);
+    mutate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -74,8 +73,6 @@ export const MakeSureDrawing = () => {
   const { onClose } = useModalOpenStore();
   const { setModalState } = useModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
-
-  const InventoryId = Number(localStorage.getItem("InventoryId"));
 
   // 로딩 후 결과 표시
   const handleDrawing = () => {
