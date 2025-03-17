@@ -10,8 +10,10 @@ export const useDetermineRole = () => {
     queryFn: getFishingSpotId,
   });
 
+  let role = "chef"; // 기본값으로 "chef" 설정
   if (parsedFishingSpotId === data) {
-    return "owner";
+    role = "owner"; // 조건이 참이면 "owner"로 변경
   }
-  return "chef";
+
+  return role;
 };
