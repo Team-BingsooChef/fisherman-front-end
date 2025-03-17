@@ -18,14 +18,16 @@ import { LockKeyhole, RotateCcw, Trash2, Pencil } from "lucide-react";
 
 import { useQueryUserInfo } from "../../hook/user/useQueryUserInfo";
 import { useChangeFishingSpotPublic } from "../../hook/fishingspot/useChangeFishingSpotPublic";
-
+import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 export default function SettingPage() {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: userInfoData } = useQueryUserInfo();
   const { changeFishingSpotPublic } = useChangeFishingSpotPublic();
+  const { data: fishingSpotData } = useGetFishingSpotId();
+
   const goHome = () => {
-    navigate("/");
+    navigate(`/${fishingSpotData?.fishingSpotId}`);
   };
 
   // 상태를 나타내는 타입

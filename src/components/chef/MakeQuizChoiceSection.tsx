@@ -9,13 +9,15 @@ import { useSendSmelts } from "../../hook/fishingspot/useSendSmelts";
 import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   const navigate = useNavigate();
+  const currentFishingSpotId = Number(
+    localStorage.getItem("currentFishingSpotId")
+  );
   const toast = useToast();
   const [question, setQuestion] = useState("");
   const [quizType, setQuizType] = useState<string | null>(null); // OX 또는 객관식 유형 관리
   const maxQuestionLength = 30;
 
   const { quiz, setQuiz } = useSmeltStore();
-
   const handleQuizTypeSelection = (clickType: string) => {
     if (quizType === clickType) {
       setQuizType(null); // 같은 버튼을 다시 누르면 선택 해제
@@ -49,12 +51,15 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
       isClosable: true,
       position: "bottom",
     });
-    navigate("/");
+    navigate(`/${currentFishingSpotId}`);
   };
 
   return (
     <>
-      <WhiteLeftHeader text="빙어 보내기" onBackClick={() => navigate("/")} />
+      <WhiteLeftHeader
+        text="빙어 보내기"
+        onBackClick={() => navigate(`/${currentFishingSpotId}`)}
+      />
       <Flex gap="15px" m="14px 0 30px 0">
         <div
           style={{ width: "60px", height: "1px", backgroundColor: "#B5B5B5" }}

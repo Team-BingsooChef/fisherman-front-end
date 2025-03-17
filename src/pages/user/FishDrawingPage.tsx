@@ -14,9 +14,11 @@ import { useModalHeight } from "../../hook/useModalHeight";
 import { ModalLayout } from "../../components/home/modal/ModalLayout";
 
 import { useQueryInventory } from "../../hook/inventory/useQueryInventory";
+import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 
 export default function FishDrawingPage() {
   const { data: inventoryData } = useQueryInventory();
+  const { data: fishingSpotData } = useGetFishingSpotId();
 
   const navigate = useNavigate();
   const { onOpen } = useModalOpenStore();
@@ -30,7 +32,10 @@ export default function FishDrawingPage() {
 
   return (
     <Wrapper>
-      <WhiteLeftHeader text="빙어 뽑기" onBackClick={() => navigate("/")} />
+      <WhiteLeftHeader
+        text="빙어 뽑기"
+        onBackClick={() => navigate(`/${fishingSpotData?.fishingSpotId}`)}
+      />
 
       <Flex direction="column" align="flex-end" w="full" gap="13px">
         {/* 코인 정보 */}

@@ -17,10 +17,15 @@ export const WriteLetterSection = ({
   const maxToppingContentLength = 300;
 
   const isNextButtonEnabled = senderName.length > 0 && content.length > 0;
-
+  const currentFishingSpotId = Number(
+    localStorage.getItem("currentFishingSpotId")
+  );
   return (
     <>
-      <WhiteLeftHeader text="빙어 보내기" onBackClick={() => navigate("/")} />
+      <WhiteLeftHeader
+        text="빙어 보내기"
+        onBackClick={() => navigate(`/${currentFishingSpotId}`)}
+      />
       <Flex gap="15px" m="14px 0 30px 0">
         <div
           style={{ width: "60px", height: "1px", backgroundColor: "#B5B5B5" }}

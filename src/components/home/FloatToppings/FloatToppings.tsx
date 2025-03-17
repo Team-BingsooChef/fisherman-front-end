@@ -9,9 +9,14 @@ import { SmeltStatus } from "../../../api/fishingspot/types";
 import { SmeltsCategoryQueryResponseBody } from "../../../api/smelts/types";
 import "./ToppingPosition.css";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { FishingSpot } from "../Bingsoo/index";
+
+import { useDetermineRole } from "../../../hook/fishingspot/useDetermineRole";
 
 export const Toppings = () => {
-  const { smeltsWithSender } = useFishingSpot(1);
+  const { fishingSpotId } = useParams();
+  const { smeltsWithSender } = useFishingSpot(Number(fishingSpotId));
 
   return (
     <>
@@ -38,6 +43,8 @@ type ToppingProps = {
 };
 
 const ToppingElement = ({ topping }: ToppingProps) => {
+  const role = useDetermineRole();
+
   const { setModalState } = useModalStateStore();
   const { onOpen } = useModalOpenStore();
 
@@ -66,6 +73,9 @@ const ToppingElement = ({ topping }: ToppingProps) => {
   const groupClass = `group-${topping.id % 8}`;
 
   const handleClick = () => {
+    if (role !== "owner") {
+      return;
+    } //chef면 클릭 막기
     localStorage.setItem("selectedToppingId", topping.id.toString());
     if (topping.status === "UNREAD") {
       setModalState("openQuiz");
@@ -82,7 +92,7 @@ const ToppingElement = ({ topping }: ToppingProps) => {
       data-group={topping.id % 8}
       textAlign="center"
       onClick={handleClick}
-      cursor="pointer"
+      cursor={role === "owner" ? "pointer" : "not-allowed"}
     >
       <Image
         src={imgSrc}

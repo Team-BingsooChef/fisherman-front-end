@@ -18,9 +18,15 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
     }
   };
 
+  const currentFishingSpotId = Number(
+    localStorage.getItem("currentFishingSpotId")
+  );
   return (
     <>
-      <WhiteLeftHeader text="빙어 보내기" onBackClick={() => navigate("/")} />
+      <WhiteLeftHeader
+        text="빙어 보내기"
+        onBackClick={() => navigate(`/${currentFishingSpotId}`)}
+      />
       <Flex gap="15px" m="14px 0 40px 0">
         <div
           style={{ width: "60px", height: "1px", backgroundColor: "black" }}

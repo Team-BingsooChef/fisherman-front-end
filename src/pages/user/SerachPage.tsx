@@ -7,16 +7,21 @@ import { Search } from "lucide-react";
 import { Flex, Text, VStack, Image } from "@chakra-ui/react";
 
 import { useSearchFishingSpot } from "../../hook/fishingspot/useSerachFishingSpot";
+import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 
 export default function SearchPage() {
   const navigate = useNavigate();
   const [otherNickname, setOtherNickname] = useState<string>("");
 
   const { data, isLoading } = useSearchFishingSpot(otherNickname);
+  const { data: fishingSpotData } = useGetFishingSpotId();
 
   return (
     <Wrapper>
-      <WhiteLeftHeader text="낚시꾼 찾기" onBackClick={() => navigate("/")} />
+      <WhiteLeftHeader
+        text="낚시꾼 찾기"
+        onBackClick={() => navigate(`/${fishingSpotData?.fishingSpotId}`)}
+      />
 
       <Flex align="center" w="full" gap="8px">
         <WhiteInput

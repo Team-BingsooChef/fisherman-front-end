@@ -5,9 +5,12 @@ import { ModalLayout } from "../../components/home//modal/ModalLayout";
 import { useDetermineRole } from "../../hook/fishingspot/useDetermineRole";
 
 export default function HomePage() {
-  const { fishingSpotId } = useParams();
-  type Role = "chef" | "owner";
-  const role: Role = "chef";
+  const role = useDetermineRole();
+  const fishingSpotId = useParams();
+  const currentFishingSpotId = fishingSpotId.fishingSpotId;
+  if (currentFishingSpotId) {
+    localStorage.setItem("fishingSpotId", currentFishingSpotId);
+  }
 
   return (
     <Wrapper>
