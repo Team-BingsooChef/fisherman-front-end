@@ -40,13 +40,6 @@ export async function emailLogin(
       validateStatus: (status) => status < 400,
     });
 
-    if (res.status === 302) {
-      const redirectUrl = res.headers.location;
-      if (redirectUrl) {
-        window.location.href = redirectUrl;
-      }
-    }
-
     return res;
   } catch (error) {
     console.error("로그인 요청 실패:", error);
