@@ -13,16 +13,11 @@ import { BlueRectangleButton } from "../../common/CustomedButton";
 import { WhiteInput } from "../../common/CustomedInput";
 import { AuthBottomWrapper } from "../../auth/AuthWrapper";
 
-import { AxiosResponse } from "axios";
 import { EmailSignInRequest } from "../../../api/auth/types";
 import { useEmailLogin } from "../../../hook/auth/useEmailLogin";
 
 export const EmailLogin = () => {
-  const onSuccess = (data: AxiosResponse) => {
-    console.log("로그인 성공:", data);
-  };
-
-  const { mutate } = useEmailLogin(onSuccess);
+  const { mutate } = useEmailLogin();
 
   const [email, setEmail] = useState(localStorage.getItem("saved_email") || "");
   const [password, setPassword] = useState("");

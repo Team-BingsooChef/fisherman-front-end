@@ -1,15 +1,15 @@
-import { emailLogin } from "../../api/auth/apis";
-import { EmailSignInRequest } from "../../api/auth/types";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
+import { EmailSignInRequest } from "../../api/auth/types";
+import { emailLogin } from "../../api/auth/apis";
 
-export const useEmailLogin = (onSuccess: (data: AxiosResponse) => void) => {
-  const { mutate, data, isPending, isError, error } = useMutation({
+export const useEmailLogin = () => {
+  return useMutation({
     mutationFn: (req: EmailSignInRequest) => emailLogin(req),
-    onSuccess: (data) => {
-      onSuccess(data);
+    onSuccess: (data: AxiosResponse) => {
+      if (data.status === 302 && data.headers.location) {
+        window.location.href = data.headers.location;
+      }
     },
   });
-
-  return { mutate, data, isPending, isError, error };
 };
