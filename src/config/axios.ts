@@ -1,7 +1,7 @@
 import axios from "axios";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants/const";
-import { ApiError } from "../api/global/apis";
-import { useQueryClient } from "@tanstack/react-query";
+// import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants/const";
+// import { ApiError } from "../api/global/apis";
+// import { useQueryClient } from "@tanstack/react-query";
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
@@ -12,19 +12,6 @@ export const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
-api.interceptors.request.use(
-  (config) => {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN);
-    if (accessToken) {
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 // api.interceptors.response.use(
 //   (response) => {
