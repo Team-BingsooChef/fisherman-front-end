@@ -1,11 +1,11 @@
 import { api } from "../../config/axios";
+import { AxiosResponse } from "axios";
 
 import {
   EmailCodeSendRequest,
   EmailSignUpRequest,
   EmailSignInRequest,
 } from "./types";
-import { AxiosError } from "axios";
 
 export function getEmailCode(req: EmailCodeSendRequest): Promise<void> {
   return api.post(`/auth/email`, req);
@@ -24,7 +24,9 @@ export function signUpEmail(req: EmailSignUpRequest): Promise<void> {
   return api.post(`/users/sign-up`, req);
 }
 
-export async function emailLogin(req: EmailSignInRequest): Promise<void> {
+export async function emailLogin(
+  req: EmailSignInRequest
+): Promise<AxiosResponse> {
   const formData = new FormData();
   formData.append("email", req.email);
   formData.append("password", req.password);
@@ -45,7 +47,7 @@ export async function emailLogin(req: EmailSignInRequest): Promise<void> {
       }
     }
 
-    return res.data;
+    return res;
   } catch (error) {
     console.error("로그인 요청 실패:", error);
     throw error;

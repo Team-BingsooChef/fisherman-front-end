@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Link as ChakraLink,
@@ -12,16 +12,24 @@ import { PasswordInput } from "../PasswordInput";
 import { BlueRectangleButton } from "../../common/CustomedButton";
 import { WhiteInput } from "../../common/CustomedInput";
 import { AuthBottomWrapper } from "../../auth/AuthWrapper";
-import { emailLogin } from "../../../api/auth/apis";
+
+import { AxiosResponse } from "axios";
 import { EmailSignInRequest } from "../../../api/auth/types";
+import { useEmailLogin } from "../../../hook/auth/useEmailLogin";
 
 export const EmailLogin = () => {
+  const onSuccess = (data: AxiosResponse) => {
+    console.log("로그인 성공:", data);
+  };
+
+  const { mutate } = useEmailLogin(onSuccess);
+
   const [email, setEmail] = useState(localStorage.getItem("saved_email") || "");
   const [password, setPassword] = useState("");
   const [rememberEmail, setRememberEmail] = useState(
     !!localStorage.getItem("saved_email")
   );
-  const navigate = useNavigate();
+
   const toast = useToast();
 
   useEffect(() => {
@@ -56,18 +64,7 @@ export const EmailLogin = () => {
     }
 
     const req: EmailSignInRequest = { email, password };
-
-    try {
-      await emailLogin(req);
-    } catch {
-      toast({
-        title: "로그인 실패",
-        description: "이메일 또는 비밀번호를 확인해주세요.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
+    mutate(req);
   };
 
   return (
