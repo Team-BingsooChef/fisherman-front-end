@@ -6,11 +6,8 @@ import { useToast, Box, Flex } from "@chakra-ui/react";
 import fisherman from "../../../assets/pictures/fisherman_small.svg";
 
 import { useChangeUserInfo } from "../../../hook/user/useChangeUserInfo";
-import { changePassword } from "../../../api/user/apis";
 
 export const SetPassword = () => {
-  const changePassword = useChangeUserInfo();
-
   const toast = useToast();
   const navigate = useNavigate();
   const [password, setPassword] = useState("");

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { BlueDrawingButton } from "../../components/common/CustomedButton";
 import { LotteryMachine, InfoBox } from "../../components/user/FishDrawing";

@@ -10,7 +10,6 @@ import { SmeltsCategoryQueryResponseBody } from "../../../api/smelts/types";
 import "./ToppingPosition.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FishingSpot } from "../Bingsoo/index";
 
 import { useDetermineRole } from "../../../hook/fishingspot/useDetermineRole";
 

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { Input, Flex, Text, Button, Textarea } from "@chakra-ui/react";
-import { useState } from "react";
+
 import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 export const WriteLetterSection = ({
   onPrev,
