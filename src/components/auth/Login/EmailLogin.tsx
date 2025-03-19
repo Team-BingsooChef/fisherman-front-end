@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import {
-  Box,
-  Link as ChakraLink,
-  Flex,
-  Text,
-  Checkbox,
-  useToast,
-} from "@chakra-ui/react";
+// import { Link as RouterLink } from "react-router-dom";
+import { Box, Flex, Text, Checkbox, useToast } from "@chakra-ui/react";
 import { PasswordInput } from "../PasswordInput";
 import { BlueRectangleButton } from "../../common/CustomedButton";
 import { WhiteInput } from "../../common/CustomedInput";
@@ -87,7 +80,7 @@ export const EmailLogin = () => {
         >
           <Text fontSize="14px">아이디 저장</Text>
         </Checkbox>
-        <ChakraLink
+        {/* <ChakraLink
           as={RouterLink}
           to="/findpassword"
           color="#777C89"
@@ -95,7 +88,7 @@ export const EmailLogin = () => {
           fontWeight="semibold"
         >
           비밀번호 찾기
-        </ChakraLink>
+        </ChakraLink> */}
       </Flex>
       <BlueRectangleButton onClick={handleLogin}>로그인</BlueRectangleButton>
       <AuthBottomWrapper
