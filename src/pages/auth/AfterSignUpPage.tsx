@@ -7,11 +7,20 @@ import { useLocation } from "react-router-dom";
 import fisherman from "../../assets/pictures/fisherman_small.svg";
 import { signUpEmail } from "../../api/auth/apis";
 import { EmailSignUpRequest } from "../../api/auth/types";
+import { useChangeUserInfo } from "../../hook/user/useChangeUserInfo";
+import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 
 export default function AfterSignUpPage() {
+  const location = useLocation();
+  const isOAuthUser = location.state?.oauthuser;
+
   const navigate = useNavigate();
   const toast = useToast();
   const [username, setUsername] = useState("");
+
+  const { changeNickname } = useChangeUserInfo();
+  const { data } = useGetFishingSpotId();
+  const fishingSpotId = data?.fishingSpotId;
 
   const handleSubmit = async () => {
     if (!username) {
@@ -24,47 +33,68 @@ export default function AfterSignUpPage() {
       return;
     }
 
-    localStorage.setItem("user_nickname", username);
+    if (isOAuthUser) {
+      try {
+        await changeNickname(username);
+        toast({
+          title: "닉네임 설정 성공!",
+          description: "환영합니다!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        navigate(`/${fishingSpotId}`);
+      } catch (error) {
+        console.error("닉네임 변경 실패:", error);
+        toast({
+          title: "닉네임 변경 실패",
+          description: "다시 시도해주세요.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } else {
+      // 일반 회원가입 사용자인 경우 기존 로직 실행
+      const email = localStorage.getItem("user_email");
+      const password = localStorage.getItem("user_password");
 
-    const email = localStorage.getItem("user_email");
-    const password = localStorage.getItem("user_password");
+      if (!email || !password) {
+        toast({
+          title: "회원가입 정보가 부족합니다.",
+          description: "다시 시도해주세요.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+        return;
+      }
 
-    if (!email || !password) {
-      toast({
-        title: "회원가입 정보가 부족합니다.",
-        description: "다시 시도해주세요.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
+      const req: EmailSignUpRequest = {
+        email,
+        password,
+        nickname: username,
+      };
 
-    const req: EmailSignUpRequest = {
-      email,
-      password,
-      nickname: username,
-    };
-
-    try {
-      await signUpEmail(req);
-      toast({
-        title: "회원가입 성공!",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-
-      navigate("/login");
-    } catch (error) {
-      console.error("회원가입 실패:", error);
-      toast({
-        title: "회원가입 실패",
-        description: "다시 시도해주세요.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+      try {
+        await signUpEmail(req);
+        toast({
+          title: "회원가입 성공!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        navigate("/login");
+      } catch (error) {
+        console.error("회원가입 실패:", error);
+        toast({
+          title: "회원가입 실패",
+          description: "다시 시도해주세요.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
     }
   };
 
