@@ -17,7 +17,13 @@ export default function RedirectPage() {
     if (isFreshUser === "true") {
       navigate("/aftersignup", { state: { oauthuser: true } });
     } else if (isFreshUser === "false") {
-      navigate(`/${fishingSpotId}`);
+      const redirectUrl = localStorage.getItem("redirectUrl");
+      if (redirectUrl) {
+        localStorage.removeItem("redirectUrl");
+        navigate(redirectUrl);
+      } else {
+        navigate(`/${fishingSpotId}`);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

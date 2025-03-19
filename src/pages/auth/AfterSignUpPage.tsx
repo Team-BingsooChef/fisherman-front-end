@@ -43,7 +43,13 @@ export default function AfterSignUpPage() {
           duration: 3000,
           isClosable: true,
         });
-        navigate(`/${fishingSpotId}`);
+        const redirectUrl = localStorage.getItem("redirectUrl");
+        if (redirectUrl) {
+          localStorage.removeItem("redirectUrl"); // 저장된 링크 삭제
+          navigate(redirectUrl); // 저장된 링크로 리디렉션
+        } else {
+          navigate(`/${fishingSpotId}`);
+        }
       } catch (error) {
         console.error("닉네임 변경 실패:", error);
         toast({
