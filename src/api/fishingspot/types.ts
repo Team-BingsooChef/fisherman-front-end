@@ -40,3 +40,5 @@ export interface FishingSpotSearchResponseBody {
   fishingSpotId: number;
   nickname: string;
 }
+
+export type FishingSpotSearchResponse = FishingSpotSearchResponseBody[];

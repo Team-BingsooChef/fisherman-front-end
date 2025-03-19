@@ -4,7 +4,7 @@ import { useState } from "react";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { WhiteInput } from "../../components/user/CustomedInput";
 import { Search } from "lucide-react";
-import { Flex, Text, VStack, Image } from "@chakra-ui/react";
+import { Flex, Text, VStack, Image, Avatar } from "@chakra-ui/react";
 
 import { useSearchFishingSpot } from "../../hook/fishingspot/useSerachFishingSpot";
 import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
@@ -31,12 +31,11 @@ export default function SearchPage() {
           handleChange={(e) => setOtherNickname(e.target.value)}
         ></WhiteInput>
       </Flex>
-      {/* 검색 결과 */}
+
       <VStack align="center" mt="20px" w="full" spacing="8px">
-        {/* {data?.map((user) => ( */}
-        {data && (
+        {data?.map((user) => (
           <Flex
-            key={data.fishingSpotId}
+            key={user.fishingSpotId}
             p="12px"
             w="90%"
             borderWidth="1px"
@@ -45,10 +44,11 @@ export default function SearchPage() {
             bg="#F7FAFC"
             align="center"
             cursor="pointer"
-            onClick={() => navigate(`/${data.fishingSpotId}`)}
+            onClick={() => navigate(`/${user.fishingSpotId}`)}
           >
+            <Avatar boxSize="40px" borderRadius="full" objectFit="contain" />
             {/* <Image
-              src={user.profileImg}
+              src={imgURl}
               boxSize="40px"
               borderRadius="full"
               objectFit="contain"
@@ -59,11 +59,16 @@ export default function SearchPage() {
               fontWeight="semibold"
               color="#737373"
             >
-              {data.nickname}
+              {user.nickname}
             </Text>
           </Flex>
+        ))}
+        {isLoading && (
+          <Text fontSize="14px" color="#777C89">
+            검색 중입니다...
+          </Text>
         )}
-        {!data && (
+        {data?.length === 0 && (
           <Text fontSize="14px" color="#777C89">
             검색 결과가 없습니다.
           </Text>

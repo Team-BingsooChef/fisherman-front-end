@@ -4,7 +4,7 @@ import { pageableParams } from "../global/types";
 import {
   SmeltsPostRequestBody,
   FishingSpotQueryResponseBody,
-  FishingSpotSearchResponseBody,
+  FishingSpotSearchResponse,
 } from "./types";
 export function sendSmelts(
   fishingSpotId: number,
@@ -15,7 +15,7 @@ export function sendSmelts(
 
 export async function searchFishingSpot(
   keyword: string
-): Promise<FishingSpotSearchResponseBody> {
+): Promise<FishingSpotSearchResponse> {
   const res = await api.get(`/fishing-spots`, {
     params: keyword,
   });
