@@ -1,7 +1,26 @@
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useEmailLogin } from "../../hook/auth/useEmailLogin";
+import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 
 export default function RedirectPage() {
-  const { error, isError, isPending } = useEmailLogin();
+  const navigate = useNavigate();
+
+  const { isPending, isError, error } = useEmailLogin();
+  const { data } = useGetFishingSpotId();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const isFreshUser = searchParams.get("isFreshUser");
+    const fishingSpotId = data?.fishingSpotId;
+
+    if (isFreshUser === "true") {
+      navigate("/aftersignup", { state: { oauthuser: true } });
+    } else if (isFreshUser === "false") {
+      navigate(`/${fishingSpotId}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

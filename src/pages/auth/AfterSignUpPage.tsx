@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Box, useToast, Input, Text, Flex } from "@chakra-ui/react";
 import { BlueRectangleButton } from "../../components/common/CustomedButton";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import fisherman from "../../assets/pictures/fisherman_small.svg";
 import { signUpEmail } from "../../api/auth/apis";
 import { EmailSignUpRequest } from "../../api/auth/types";
