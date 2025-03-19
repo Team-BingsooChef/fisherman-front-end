@@ -32,10 +32,6 @@ jobs:
         run: |
           npm install -g pnpm@8
 
-      - name: Create .env file # 환경변수 넣기
-        run: |
-          echo "VITE_APP_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" >> .env
-
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile --force
 
