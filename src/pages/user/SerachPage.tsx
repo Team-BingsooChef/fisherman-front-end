@@ -4,7 +4,7 @@ import { useState } from "react";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { WhiteInput } from "../../components/user/CustomedInput";
 import { Search } from "lucide-react";
-import { Flex, Text, VStack, Image, Avatar } from "@chakra-ui/react";
+import { Flex, Text, VStack, Avatar } from "@chakra-ui/react";
 
 import { useSearchFishingSpot } from "../../hook/fishingspot/useSerachFishingSpot";
 import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
