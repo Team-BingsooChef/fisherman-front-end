@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { Input, Flex, Text, Button, Textarea } from "@chakra-ui/react";
-import { useState } from "react";
 
+import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 export const WriteLetterSection = ({
   onPrev,
   onNext,
@@ -10,18 +10,22 @@ export const WriteLetterSection = ({
   onPrev: () => void;
   onNext: () => void;
 }) => {
-  const [chefName, setChefName] = useState("");
-  const [toppingContent, setToppingContent] = useState("");
   const navigate = useNavigate();
+  const { senderName, setSenderName, content, setContent } = useSmeltStore();
 
   const maxChefNameLength = 8;
   const maxToppingContentLength = 300;
 
-  const isNextButtonEnabled = chefName.length > 0 && toppingContent.length > 0;
-
+  const isNextButtonEnabled = senderName.length > 0 && content.length > 0;
+  const currentFishingSpotId = Number(
+    localStorage.getItem("currentFishingSpotId")
+  );
   return (
     <>
-      <WhiteLeftHeader text="빙어 보내기" onBackClick={() => navigate("/")} />
+      <WhiteLeftHeader
+        text="빙어 보내기"
+        onBackClick={() => navigate(`/${currentFishingSpotId}`)}
+      />
       <Flex gap="15px" m="14px 0 30px 0">
         <div
           style={{ width: "60px", height: "1px", backgroundColor: "#B5B5B5" }}
@@ -44,9 +48,9 @@ export const WriteLetterSection = ({
         낚시꾼 이름
       </Text>
       <Input
-        value={chefName}
+        value={senderName}
         onChange={(e) =>
-          setChefName(e.target.value.slice(0, maxChefNameLength))
+          setSenderName(e.target.value.slice(0, maxChefNameLength))
         }
         w="full"
         bg="white"
@@ -56,7 +60,7 @@ export const WriteLetterSection = ({
         placeholder="상대방에게 보일 이름을 작성해주세요."
       />
       <Text w="full" fontSize="12px" color="black" textAlign="right">
-        {chefName.length}/{maxChefNameLength}
+        {senderName.length}/{maxChefNameLength}
       </Text>
 
       <Text
@@ -70,9 +74,9 @@ export const WriteLetterSection = ({
         편지 내용
       </Text>
       <Textarea
-        value={toppingContent}
+        value={content}
         onChange={(e) =>
-          setToppingContent(e.target.value.slice(0, maxToppingContentLength))
+          setContent(e.target.value.slice(0, maxToppingContentLength))
         }
         w="full"
         h="60%"
@@ -83,7 +87,7 @@ export const WriteLetterSection = ({
         placeholder="상대방에게 남길 편지를 작성해 주세요."
       />
       <Text w="full" fontSize="12px" color="black" textAlign="right">
-        {toppingContent.length}/{maxToppingContentLength}
+        {content.length}/{maxToppingContentLength}
       </Text>
 
       <Flex position="absolute" bottom="23px" gap="23px">

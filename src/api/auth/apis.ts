@@ -1,4 +1,5 @@
 import { api } from "../../config/axios";
+import { AxiosResponse } from "axios";
 
 import {
   EmailCodeSendRequest,
@@ -20,25 +21,28 @@ export function verifyEmailCode(
 }
 
 export function signUpEmail(req: EmailSignUpRequest): Promise<void> {
-  return api.post(`/users/sing-up`, req);
-}
-
-export interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
+  return api.post(`/users/sign-up`, req);
 }
 
 export async function emailLogin(
   req: EmailSignInRequest
-): Promise<LoginResponse> {
+): Promise<AxiosResponse> {
   const formData = new FormData();
   formData.append("email", req.email);
   formData.append("password", req.password);
 
-  const res = await api.post("/api/login", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return res.data;
+  try {
+    const res = await api.post("/login", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      maxRedirects: 0,
+      validateStatus: (status) => status < 400,
+    });
+
+    return res;
+  } catch (error) {
+    console.error("로그인 요청 실패:", error);
+    throw error;
+  }
 }

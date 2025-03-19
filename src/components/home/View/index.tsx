@@ -1,9 +1,12 @@
 import { Menu } from "../Menu";
 import { FishingSpot } from "../Bingsoo";
-import { ToppingsPagination } from "../FloatToppings";
+import { ToppingsPagination } from "../FloatToppings/FloatToppings";
 import { AddToppingButton, CopyLink } from "../HomeBottomButton";
 import { Text, Flex, IconButton, Box } from "@chakra-ui/react";
 import { House } from "lucide-react";
+import { useQueryOwnerName } from "../../../hook/fishingspot/useQueryOwnerName";
+import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
+import { useNavigate } from "react-router-dom";
 
 export const OwnerView = () => {
   return (
@@ -18,13 +21,14 @@ export const OwnerView = () => {
       <Flex mt="4px" justify="center" alignItems="center">
         <ToppingsPagination />
       </Flex>
-      {/* <Bingsoo viewType="owner" /> viewType 넣어서 topping 클릭 여부*/}
     </>
   );
 };
 
 export const ChefView = () => {
-  const nickname = "희연이";
+  const nickname = useQueryOwnerName();
+  const navigate = useNavigate();
+  const { data: fishingSpotData } = useGetFishingSpotId();
   return (
     <>
       <Flex w="100%" ml="12px" mt="8px">
@@ -33,8 +37,8 @@ export const ChefView = () => {
           variant="ghost"
           aria-label="goMine"
           color="#777C89"
+          onClick={() => navigate(`/${fishingSpotData?.fishingSpotId}`)}
         />
-        <Menu />
       </Flex>
       <Text mt="10px" fontSize="l" fontWeight="Bold" color="#03526B">
         사랑하는 {nickname}의 호수를 채워주세요
@@ -45,7 +49,6 @@ export const ChefView = () => {
       <Flex mt="8px" justify="center" alignItems="center">
         <ToppingsPagination />
       </Flex>
-      {/* <Bingsoo viewType="owner" /> viewType 넣어서 topping 클릭 여부*/}
     </>
   );
 };

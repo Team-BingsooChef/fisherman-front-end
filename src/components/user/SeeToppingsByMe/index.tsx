@@ -1,10 +1,30 @@
 import { Box, Text, Flex, Image } from "@chakra-ui/react";
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
-import { toppingExamples } from "../../../__mocks__/toppingbyme/data";
-import { toppingTypesData } from "../../../__mocks__/toppingtypes/data";
 
-// SeeToppingsByMe 컴포넌트
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SentSmeltsQueryResponseBody } from "../../../api/inventory/types";
+import { useQuerySentSmelts } from "../../../hook/inventory/useQuerySentSmelts";
+import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
+
 export const SeeToppingsByMe = () => {
+  const [page, setPage] = useState(0);
+  const size = 10;
+  const { data, isLoading } = useQuerySentSmelts(page, size);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight - 100 && !isLoading) {
+        setPage((prev) => prev + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isLoading]);
+
   return (
     <Flex
       m="20px 0 10px 0"
@@ -16,39 +36,22 @@ export const SeeToppingsByMe = () => {
       overflowY="auto"
     >
       <Box w="full" h="100%" bg="none">
-        {toppingExamples.map((topping) => (
-          <ToppingByMeElement key={topping.id} {...topping} />
+        {data?.smelts.map((topping) => (
+          <ToppingByMeElement topping={topping} key={topping.id} />
         ))}
+        {isLoading && <Text>Loading more...</Text>}
       </Box>
     </Flex>
   );
 };
 
-interface ToppingByMeElementProps {
-  nickname: string;
-  toppingContent: string;
-  isHidden: boolean;
-  wrongCount: number;
-  isReplied: boolean;
-  repliedContent: string;
-  toppingTypeId: number;
-}
-
 const ToppingByMeElement = ({
-  nickname,
-  toppingContent,
-  isHidden,
-  wrongCount,
-  isReplied,
-  repliedContent,
-  toppingTypeId,
-}: ToppingByMeElementProps) => {
-  // toppingTypeId를 기반으로 defrostedImg 가져오기
-  const toppingType = toppingTypesData.find(
-    (type: { toppingTypeId: number; defrostedImg: string }) =>
-      type.toppingTypeId === toppingTypeId
-  );
-  const defrostedImg = toppingType?.defrostedImg;
+  topping,
+}: {
+  topping: SentSmeltsQueryResponseBody["smelts"][number];
+}) => {
+  const { getImageUrl } = useSmeltsImg();
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -68,7 +71,7 @@ const ToppingByMeElement = ({
           fontWeight="semibold"
           m="24px 0 10px 0"
         >
-          {nickname}에게
+          {topping.fishermanNickname}에게
         </Text>
       </Box>
       <ModalInsideWhiteContainer height="160px">
@@ -80,29 +83,28 @@ const ToppingByMeElement = ({
           p="20px"
           position="relative"
         >
-          {/* 모서리에 defrostedImg 아이콘 표시 */}
-          {defrostedImg && (
-            <Image
-              src={defrostedImg}
-              alt="topping icon"
-              position="absolute"
-              top="-20px"
-              right="0px"
-              boxSize="50px"
-              cursor="pointer"
-              transition="transform 0.2s ease-in-out"
-              _hover={{
-                transform: "scale(1.2)",
-              }}
-            />
-          )}
+          {/* 상대 낚시터로 navigate */}
+          <Image
+            src={getImageUrl(topping.smeltTypeId)}
+            onClick={() => navigate(`/${topping.fishingSpotId}`)}
+            alt="topping icon"
+            position="absolute"
+            top="-20px"
+            right="0px"
+            boxSize="50px"
+            cursor="pointer"
+            transition="transform 0.2s ease-in-out"
+            _hover={{
+              transform: "scale(1.2)",
+            }}
+          />
 
           <Text fontSize="16px" color="black" fontWeight="medium">
-            {toppingContent}
+            {topping.letter.content}
           </Text>
         </Box>
       </ModalInsideWhiteContainer>
-      {isHidden ? (
+      {topping.status === "UNREAD" ? (
         <Text
           fontSize="14px"
           color="black"
@@ -114,7 +116,7 @@ const ToppingByMeElement = ({
       ) : (
         <>
           {/* 답장이 있을 경우 */}
-          {isReplied && (
+          {topping.letter.comment !== null && (
             <>
               <Box w="full" p="0 20px 0 20px">
                 <Text
@@ -137,7 +139,7 @@ const ToppingByMeElement = ({
                 >
                   <Text fontSize="16px" color="black" fontWeight="medium">
                     {/* 답장 내용을 표시 (예: "답장 내용입니다.") */}
-                    {repliedContent}
+                    {topping.letter.comment.content}
                   </Text>
                 </Box>
               </ModalInsideWhiteContainer>
@@ -149,7 +151,7 @@ const ToppingByMeElement = ({
             m="20px 0 20px 0"
             fontWeight="semibold"
           >
-            이 편지는 {wrongCount}번 만에 열어봤어요!
+            이 편지는 n번 만에 열어봤어요!
           </Text>
         </>
       )}

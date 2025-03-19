@@ -4,12 +4,16 @@ import naverIcon from "../../../assets/icon/naver_icon.svg";
 import googleIcon from "../../../assets/icon/google_icon.svg";
 import { BlueRectangleButton } from "../../common/CustomedButton";
 import fisherman from "../../../assets/pictures/fisherman_small.svg";
-
+import { API_BASE_URL } from "../../../config/axios";
 interface PlatformLoginProps {
   onEmailClick: () => void;
 }
 
 export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
+  const onKaKaoClick = () => {
+    window.location.href = `${API_BASE_URL}/oauth2/authorize/kakao`;
+  };
+
   return (
     <>
       <Flex
@@ -21,6 +25,7 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
         mb="120px"
       >
         <Button
+          onClick={onKaKaoClick}
           w="full"
           h="60px"
           borderRadius="16px"
@@ -111,7 +116,9 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
           />
           구글로 시작하기
         </Button>
-        <BlueRectangleButton onClick={onEmailClick}>이메일로 시작하기</BlueRectangleButton>
+        <BlueRectangleButton onClick={onEmailClick}>
+          이메일로 시작하기
+        </BlueRectangleButton>
       </Flex>
       <img src={fisherman} alt="fisherman" width={200} height={200} />
     </>

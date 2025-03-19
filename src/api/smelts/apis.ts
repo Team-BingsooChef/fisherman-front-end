@@ -31,7 +31,7 @@ export async function solveQuiz(
   return res.data;
 }
 
-export async function querySmeltsLetter(
+export async function querySmeltsDetail(
   smeltId: number
 ): Promise<SmeltsLetterQueryResponseBody> {
   const res = await api.get(`/smelts/${smeltId}`);

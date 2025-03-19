@@ -2,33 +2,31 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { Box, SimpleGrid, Flex, Text, Button } from "@chakra-ui/react";
-import { fishdata } from "../../__mocks__/fishData";
+
+import useSmeltsStatistics from "../../hook/inventory/useSmeltsStatistics";
+import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 
 export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
-  // onNext prop 추가
+  const { data } = useSmeltsStatistics(1);
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState<string | null>(null); // 선택된 아이템 ID 저장
-  const handleItemClick = (id: string) => {
-    setSelectedItem((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
-  };
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "common":
-        return "green.400";
-      case "rare":
-        return "pink.300";
-      case "legendary":
-        return "red.500";
-      case "funny":
-        return "yellow.400";
-      default:
-        return "gray.200";
+  const { setSmeltTypeId } = useSmeltStore();
+  const [selectedTypeId, setSelectedTypeId] = useState<number | null>(null);
+  const handleItemClick = (id: number) => {
+    setSelectedTypeId((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
+    if (selectedTypeId !== null) {
+      setSmeltTypeId(selectedTypeId);
     }
   };
 
+  const currentFishingSpotId = Number(
+    localStorage.getItem("currentFishingSpotId")
+  );
   return (
     <>
-      <WhiteLeftHeader text="빙어 보내기" onBackClick={() => navigate("/")} />
+      <WhiteLeftHeader
+        text="빙어 보내기"
+        onBackClick={() => navigate(`/${currentFishingSpotId}`)}
+      />
       <Flex gap="15px" m="14px 0 40px 0">
         <div
           style={{ width: "60px", height: "1px", backgroundColor: "black" }}
@@ -61,11 +59,11 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
         borderRadius="8px"
       >
         <SimpleGrid columns={3} spacing="20px" mt={4}>
-          {fishdata.map((item) => (
-            <Box key={item.id}>
+          {data?.map((item) => (
+            <Box key={item.smeltTypeId}>
               <Box
-                onClick={() => handleItemClick(item.id.toString())} // 클릭 핸들러 추가
-                bg={selectedItem === item.id.toString() ? "#E0F7FA" : "#d9d9d9"} // 선택된 아이템 강조
+                onClick={() => handleItemClick(item.smeltTypeId)}
+                bg={selectedTypeId === item.smeltTypeId ? "#E0F7FA" : "#d9d9d9"}
                 boxSize="100px"
                 position="relative"
                 display="flex"
@@ -76,24 +74,6 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
                 _hover={{ transform: "translateY(-2px)", boxShadow: "md" }}
                 transition="all 0.2s"
               >
-                {/* 상태 표시 */}
-                <Box
-                  position="absolute"
-                  top="0"
-                  left="0"
-                  bg={getStatusColor(item.status)}
-                  color="white"
-                  px={2}
-                  py={1}
-                  fontSize="xs"
-                  fontWeight="bold"
-                  borderRadius="8px"
-                  zIndex="1"
-                  transform="translate(-10%, -10%) rotate(-25deg)"
-                >
-                  {item.status}
-                </Box>
-
                 {/* 물고기 이미지와 정보 */}
                 <Box
                   boxSize="90px"
@@ -101,7 +81,12 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
                   justifyContent="center"
                   alignItems="center"
                 >
-                  <img src={item.image} alt="fish" width="70px" height="70px" />
+                  <img
+                    src={item.smeltImageUrl}
+                    alt="fish"
+                    width="70px"
+                    height="70px"
+                  />
                 </Box>
               </Box>
               <Text
@@ -110,14 +95,14 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
                 textAlign="center"
                 mt="4px"
               >
-                {item.text} {item.count} 개
+                {item.smeltTypeName} {item.count} 개
               </Text>
             </Box>
           ))}
         </SimpleGrid>
       </Flex>
       <Button
-        onClick={onNext} // onNext 사용
+        onClick={onNext}
         bg="#03526B"
         color="white"
         fontSize="20px"
@@ -128,7 +113,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
         position="absolute"
         bottom="23px"
         _hover={{ bg: "#03526B" }}
-        isDisabled={!selectedItem} // 선택된 아이템 없을 시 비활성화
+        isDisabled={!selectedTypeId} // 선택된 아이템 없을 시 비활성화
       >
         다음
       </Button>

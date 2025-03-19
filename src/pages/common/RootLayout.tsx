@@ -2,26 +2,15 @@ import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { COLOR } from "../../styles/color";
 import fish_background from "../../assets/background/fish_background.png";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 
 export default function RootLayout() {
   const location = useLocation();
-  const navigate = useNavigate();
-  const isAuthPath =
-    location.pathname === "/login" || location.pathname === "/signup";
-  // 경로에 따라 배경 이미지 선택
 
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token && !isAuthPath) {
-      navigate("/login");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
   let backgroundColor;
 
-  if (["/bingsooId", "/"].includes(location.pathname)) {
+  if (["/fishingSpotId", "/"].includes(location.pathname)) {
     backgroundColor = `url(${fish_background})`;
 
     return (

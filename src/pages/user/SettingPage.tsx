@@ -11,36 +11,34 @@ import {
   Button,
   IconButton,
   useDisclosure,
-  useToast,
 } from "@chakra-ui/react";
+
 import profile_example from "../../assets/profile_example.jpg";
 import { LockKeyhole, RotateCcw, Trash2, Pencil } from "lucide-react";
 
+import { useQueryUserInfo } from "../../hook/user/useQueryUserInfo";
+import { useChangeFishingSpotPublic } from "../../hook/fishingspot/useChangeFishingSpotPublic";
+import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 export default function SettingPage() {
   const navigate = useNavigate();
-  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [currentNickname] = useState<string>("호랭이");
-  const onchangeNickname = () => {
-    onClose();
-    toast({
-      title: "닉네임이 변경되었습니다.",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
-  };
+  const { data: userInfoData } = useQueryUserInfo();
+  const { changeFishingSpotPublic } = useChangeFishingSpotPublic();
+  const { data: fishingSpotData } = useGetFishingSpotId();
+
   const goHome = () => {
-    navigate("/");
+    navigate(`/${fishingSpotData?.fishingSpotId}`);
   };
 
   // 상태를 나타내는 타입
-  type SearchStatus = "허용" | "금지";
+  type publicStatusType = "허용" | "금지";
 
-  const [accessStatus, setAccessStatus] = useState<SearchStatus>("금지");
+  const [publicStatus, setPublicStatus] = useState<publicStatusType>("금지");
 
-  const toggleAccess = () => {
-    setAccessStatus((prev) => (prev === "허용" ? "금지" : "허용"));
+  const togglePublic = () => {
+    const isPublic = Boolean(publicStatus === "허용"); // "허용"이면 true, "금지"이면 false
+    changeFishingSpotPublic(isPublic);
+    setPublicStatus((prev) => (prev === "허용" ? "금지" : "허용")); // 상태 토글
   };
 
   return (
@@ -81,7 +79,7 @@ export default function SettingPage() {
 
           <Flex align="center" justify="center" gap="2px" fontWeight="Bold">
             <Text fontSize="24px" color="#3887C7">
-              {currentNickname}
+              {userInfoData?.nickname}
             </Text>
             <Text fontSize="24px" color="black">
               님
@@ -112,8 +110,8 @@ export default function SettingPage() {
         <LockKeyhole />
         <FlexChangeElement
           text1="검색 허용"
-          text2={accessStatus}
-          onClick={toggleAccess}
+          text2={publicStatus}
+          onClick={togglePublic}
         />
       </Box>
 
@@ -148,7 +146,7 @@ export default function SettingPage() {
         <Trash2 color="red" />
         회원 탈퇴
       </Button>
-      <ChangeNicknameModal isOpen={isOpen} onClose={onchangeNickname} />
+      <ChangeNicknameModal isOpen={isOpen} onClose={onClose} />
     </Wrapper>
   );
 }

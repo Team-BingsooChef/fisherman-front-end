@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Flex } from "@chakra-ui/react";
-import { Toppings } from "../FloatToppings";
+import { Toppings } from "../FloatToppings/FloatToppings";
 
 export const FishingSpot = () => {
   return (

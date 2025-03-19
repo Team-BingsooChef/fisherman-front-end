@@ -1,12 +1,13 @@
 import { Text, Flex, Button, Input } from "@chakra-ui/react";
 import { useState } from "react";
+import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 
 export const MultipleQuizSection = () => {
   const [options, setOptions] = useState([
     { text: "", isSelected: false }, // 기본 선지 1
     { text: "", isSelected: false }, // 기본 선지 2
   ]);
-
+  const { quiz, setQuiz } = useSmeltStore();
   const addOption = () => {
     if (options.length < 4) {
       setOptions([...options, { text: "", isSelected: false }]);
@@ -19,6 +20,14 @@ export const MultipleQuizSection = () => {
       i === index ? { ...option, text: value } : option
     );
     setOptions(updatedOptions);
+    setQuiz({
+      ...quiz,
+      title: quiz?.title || "",
+      content: quiz?.content || "",
+      type: quiz?.type || "",
+      answerIndex: quiz?.answerIndex || 0,
+      questions: updatedOptions.map((option) => option.text),
+    });
   };
 
   // 선지 선택
@@ -28,6 +37,14 @@ export const MultipleQuizSection = () => {
       isSelected: i === index, // 선택된 선지만 true로 설정
     }));
     setOptions(updatedOptions);
+    setQuiz({
+      ...quiz,
+      title: quiz?.title || "",
+      content: quiz?.content || "",
+      type: quiz?.type || "",
+      answerIndex: index,
+      questions: updatedOptions.map((option) => option.text),
+    });
   };
 
   return (

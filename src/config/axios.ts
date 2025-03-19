@@ -1,26 +1,15 @@
 import axios from "axios";
+import { getCookie } from "../hook/auth/useCheckAuth";
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
 });
-
-api.interceptors.request.use(
-  (config) => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 api.interceptors.response.use(
   (response) => {
@@ -28,31 +17,22 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    if (
-      (error.response.status === 401 || error.response.status === 403) &&
-      !originalRequest._retry
-    ) {
+    if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const refreshToken = localStorage.getItem("refreshToken");
+      const refreshToken = getCookie("refresh_token");
       if (!refreshToken) {
         window.location.href = "/login";
         return Promise.reject(error);
       }
       const resp = await fetch(`${API_BASE_URL}/auth/refresh`, {
         method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${refreshToken}`,
-        },
+        credentials: "include",
       });
       if (resp.ok) {
-        const res = await resp.json();
-        localStorage.setItem("accessToken", res.accessToken);
-        localStorage.setItem("refreshToken", res.refreshToken);
+        console.log("토큰 재발급 성공");
         return api(originalRequest);
       } else {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+        console.log("토큰 재발급 실패");
         window.location.href = "/login";
       }
       return Promise.reject(error);

@@ -1,17 +1,33 @@
 import styled from "@emotion/styled";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { OwnerView, ChefView } from "../../components/home/View";
-// import { useParams } from "react-router-dom"; //후에 bingsooId로 페이지 구분
 import { ModalLayout } from "../../components/home//modal/ModalLayout";
+import { useDetermineRole } from "../../hook/fishingspot/useDetermineRole";
+import { useCheckAuth } from "../../hook/auth/useCheckAuth";
+
 export default function HomePage() {
-  // const { bingsooId } = useParams(); // URL에서 bingsooId 가져오기
-  type Role = "chef" | "owner";
-  const role: Role = "owner"; // 초기값 "owner"로 설정
+  const { isLoggedIn } = useCheckAuth();
+  const role = useDetermineRole();
+  const fishingSpotId = useParams();
+  const navigate = useNavigate();
+  const currentFishingSpotId = fishingSpotId.fishingSpotId;
+  if (currentFishingSpotId) {
+    localStorage.setItem("fishingSpotId", currentFishingSpotId);
+  }
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      localStorage.setItem("redirectUrl", `/${fishingSpotId}`);
+      navigate("/login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrapper>
-      {role === "owner" ? <ChefView /> : <OwnerView />}
-      {/* {role === "owner" ? <OwnerView /> : <ChefView />} */}
-      {/* ModalLayout을 전역적으로 추가 */}
+      {role === "chef" ? <ChefView /> : <OwnerView />}
       <ModalLayout />
     </Wrapper>
   );
