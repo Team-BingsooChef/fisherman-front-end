@@ -7,22 +7,7 @@ import fish_background from "../../assets/background/fish_background.png";
 
 export default function RootLayout() {
   const location = useLocation();
-  // const navigate = useNavigate();
-  // const isAuthPath =
-  //   location.pathname === "/login" ||
-  //   location.pathname === "/signup" ||
-  //   location.pathname === "/emailcheck" ||
-  //   location.pathname === "/aftersignup" ||
-  //   location.pathname === "/redirect" ||
-  //   location.pathname === "/setpassword";
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("accessToken");
-  //   if (!token && !isAuthPath) {
-  //     navigate("/login");
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [location.pathname]);
   let backgroundColor;
 
   if (["/fishingSpotId", "/"].includes(location.pathname)) {

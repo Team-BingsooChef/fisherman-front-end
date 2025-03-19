@@ -11,7 +11,7 @@ export function useCheckAuth() {
   return { isLoggedIn };
 }
 
-function getCookie(key: string): string | undefined {
+export function getCookie(key: string): string | undefined {
   const cookieString = document.cookie;
   const keyValuePairs = cookieString.split("; ");
 
