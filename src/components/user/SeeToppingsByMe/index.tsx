@@ -40,6 +40,9 @@ export const SeeToppingsByMe = () => {
           <ToppingByMeElement topping={topping} key={topping.id} />
         ))}
         {isLoading && <Text>Loading more...</Text>}
+        {!isLoading && data?.smelts.length === 0 && (
+          <Text>아직 보낸 빙어가 없어요!</Text>
+        )}
       </Box>
     </Flex>
   );

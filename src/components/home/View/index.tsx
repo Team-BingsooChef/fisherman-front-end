@@ -3,7 +3,7 @@ import { FishingSpot } from "../Bingsoo";
 import { ToppingsPagination } from "../FloatToppings/FloatToppings";
 import { AddToppingButton, CopyLink } from "../HomeBottomButton";
 import { Text, Flex, IconButton, Box } from "@chakra-ui/react";
-import { House, LogInIcon } from "lucide-react";
+import { House } from "lucide-react";
 import { useQueryOwnerName } from "../../../hook/fishingspot/useQueryOwnerName";
 import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
 import { useNavigate } from "react-router-dom";
