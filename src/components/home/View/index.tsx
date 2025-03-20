@@ -18,7 +18,7 @@ export const OwnerView = () => {
       <CopyLink />
       <Box h="60px" />
       <FishingSpot />
-      <Flex mt="4px" justify="center" alignItems="center">
+      <Flex mt="8px" mb="8px" justify="center" alignItems="center">
         <ToppingsPagination />
       </Flex>
     </>
