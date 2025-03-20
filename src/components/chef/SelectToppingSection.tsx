@@ -72,6 +72,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
                 borderRadius="8px"
                 boxShadow="sm"
                 _hover={{ transform: "translateY(-2px)", boxShadow: "md" }}
+                cursor={item.count === 0 ? "not-allowed" : "pointer"}
                 transition="all 0.2s"
               >
                 {/* 물고기 이미지와 정보 */}
