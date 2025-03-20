@@ -21,7 +21,7 @@ export async function queryUserInfo(
 }
 
 export async function getUserId(): Promise<number> {
-  const res = await api.get(`/users/heath-check`);
+  const res = await api.get(`/users/heath_check`);
   return res.data;
 }
 
