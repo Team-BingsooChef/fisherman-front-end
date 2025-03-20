@@ -21,6 +21,10 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
+        path: "",
+        element: <HomePage />,
+      },
+      {
         path: ":fishingSpotId", // 동적 경로
         element: <HomePage />, // 동일한 페이지를 렌더링하거나 다른 컴포넌트를 설정할 수 있음
       },

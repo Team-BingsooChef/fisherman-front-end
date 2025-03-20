@@ -18,9 +18,37 @@ export const FishDrawingResult = () => {
   const { onClose } = useModalOpenStore();
   useModalHeight("70%");
 
+  const translateSmeltTypeName = (smeltTypeName: string): string => {
+    switch (smeltTypeName) {
+      case "Betta":
+        return "베타";
+      case "Bungeoppang":
+        return "붕어빵";
+      case "GoldenSmelt":
+        return "황금빙어";
+      case "Koi":
+        return "비단잉어";
+      case "PufferFish":
+        return "복어";
+      case "RibbonFish":
+        return "갈치";
+      case "Shark":
+        return "상어";
+      case "Smelt":
+        return "빙어";
+      case "Trout":
+        return "송어";
+      default:
+        return smeltTypeName;
+    }
+  };
+
   const smeltTypeName = smeltsCategoryInfo?.smeltTypes.find(
     (smelt) => smelt.id === data?.smelt.smeltTypeId
   )?.name;
+  const translatedSmeltTypeName = smeltTypeName
+    ? translateSmeltTypeName(smeltTypeName)
+    : "알 수 없음";
 
   useEffect(() => {
     mutate();
@@ -62,32 +90,30 @@ export const FishDrawingResult = () => {
         mt="90px"
         textAlign="center"
       >
-        {smeltTypeName} 당첨!
+        {translatedSmeltTypeName} 당첨!
       </Text>
     </Flex>
   );
 };
 
-// MakeSureDrawing 컴포넌트
 export const MakeSureDrawing = () => {
   const { onClose } = useModalOpenStore();
   const { setModalState } = useModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
 
-  // 로딩 후 결과 표시
   const handleDrawing = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      setModalState("fishDrawingResult"); // 모달 상태 변경
-    }, 3000); // 3초 로딩
+      setModalState("fishDrawingResult");
+    }, 3000);
   };
 
   const handleCancleDrawing = () => {
     onClose();
   };
 
-  useModalHeight("25%"); // 모달 높이 설정
+  useModalHeight("25%");
 
   if (isLoading) {
     return (
