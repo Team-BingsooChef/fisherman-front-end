@@ -4,9 +4,10 @@ import {
   changeNickName,
   getUserId,
 } from "../../api/user/apis";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useChangeUserInfo = () => {
+  const queryClient = useQueryClient();
   const { data: userId } = useQuery<number>({
     queryKey: ["userId"],
     queryFn: getUserId,
@@ -24,6 +25,9 @@ export const useChangeUserInfo = () => {
   const changeNickNameMutation = useMutation<void, Error, string>({
     mutationFn: (nickname: string) =>
       changeNickName(userId as number, nickname),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["userInfo"] });
+    },
   });
 
   return {
