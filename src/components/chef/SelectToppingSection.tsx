@@ -11,7 +11,11 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
   const navigate = useNavigate();
   const { setSmeltTypeId } = useSmeltStore();
   const [selectedTypeId, setSelectedTypeId] = useState<number | null>(null);
-  const handleItemClick = (id: number) => {
+
+  const handleItemClick = (id: number, count: number) => {
+    if (count === 0) {
+      return;
+    }
     setSelectedTypeId((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
     if (selectedTypeId !== null) {
       setSmeltTypeId(selectedTypeId);
@@ -62,7 +66,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
           {data?.map((item) => (
             <Box key={item.smeltTypeId}>
               <Box
-                onClick={() => handleItemClick(item.smeltTypeId)}
+                onClick={() => handleItemClick(item.smeltTypeId, item.count)}
                 bg={selectedTypeId === item.smeltTypeId ? "#E0F7FA" : "#d9d9d9"}
                 boxSize="100px"
                 position="relative"
