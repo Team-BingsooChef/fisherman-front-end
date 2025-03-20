@@ -11,7 +11,7 @@ export const AddToppingButton = () => {
   const currentFishingSpotId = fishingSpotId.fishingSpotId;
 
   const handleClickAddToppping = () => {
-    if (status === 401) {
+    if (status === 401 || status === 500) {
       localStorage.setItem("redirectUrl", `/${currentFishingSpotId}`);
       navigate("/login");
     } else {
