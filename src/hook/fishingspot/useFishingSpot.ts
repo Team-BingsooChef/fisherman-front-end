@@ -33,7 +33,7 @@ export default function useFishingSpot(
       queryFishingSpot(fishingSpotId, {
         page: currentPage,
         size: 10,
-        sort: ["id,asc"],
+        sort: "id,asc",
       }),
   });
 
