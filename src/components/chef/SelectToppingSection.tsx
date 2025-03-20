@@ -7,7 +7,7 @@ import useSmeltsStatistics from "../../hook/inventory/useSmeltsStatistics";
 import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 
 export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
-  const { data } = useSmeltsStatistics(1);
+  const { data } = useSmeltsStatistics();
   const navigate = useNavigate();
   const { setSmeltTypeId } = useSmeltStore();
   const [selectedTypeId, setSelectedTypeId] = useState<number | null>(null);

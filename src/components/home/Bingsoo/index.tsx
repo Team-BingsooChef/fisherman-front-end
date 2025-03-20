@@ -21,7 +21,7 @@ const FishingspotContainer = styled.div`
   position: relative;
   overflow: visible;
   width: 100%;
-  height: 55vh;
+  height: 55dvh;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,13 +1,24 @@
+import { queryMyInventory } from "../../api/inventory/apis";
 import { querySmeltsStatistics } from "../../api/inventory/apis";
 import { querySmeltsCategory } from "../../api/smelts/apis";
-import { useQueries } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 
-export default function useSmeltsStatistics(inventoryId: number) {
+export default function useSmeltsStatistics() {
+  const { data: myInventory } = useQuery({
+    queryKey: ["myInventory"],
+    queryFn: queryMyInventory,
+  });
+
+  const inventoryId = myInventory?.id;
+
   const results = useQueries({
     queries: [
       {
         queryKey: ["smeltsStatistics", inventoryId],
-        queryFn: () => querySmeltsStatistics(inventoryId),
+        queryFn: () =>
+          inventoryId !== undefined
+            ? querySmeltsStatistics(inventoryId)
+            : Promise.reject("Inventory ID is undefined"),
       },
       {
         queryKey: ["smeltsCategory"],
@@ -17,21 +28,18 @@ export default function useSmeltsStatistics(inventoryId: number) {
   });
 
   const [smeltsStatistics, smeltsCategory] = results;
-  const detailedSmeltsStatistics = smeltsStatistics.data?.counts.map(
-    (smelt) => {
-      const smeltTypesMap = new Map(
-        (smeltsCategory.data?.smeltTypes ?? []).map((smeltType) => [
-          smeltType.id,
-          smeltType,
-        ])
+
+  const detailedSmeltsStatistics = (smeltsCategory.data?.smeltTypes ?? []).map(
+    (smeltType) => {
+      const matchingSmelt = smeltsStatistics.data?.counts.find(
+        (smelt) => smelt.smeltTypeId === smeltType.id
       );
 
-      const matchingSmeltType = smeltTypesMap.get(smelt.smeltTypeId);
-
       return {
-        ...smelt,
-        smeltTypeName: matchingSmeltType?.name ?? "알 수 없음",
-        smeltImageUrl: matchingSmeltType?.imageUrl ?? "default.jpg",
+        smeltTypeId: smeltType.id,
+        smeltTypeName: smeltType.name,
+        smeltImageUrl: smeltType.imageUrl,
+        count: matchingSmelt ? matchingSmelt.count : 0,
       };
     }
   );

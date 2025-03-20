@@ -3,7 +3,7 @@ import { FishingSpot } from "../Bingsoo";
 import { ToppingsPagination } from "../FloatToppings/FloatToppings";
 import { AddToppingButton, CopyLink } from "../HomeBottomButton";
 import { Text, Flex, IconButton, Box } from "@chakra-ui/react";
-import { House } from "lucide-react";
+import { House, LogInIcon } from "lucide-react";
 import { useQueryOwnerName } from "../../../hook/fishingspot/useQueryOwnerName";
 import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ export const ChefView = () => {
   const { data: fishingSpotData } = useGetFishingSpotId();
   return (
     <>
-      <Flex w="100%" ml="12px" mt="8px">
+      <Flex w="100%" justify="space-between" mt="8px">
         <IconButton
           icon={<House size={28} />}
           variant="ghost"

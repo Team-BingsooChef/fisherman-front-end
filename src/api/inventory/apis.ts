@@ -15,7 +15,7 @@ export async function drawSmelts(
 export async function querySmeltsStatistics(
   inventoryId: number
 ): Promise<SmeltsInventoryQueryResponseBody> {
-  const res = await api.get(`/inventxories/${inventoryId}/smelts/statistics`);
+  const res = await api.get(`/inventories/${inventoryId}/smelts/statistics`);
   return res.data;
 }
 

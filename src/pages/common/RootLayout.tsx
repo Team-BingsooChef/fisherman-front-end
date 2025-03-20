@@ -2,45 +2,38 @@ import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { COLOR } from "../../styles/color";
 import fish_background from "../../assets/background/fish_background.png";
-// import { useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 
 export default function RootLayout() {
   const location = useLocation();
 
-  let backgroundColor;
+  const isDynamicRoute = /^\/\d+$/.test(location.pathname);
 
-  if (["/fishingSpotId", "/"].includes(location.pathname)) {
-    backgroundColor = `url(${fish_background})`;
-
-    return (
-      <Wrapper>
-        <ImgInsideWrapper backgroundColor={backgroundColor}>
-          <Outlet />
-        </ImgInsideWrapper>
-      </Wrapper>
-    );
-  } else if (
-    [
-      "/emailcheck",
-      "/search",
-      "/setting",
-      "/seetoppinglist",
-      "/fishdrawing",
-      "/fishbag",
-      "/sending",
-    ].includes(location.pathname)
-  ) {
-    backgroundColor = COLOR.SERVE;
-  } else {
-    backgroundColor = COLOR.PRIMARY;
-  }
+  const background =
+    location.pathname === "/" || isDynamicRoute
+      ? `url(${fish_background})`
+      : [
+          "/emailcheck",
+          "/search",
+          "/setting",
+          "/seetoppinglist",
+          "/fishdrawing",
+          "/fishbag",
+          "/sending",
+        ].includes(location.pathname)
+      ? COLOR.SERVE
+      : COLOR.PRIMARY;
 
   return (
     <Wrapper>
-      <InsideWrapper backgroundColor={backgroundColor}>
-        <Outlet />
-      </InsideWrapper>
+      {location.pathname === "/" || isDynamicRoute ? (
+        <ImgInsideWrapper backgroundColor={background}>
+          <Outlet />
+        </ImgInsideWrapper>
+      ) : (
+        <InsideWrapper backgroundColor={background}>
+          <Outlet />
+        </InsideWrapper>
+      )}
     </Wrapper>
   );
 }
