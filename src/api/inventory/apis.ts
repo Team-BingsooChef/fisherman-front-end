@@ -23,7 +23,7 @@ export async function querySentSmelts(
   inventoryId: number,
   page: number = 0,
   size: number = 1,
-  sort: string[] = ["string"]
+  sort: string = "id,asc"
 ): Promise<SentSmeltsQueryResponseBody> {
   const params = {
     page,
