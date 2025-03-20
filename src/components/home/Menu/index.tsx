@@ -21,10 +21,12 @@ import {
   MenuIcon,
 } from "lucide-react";
 import profile_example from "../../../assets/profile_example.jpg";
+import { useQueryUserInfo } from "../../../hook/user/useQueryUserInfo";
 
 export const Menu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const nickName = "자고싶어핑";
+  const { data: userInfoData } = useQueryUserInfo();
+  const nickName = userInfoData?.nickname;
 
   return (
     <>
