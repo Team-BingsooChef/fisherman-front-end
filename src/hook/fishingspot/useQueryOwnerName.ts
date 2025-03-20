@@ -11,7 +11,7 @@ export const useQueryOwnerName = () => {
       const response = await queryFishingSpot(Number(fishingSpotId), {
         page: 1,
         size: 10,
-        sort: ["id,asc"],
+        sort: "id,asc",
       });
       return response.nickname;
     },
