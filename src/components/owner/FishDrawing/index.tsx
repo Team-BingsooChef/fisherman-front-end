@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
 import { useModalHeight } from "../../../hook/useModalHeight";
 import { useModalOpenStore, useModalStateStore } from "../../../store/modal";
-import { Text, Flex, IconButton, Box, Image } from "@chakra-ui/react";
+import { Text, Flex, IconButton, Box, Image, useToast } from "@chakra-ui/react";
 import { BlueEllipseButton } from "../../common/CustomedButton";
 import { XIcon } from "lucide-react";
 import { motion } from "framer-motion"; // Framer Motion import
 
 import { useDrawSmelts } from "../../../hook/inventory/useDraw";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
+import { useQueryInventory } from "../../../hook/inventory/useQueryInventory";
 
 export const FishDrawingResult = () => {
   const { mutate, data } = useDrawSmelts();
@@ -100,8 +101,21 @@ export const MakeSureDrawing = () => {
   const { onClose } = useModalOpenStore();
   const { setModalState } = useModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
+  const { data: inventoryData } = useQueryInventory();
+  const toast = useToast();
 
   const handleDrawing = () => {
+    if (inventoryData?.coin === 0) {
+      toast({
+        title: "코인 부족",
+        description: "코인이 없습니다.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
