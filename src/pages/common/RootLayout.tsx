@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { COLOR } from "../../styles/color";
-import fish_background from "../../assets/background/fish_background.svg";
 
 export default function RootLayout() {
   const location = useLocation();
@@ -10,7 +9,7 @@ export default function RootLayout() {
 
   const background =
     location.pathname === "/" || isDynamicRoute
-      ? `url(${fish_background})`
+      ? COLOR.PRIMARY
       : [
           "/emailcheck",
           "/search",
@@ -51,21 +50,25 @@ const Wrapper = styled.div`
 const InsideWrapper = styled.div<{ backgroundColor: string }>`
   width: 100%;
   max-width: 430px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: ${({ backgroundColor }) => backgroundColor};
   background-size: cover;
   background-position: center;
+  overflow-y: scroll;
 `;
 
 const ImgInsideWrapper = styled.div<{ backgroundColor: string }>`
   width: 100%;
   max-width: 430px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-image: ${({ backgroundColor }) => backgroundColor};
   background-size: cover;
   background-position: center;
+  overflow-y: scroll;
 `;

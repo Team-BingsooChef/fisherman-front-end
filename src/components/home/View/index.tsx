@@ -16,7 +16,7 @@ export const OwnerView = () => {
         친구들에게 공유해 빙어를 추가해 보세요!
       </Text>
       <CopyLink />
-      <Box h="164px" />
+      <Box h="60px" />
       <FishingSpot />
       <Flex mt="4px" justify="center" alignItems="center">
         <ToppingsPagination />
@@ -40,13 +40,13 @@ export const ChefView = () => {
           onClick={() => navigate(`/${fishingSpotData?.fishingSpotId}`)}
         />
       </Flex>
-      <Text mt="10px" fontSize="l" fontWeight="Bold" color="#03526B">
+      <Text fontSize="l" fontWeight="Bold" color="#03526B">
         사랑하는 {nickname}의 호수를 채워주세요
       </Text>
       <AddToppingButton />
-      <Box h="164px" />
+      <Box h="60px" />
       <FishingSpot />
-      <Flex mt="8px" justify="center" alignItems="center">
+      <Flex mt="8px" mb="8px" justify="center" alignItems="center">
         <ToppingsPagination />
       </Flex>
     </>
