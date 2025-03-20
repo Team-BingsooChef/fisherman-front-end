@@ -73,7 +73,7 @@ export default function FishBagPage() {
 
 const Wrapper = styled.div`
   width: calc(100% - 60px);
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,18 +1,27 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { BlueRectangleButton } from "../../common/CustomedButton";
 import { Box, useToast } from "@chakra-ui/react";
 import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
 
 export const AddToppingButton = () => {
   const navigate = useNavigate();
+  const { status } = useGetFishingSpotId();
+  const fishingSpotId = useParams();
+  const currentFishingSpotId = fishingSpotId.fishingSpotId;
+
+  const handleClickAddToppping = () => {
+    if (status === 401) {
+      localStorage.setItem("redirectUrl", `/${currentFishingSpotId}`);
+      navigate("/login");
+    } else {
+      navigate("/sending");
+    }
+  };
 
   return (
     <Box w="calc(100% - 180px)" mt="16px">
-      <BlueRectangleButton
-        onClick={() => {
-          navigate("/sending");
-        }}
-      >
+      <BlueRectangleButton onClick={handleClickAddToppping}>
         빙어 보내기
       </BlueRectangleButton>
     </Box>
