@@ -47,7 +47,7 @@ export default function RootLayout() {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   background-color: #f5f5f5;

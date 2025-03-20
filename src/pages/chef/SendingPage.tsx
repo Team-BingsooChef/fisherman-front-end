@@ -30,7 +30,7 @@ export default function SendingPage() {
 
 const Wrapper = styled.div`
   width: calc(100% - 40px);
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
