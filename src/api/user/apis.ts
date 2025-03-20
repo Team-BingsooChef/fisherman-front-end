@@ -22,7 +22,7 @@ export async function queryUserInfo(
 
 export async function getUserId(): Promise<number> {
   const res = await api.get(`/users/health_check`);
-  return res.data;
+  return res.data.userId;
 }
 
 export interface ChangePasswordRequest {
