@@ -119,8 +119,8 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
         <BlueRectangleButton onClick={onEmailClick}>
           이메일로 시작하기
         </BlueRectangleButton>
+        <img src={fisherman} alt="fisherman" width={200} height={200} />
       </Flex>
-      <img src={fisherman} alt="fisherman" width={200} height={200} />
     </>
   );
 };

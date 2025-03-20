@@ -17,7 +17,7 @@ export const AuthBottomWrapper = ({
   linkTo,
 }: AuthBottomWrapperProps) => {
   return (
-    <Flex flexDir="column" mb="40px" position="fixed" bottom="0">
+    <Flex flexDir="column" mb="40px" bottom="0">
       <img src={fisherman} alt="fisherman" width={180} height={180} />
       <Flex w="100%" justifyContent="center" mt="50px">
         <Text color="#413C3C" fontSize="14px" marginRight="8px">

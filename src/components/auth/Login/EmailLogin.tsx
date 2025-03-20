@@ -80,16 +80,8 @@ export const EmailLogin = () => {
         >
           <Text fontSize="14px">아이디 저장</Text>
         </Checkbox>
-        {/* <ChakraLink
-          as={RouterLink}
-          to="/findpassword"
-          color="#777C89"
-          fontSize="14px"
-          fontWeight="semibold"
-        >
-          비밀번호 찾기
-        </ChakraLink> */}
       </Flex>
+
       <BlueRectangleButton onClick={handleLogin}>로그인</BlueRectangleButton>
       <AuthBottomWrapper
         linkText="아직 회원이 아니신가요?"

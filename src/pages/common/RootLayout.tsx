@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { COLOR } from "../../styles/color";
-import fish_background from "../../assets/background/fish_background.png";
+import fish_background from "../../assets/background/fish_background.svg";
 
 export default function RootLayout() {
   const location = useLocation();
