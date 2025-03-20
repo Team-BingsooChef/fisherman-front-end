@@ -105,7 +105,10 @@ const ToppingElement = ({ topping }: ToppingProps) => {
 };
 
 export const ToppingsPagination = () => {
-  const { currentPage, totalPages, nextPage, prevPage } = useFishingSpot(1);
+  const { fishingSpotId } = useParams();
+  const { currentPage, totalPages, nextPage, prevPage } = useFishingSpot(
+    Number(fishingSpotId)
+  );
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -133,7 +136,7 @@ export const ToppingsPagination = () => {
         이전
       </IconButton>
       <Text>
-        {currentPage + 1} / {totalPages}
+        {currentPage + 1} / {totalPages + 1}
       </Text>
       <IconButton
         onClick={handleNextPage}
