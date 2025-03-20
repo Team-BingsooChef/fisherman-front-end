@@ -11,7 +11,5 @@ export const useGetFishingSpotId = () => {
     queryFn: getFishingSpotId,
   });
 
-  const status = error?.response?.status ?? null;
-
-  return { data, error, status };
+  return { data, error };
 };

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getCookie } from "../hook/auth/useCheckAuth";
 
 export const API_BASE_URL = "https://api.smelt-fishing.com";
 
@@ -17,13 +16,12 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (
+      error.response.status === 401 &&
+      error.response.status === 500 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
-      const refreshToken = getCookie("refresh_token");
-      if (!refreshToken) {
-        window.location.href = "/login";
-        return Promise.reject(error);
-      }
       const resp = await fetch(`${API_BASE_URL}/auth/refresh`, {
         method: "post",
         credentials: "include",

@@ -6,12 +6,12 @@ import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpot
 
 export const AddToppingButton = () => {
   const navigate = useNavigate();
-  const { status } = useGetFishingSpotId();
+  const { data } = useGetFishingSpotId();
   const fishingSpotId = useParams();
   const currentFishingSpotId = fishingSpotId.fishingSpotId;
 
   const handleClickAddToppping = () => {
-    if (status === 401 || status === 403 || status === 500) {
+    if (!data?.fishingSpotId) {
       localStorage.setItem("redirectUrl", `/${currentFishingSpotId}`);
       navigate("/login");
     } else {
