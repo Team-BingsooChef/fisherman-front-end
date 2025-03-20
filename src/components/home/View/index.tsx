@@ -7,7 +7,6 @@ import { House } from "lucide-react";
 import { useQueryOwnerName } from "../../../hook/fishingspot/useQueryOwnerName";
 import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 export const OwnerView = () => {
   return (
@@ -31,12 +30,13 @@ export const ChefView = () => {
   const navigate = useNavigate();
   const { data: fishingSpotData } = useGetFishingSpotId();
 
-  useEffect(() => {
+  const clickGoHome = () => {
     if (!fishingSpotData?.fishingSpotId) {
       navigate("/login");
+    } else {
+      navigate(`/${fishingSpotData?.fishingSpotId}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fishingSpotData]);
+  };
 
   return (
     <>
@@ -46,7 +46,7 @@ export const ChefView = () => {
           variant="ghost"
           aria-label="goMine"
           color="#777C89"
-          onClick={() => navigate(`/${fishingSpotData?.fishingSpotId}`)}
+          onClick={clickGoHome}
         />
       </Flex>
       <Text fontSize="l" fontWeight="Bold" color="#03526B">
