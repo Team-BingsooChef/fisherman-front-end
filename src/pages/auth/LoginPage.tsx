@@ -29,7 +29,7 @@ export default function LoginPage() {
 
 const Wrapper = styled.div`
   width: calc(100% - 60px);
-  height: 100dvh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
