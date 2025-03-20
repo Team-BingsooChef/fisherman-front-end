@@ -5,34 +5,23 @@ import { COLOR } from "../../styles/color";
 export default function RootLayout() {
   const location = useLocation();
 
-  const isDynamicRoute = /^\/\d+$/.test(location.pathname);
-
-  const background =
-    location.pathname === "/" || isDynamicRoute
-      ? COLOR.PRIMARY
-      : [
-          "/emailcheck",
-          "/search",
-          "/setting",
-          "/seetoppinglist",
-          "/fishdrawing",
-          "/fishbag",
-          "/sending",
-        ].includes(location.pathname)
-      ? COLOR.SERVE
-      : COLOR.PRIMARY;
+  const background = [
+    "/emailcheck",
+    "/search",
+    "/setting",
+    "/seetoppinglist",
+    "/fishdrawing",
+    "/fishbag",
+    "/sending",
+  ].includes(location.pathname)
+    ? COLOR.SERVE
+    : COLOR.PRIMARY;
 
   return (
     <Wrapper>
-      {location.pathname === "/" || isDynamicRoute ? (
-        <ImgInsideWrapper backgroundColor={background}>
-          <Outlet />
-        </ImgInsideWrapper>
-      ) : (
-        <InsideWrapper backgroundColor={background}>
-          <Outlet />
-        </InsideWrapper>
-      )}
+      <InsideWrapper backgroundColor={background}>
+        <Outlet />
+      </InsideWrapper>
     </Wrapper>
   );
 }
@@ -55,19 +44,6 @@ const InsideWrapper = styled.div<{ backgroundColor: string }>`
   flex-direction: column;
   align-items: center;
   background-color: ${({ backgroundColor }) => backgroundColor};
-  background-size: cover;
-  background-position: center;
-  overflow-y: scroll;
-`;
-
-const ImgInsideWrapper = styled.div<{ backgroundColor: string }>`
-  width: 100%;
-  max-width: 430px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-image: ${({ backgroundColor }) => backgroundColor};
   background-size: cover;
   background-position: center;
   overflow-y: scroll;
