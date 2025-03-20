@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useSmeltsStatistics from "../../hook/inventory/useSmeltsStatistics";
 export default function FishBagPage() {
   const navigate = useNavigate();
-  const inventoryId = Number(localStorage.getItem("InventoryId"));
-  const { data: fishData } = useSmeltsStatistics(inventoryId);
+  const { data: fishData } = useSmeltsStatistics();
   return (
     <Wrapper>
       <WhiteLeftHeader
