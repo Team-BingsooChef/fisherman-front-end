@@ -41,7 +41,14 @@ export const SeeToppingsByMe = () => {
         ))}
         {isLoading && <Text>Loading more...</Text>}
         {!isLoading && data?.smelts.length === 0 && (
-          <Text>아직 보낸 빙어가 없어요!</Text>
+          <Text
+            textAlign="center"
+            fontSize="14px"
+            fontWeight="semibold"
+            color="#67686d"
+          >
+            아직 보낸 빙어가 없어요! 친구에게 빙어를 보내보세요
+          </Text>
         )}
       </Box>
     </Flex>
