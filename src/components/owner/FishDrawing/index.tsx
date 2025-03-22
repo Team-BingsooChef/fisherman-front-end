@@ -101,18 +101,19 @@ export const MakeSureDrawing = () => {
   const { onClose } = useModalOpenStore();
   const { setModalState } = useModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
-  const { data: inventoryData } = useQueryInventory();
+  const { errorMessage, isError } = useDrawSmelts();
   const toast = useToast();
 
   const handleDrawing = () => {
-    if (inventoryData?.coin === 0) {
+    if (isError) {
       toast({
         title: "코인 부족",
-        description: "코인이 없습니다.",
+        description: errorMessage,
         status: "error",
         duration: 3000,
         isClosable: true,
       });
+
       return;
     }
 
