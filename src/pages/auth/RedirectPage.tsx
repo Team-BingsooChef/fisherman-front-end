@@ -17,10 +17,12 @@ export default function RedirectPage() {
     if (isFreshUser === "true") {
       navigate("/aftersignup", { state: { oauthuser: true } });
     } else if (isFreshUser === "false") {
-      const redirectUrl = localStorage.getItem("redirectUrl");
-      if (redirectUrl) {
-        localStorage.removeItem("redirectUrl");
-        navigate(redirectUrl);
+      const redirectFishingSpotId = localStorage.getItem(
+        "redirectFishingSpotId"
+      );
+      if (redirectFishingSpotId) {
+        localStorage.removeItem("redirectFishingSpotId");
+        navigate(`/${redirectFishingSpotId}`);
       } else {
         navigate(`/${fishingSpotId}`);
       }
