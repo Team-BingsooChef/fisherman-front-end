@@ -115,7 +115,7 @@ export const MakeSureDrawing = () => {
         setTimeout(() => {
           setIsLoading(false);
           toast({
-            title: errorMessage,
+            title: "코인이 부족합니다.",
             description: errorMessage,
             status: "error",
             duration: 3000,
