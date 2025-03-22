@@ -40,9 +40,9 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
     }
   };
 
-  const mutation = useSendSmelts(1);
+  const mutation = useSendSmelts(currentFishingSpotId);
   const submitSmelts = () => {
-    mutation.mutate(); // ✅ zustand의 데이터를 바로 useMutation에서 전송
+    mutation.mutate();
 
     toast({
       title: "빙어를 보냈습니다!",
