@@ -74,12 +74,26 @@ const ToppingElement = ({ topping }: ToppingProps) => {
       return;
     } //chef면 클릭 막기
     localStorage.setItem("selectedToppingId", topping.id.toString());
-    if (topping.status === "UNREAD") {
-      setModalState("openQuiz");
-      onOpen();
-    } else {
-      setModalState("readMessage");
-      onOpen();
+
+    switch (topping.status) {
+      case SmeltStatus.UNREAD:
+        setModalState("openQuiz");
+        onOpen();
+        break;
+      case SmeltStatus.READ:
+        setModalState("readMessage");
+        onOpen();
+        break;
+      case SmeltStatus.SOLVED:
+        setModalState("readMessage");
+        onOpen();
+        break;
+      case SmeltStatus.DREW:
+        setModalState("readMessage");
+        onOpen();
+        break;
+      default:
+        break;
     }
   };
 
