@@ -98,25 +98,40 @@ export const MakeSureDrawing = () => {
   const { mutate, errorMessage, isError } = useDrawSmelts();
   const toast = useToast();
 
-  const handleDrawing = () => {
-    mutate();
-    if (isError) {
+  const handleDrawing = async () => {
+    setIsLoading(true);
+
+    try {
+      await mutate();
+
+      if (isError) {
+        toast({
+          title: "코인 부족",
+          description: errorMessage,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      setTimeout(() => {
+        setIsLoading(false);
+        setModalState("fishDrawingResult");
+      }, 3000);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
       toast({
-        title: "코인 부족",
-        description: errorMessage,
+        title: "오류 발생",
+        description: "뽑기 중 오류가 발생했습니다.",
         status: "error",
         duration: 3000,
         isClosable: true,
       });
-      setIsLoading(false); // 로딩 상태 해제
-      return;
-    }
-    setTimeout(() => {
       setIsLoading(false);
-      setModalState("fishDrawingResult");
-    }, 3000);
+    }
   };
-
   const handleCancleDrawing = () => {
     onClose();
   };
