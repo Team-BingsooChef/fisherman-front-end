@@ -1,5 +1,5 @@
 import { api } from "../../config/axios";
-// import { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 import {
   EmailCodeSendRequest,
@@ -24,8 +24,9 @@ export function signUpEmail(req: EmailSignUpRequest): Promise<void> {
   return api.post(`/users/sign-up`, req);
 }
 
-export async function emailLogin(req: EmailSignInRequest): Promise<void> {
-  // axiosResponse로 고쳐야함
+export async function emailLogin(
+  req: EmailSignInRequest
+): Promise<AxiosResponse> {
   const formData = new FormData();
   formData.append("email", req.email);
   formData.append("password", req.password);
@@ -35,8 +36,8 @@ export async function emailLogin(req: EmailSignInRequest): Promise<void> {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      // maxRedirects: 0,
-      // validateStatus: (status) => status < 400,
+      maxRedirects: 0,
+      validateStatus: (status) => status < 400,
     });
 
     return res.data;
