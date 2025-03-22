@@ -46,7 +46,7 @@ api.interceptors.response.use(
 
     if (error.response.status === 500) {
       console.log("서버 내부 오류 발생");
-      window.location.href = "/login";
+      // window.location.href = "/login";
       return Promise.reject(error);
     }
 
