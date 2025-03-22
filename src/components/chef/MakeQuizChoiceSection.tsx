@@ -10,7 +10,7 @@ import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   const navigate = useNavigate();
   const currentFishingSpotId = Number(
-    localStorage.getItem("currentFishingSpotId")
+    localStorage.getItem("redirectFishingSpotId")
   );
   const toast = useToast();
   const [question, setQuestion] = useState("");
