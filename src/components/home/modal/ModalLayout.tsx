@@ -48,6 +48,8 @@ const Overlay = styled.div`
   justify-content: center;
   overflow-y: auto;
   overflow-x: hidden;
+
+  z-index: 10;
 `;
 
 // 모달 컨테이너 스타일
@@ -60,6 +62,7 @@ const ModalWrapper = styled.div`
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
+  z-index: 20;
 `;
 
 const ModalContainer = styled.div`
