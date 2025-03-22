@@ -16,25 +16,40 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
+
     if (
-      error.response.status === 401 &&
-      error.response.status === 500 &&
-      error.response.status === 403 &&
+      (error.response.status === 401 || error.response.status === 403) &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      const resp = await fetch(`${API_BASE_URL}/auth/refresh`, {
-        method: "post",
-        credentials: "include",
-      });
-      if (resp.ok) {
-        console.log("토큰 재발급 성공");
-        return api(originalRequest);
-      } else {
-        console.log("토큰 재발급 실패");
+
+      try {
+        const resp = await fetch(`${API_BASE_URL}/auth/refresh`, {
+          method: "post",
+          credentials: "include",
+        });
+
+        if (resp.ok) {
+          console.log("토큰 재발급 성공");
+          return api(originalRequest);
+        } else {
+          console.log("토큰 재발급 실패");
+          window.location.href = "/login";
+          return Promise.reject(error);
+        }
+      } catch (refreshError) {
+        console.log("토큰 재발급 요청 실패", refreshError);
         window.location.href = "/login";
+        return Promise.reject(refreshError);
       }
+    }
+
+    if (error.response.status === 500) {
+      console.log("서버 내부 오류 발생");
+      window.location.href = "/login";
       return Promise.reject(error);
     }
+
+    return Promise.reject(error);
   }
 );
