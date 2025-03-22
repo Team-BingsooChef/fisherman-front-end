@@ -6,12 +6,13 @@ import { Text, Flex, IconButton, Box, Image, useToast } from "@chakra-ui/react";
 import { BlueEllipseButton } from "../../common/CustomedButton";
 import { XIcon } from "lucide-react";
 import { motion } from "framer-motion"; // Framer Motion import
+import { useDrawResultStore } from "../../../store/draw/index";
 
 import { useDrawSmelts } from "../../../hook/inventory/useDraw";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 
 export const FishDrawingResult = () => {
-  const { data } = useDrawSmelts();
+  const { result: data } = useDrawResultStore();
 
   const { getImageUrl, data: smeltsCategoryInfo } = useSmeltsImg();
   const imgURL = getImageUrl(data?.smelt.smeltTypeId ?? 1);
@@ -95,16 +96,22 @@ export const MakeSureDrawing = () => {
   const { onClose } = useModalOpenStore();
   const { setModalState } = useModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
-  const { mutate, errorMessage, isError } = useDrawSmelts();
+  const { mutate, errorMessage } = useDrawSmelts();
+  const { setResult } = useDrawResultStore();
   const toast = useToast();
 
   const handleDrawing = async () => {
     setIsLoading(true);
 
-    try {
-      await mutate();
-
-      if (isError) {
+    mutate(undefined, {
+      onSuccess: (data) => {
+        setResult(data);
+        setTimeout(() => {
+          setIsLoading(false);
+          setModalState("fishDrawingResult");
+        }, 3000);
+      },
+      onError: () => {
         setTimeout(() => {
           setIsLoading(false);
           toast({
@@ -114,27 +121,12 @@ export const MakeSureDrawing = () => {
             duration: 3000,
             isClosable: true,
           });
+          onClose();
         }, 3000);
-
-        onClose();
-      }
-
-      setTimeout(() => {
-        setIsLoading(false);
-        setModalState("fishDrawingResult");
-      }, 3000);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      toast({
-        title: "오류 발생",
-        description: "뽑기 중 오류가 발생했습니다.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      setIsLoading(false);
-    }
+      },
+    });
   };
+
   const handleCancleDrawing = () => {
     onClose();
   };

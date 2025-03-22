@@ -1,3 +1,4 @@
+// useDrawSmelts.ts
 import {
   drawSmelts,
   queryMyInventory,
@@ -18,35 +19,35 @@ export const useDrawSmelts = () => {
 
   const inventoryId = inventoryData?.id;
 
-  const drawSmeltsMutation = useMutation<SmeltsDrawResponseBody, Error, number>(
-    {
-      mutationFn: (inventoryId: number) => drawSmelts(inventoryId),
-      onSuccess: (data) => {
-        queryClient.invalidateQueries({ queryKey: ["myInventory"] });
-        setErrorMessage(null);
-        return data;
-      },
-      onError: (error) => {
-        if (error instanceof Error && error.message) {
-          try {
-            const errorResponse = JSON.parse(error.message);
-            if (errorResponse.status === 400) {
-              setErrorMessage(errorResponse.detail);
-            }
-          } catch {
-            setErrorMessage("알 수 없는 오류가 발생했습니다.");
+  const mutation = useMutation<SmeltsDrawResponseBody, Error, void>({
+    mutationFn: () => {
+      if (!inventoryId) {
+        throw new Error("인벤토리 ID를 찾을 수 없습니다.");
+      }
+      return drawSmelts(inventoryId);
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["myInventory"] });
+      setErrorMessage(null);
+    },
+    onError: (error) => {
+      if (error instanceof Error && error.message) {
+        try {
+          const errorResponse = JSON.parse(error.message);
+          if (errorResponse.status === 400) {
+            setErrorMessage(errorResponse.detail);
           }
-        } else {
+        } catch {
           setErrorMessage("알 수 없는 오류가 발생했습니다.");
         }
-      },
-    }
-  );
+      } else {
+        setErrorMessage("알 수 없는 오류가 발생했습니다.");
+      }
+    },
+  });
 
   return {
-    mutate: () => drawSmeltsMutation.mutate(inventoryId as number),
-    data: drawSmeltsMutation.data,
+    ...mutation,
     errorMessage,
-    isError: drawSmeltsMutation.isError,
   };
 };
