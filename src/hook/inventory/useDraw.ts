@@ -26,7 +26,7 @@ export const useDrawSmelts = () => {
       }
       return drawSmelts(inventoryId);
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["myInventory"] });
       setErrorMessage(null);
     },
