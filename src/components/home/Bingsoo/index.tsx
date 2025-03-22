@@ -34,7 +34,7 @@ const FishingspotContainer = styled.div`
   border-end-start-radius: 20px;
   border-end-end-radius: 20px;
   width: 100%;
-  height: 50dvh;
+  height: 44dvh;
   display: flex;
   justify-content: center;
   align-items: center;

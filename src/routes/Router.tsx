@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "../pages/common/RootLayout";
 import HomePage from "../pages/home/HomePage";
+import StartPage from "../pages/home/StartPage";
 import LoginPage from "../pages/auth/LoginPage";
 import SignUpPage from "../pages/auth/SignUpPage";
 import FindPasswordPage from "../pages/auth/FindPasswordPage";
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <HomePage />,
+        element: <StartPage />,
       },
       {
         path: ":fishingSpotId", // 동적 경로
