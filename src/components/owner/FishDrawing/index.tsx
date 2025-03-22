@@ -9,7 +9,6 @@ import { motion } from "framer-motion"; // Framer Motion import
 
 import { useDrawSmelts } from "../../../hook/inventory/useDraw";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
-import { useQueryInventory } from "../../../hook/inventory/useQueryInventory";
 
 export const FishDrawingResult = () => {
   const { mutate, data } = useDrawSmelts();
