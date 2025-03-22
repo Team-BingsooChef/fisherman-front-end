@@ -15,16 +15,15 @@ import { useDetermineRole } from "../../../hook/fishingspot/useDetermineRole";
 
 export const Toppings = () => {
   const { fishingSpotId } = useParams();
-  const { smeltsWithSender } = useFishingSpot(Number(fishingSpotId));
+  const { data } = useFishingSpot(Number(fishingSpotId));
 
   return (
     <>
-      {smeltsWithSender?.map((smelt) => (
+      {data?.smelts?.map((smelt) => (
         <ToppingElement
           key={smelt.id}
           topping={{
             ...smelt,
-            status: smelt.status as SmeltStatus,
           }}
         />
       ))}
@@ -99,7 +98,7 @@ const ToppingElement = ({ topping }: ToppingProps) => {
         boxSize="100px"
         objectFit="contain"
       />
-      <Text>{topping.senderName}</Text>
+      {/* <Text>{topping.senderName}</Text> */}
     </Box>
   );
 };
