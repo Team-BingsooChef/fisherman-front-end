@@ -6,6 +6,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { WhiteInput } from "../../common/CustomedInput";
@@ -24,10 +25,17 @@ export const ChangeNicknameModal = ({
   const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChangedNickname(e.target.value);
   };
-
+  const toast = useToast();
   const { changeNickname } = useChangeUserInfo();
   const handleComplete = () => {
     changeNickname(changedNickname);
+    toast({
+      title: "닉네임이 변경되었습니다.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "bottom",
+    });
     onClose();
   };
   return (
