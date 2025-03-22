@@ -12,7 +12,9 @@ export const AddToppingButton = () => {
 
   const handleClickAddToppping = () => {
     if (!data?.fishingSpotId) {
-      localStorage.setItem("redirectUrl", `/${currentFishingSpotId}`);
+      if (currentFishingSpotId) {
+        localStorage.setItem("redirectFishingSpotId", currentFishingSpotId);
+      }
       navigate("/login");
     } else {
       navigate("/sending");
