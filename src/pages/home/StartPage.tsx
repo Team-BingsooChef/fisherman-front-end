@@ -55,6 +55,8 @@ export default function StartPage() {
             objectFit="contain"
             top="10%"
             left="10%"
+            duration="3s"
+            distance="10px"
           />
           <FishImage
             src={Bungeoppang}
@@ -62,6 +64,8 @@ export default function StartPage() {
             objectFit="contain"
             top="26%"
             left="70%"
+            duration="4s"
+            distance="15px"
           />
           <FishImage
             src={RibbonFish}
@@ -69,6 +73,8 @@ export default function StartPage() {
             objectFit="contain"
             top="60%"
             left="50%"
+            duration="5s"
+            distance="20px"
           />
           <FishImage
             src={PufferFish}
@@ -76,6 +82,8 @@ export default function StartPage() {
             objectFit="contain"
             top="40%"
             left="20%"
+            duration="2.5s"
+            distance="12px"
           />
         </FishingspotContainer>
       </Flex>
@@ -105,18 +113,25 @@ const FishingspotContainer = styled.div`
   overflow: hidden;
 `;
 
-const FishImage = styled(Image)`
+interface FishImageProps {
+  top: string;
+  left: string;
+  duration: string;
+  distance: string;
+}
+
+const FishImage = styled(Image)<FishImageProps>`
   position: absolute;
   top: ${({ top }) => top};
   left: ${({ left }) => left};
-  animation: float 3s infinite ease-in-out;
+  animation: float ${({ duration }) => duration} infinite ease-in-out;
 
   @keyframes float {
     0% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translateY(-${({ distance }) => distance});
     }
     100% {
       transform: translateY(0);
