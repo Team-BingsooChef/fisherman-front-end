@@ -11,17 +11,11 @@ interface SmeltState extends SmeltsPostRequestBody {
 }
 
 export const useSmeltStore = create<SmeltState>((set) => ({
-  smeltTypeId: 1,
+  smeltTypeId: 0,
   title: "",
   content: "",
   senderName: "",
-  quiz: {
-    title: "",
-    content: "",
-    type: "",
-    questions: [],
-    answerIndex: 0,
-  },
+  quiz: null,
 
   setSmeltTypeId: (smeltTypeId) => set({ smeltTypeId }),
   setTitle: (title) => set({ title }),
@@ -31,7 +25,7 @@ export const useSmeltStore = create<SmeltState>((set) => ({
 
   resetForm: () =>
     set({
-      smeltTypeId: 1,
+      smeltTypeId: 0,
       title: "",
       content: "",
       senderName: "",

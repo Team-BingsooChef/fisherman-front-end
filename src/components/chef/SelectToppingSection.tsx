@@ -16,10 +16,13 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
     if (count === 0) {
       return;
     }
-    setSelectedTypeId((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
-    if (selectedTypeId !== null) {
-      setSmeltTypeId(id);
-    }
+    setSelectedTypeId((prev) => {
+      const newSelectedTypeId = prev === id ? null : id; // 동일 아이템 클릭 시 선택 해제
+      if (newSelectedTypeId !== null) {
+        setSmeltTypeId(newSelectedTypeId); // smeltTypeId 업데이트 (null이 아닌 경우만)
+      }
+      return newSelectedTypeId;
+    });
   };
 
   const currentFishingSpotId = Number(
