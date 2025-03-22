@@ -18,7 +18,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
     }
     setSelectedTypeId((prev) => (prev === id ? null : id)); // 동일 아이템 클릭 시 선택 해제
     if (selectedTypeId !== null) {
-      setSmeltTypeId(selectedTypeId);
+      setSmeltTypeId(id);
     }
   };
 
