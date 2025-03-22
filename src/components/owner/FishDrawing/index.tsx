@@ -9,6 +9,7 @@ import { motion } from "framer-motion"; // Framer Motion import
 
 import { useDrawSmelts } from "../../../hook/inventory/useDraw";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
+import { on } from "events";
 
 export const FishDrawingResult = () => {
   const { data } = useDrawSmelts();
@@ -105,14 +106,18 @@ export const MakeSureDrawing = () => {
       await mutate();
 
       if (isError) {
-        toast({
-          title: "코인 부족",
-          description: errorMessage,
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+          toast({
+            title: "코인 부족",
+            description: errorMessage,
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+          });
+        }, 3000);
+
+        onClose();
         return;
       }
 
