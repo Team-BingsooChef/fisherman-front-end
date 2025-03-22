@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SyncLoader } from "react-spinners";
 import { useModalHeight } from "../../../hook/useModalHeight";
 import { useModalOpenStore, useModalStateStore } from "../../../store/modal";
@@ -11,7 +11,7 @@ import { useDrawSmelts } from "../../../hook/inventory/useDraw";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 
 export const FishDrawingResult = () => {
-  const { mutate, data } = useDrawSmelts();
+  const { data } = useDrawSmelts();
 
   const { getImageUrl, data: smeltsCategoryInfo } = useSmeltsImg();
   const imgURL = getImageUrl(data?.smelt.smeltTypeId ?? 1);
@@ -49,11 +49,6 @@ export const FishDrawingResult = () => {
   const translatedSmeltTypeName = smeltTypeName
     ? translateSmeltTypeName(smeltTypeName)
     : "알 수 없음";
-
-  useEffect(() => {
-    mutate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Flex w="full" flexDir="column" align="center" position="relative">
@@ -100,10 +95,11 @@ export const MakeSureDrawing = () => {
   const { onClose } = useModalOpenStore();
   const { setModalState } = useModalStateStore();
   const [isLoading, setIsLoading] = useState(false);
-  const { errorMessage, isError } = useDrawSmelts();
+  const { mutate, errorMessage, isError } = useDrawSmelts();
   const toast = useToast();
 
   const handleDrawing = () => {
+    mutate();
     if (isError) {
       toast({
         title: "코인 부족",
@@ -112,11 +108,9 @@ export const MakeSureDrawing = () => {
         duration: 3000,
         isClosable: true,
       });
-
+      setIsLoading(false); // 로딩 상태 해제
       return;
     }
-
-    setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       setModalState("fishDrawingResult");
