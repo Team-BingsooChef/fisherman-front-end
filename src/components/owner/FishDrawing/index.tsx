@@ -9,7 +9,6 @@ import { motion } from "framer-motion"; // Framer Motion import
 
 import { useDrawSmelts } from "../../../hook/inventory/useDraw";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
-import { on } from "events";
 
 export const FishDrawingResult = () => {
   const { data } = useDrawSmelts();
@@ -118,7 +117,6 @@ export const MakeSureDrawing = () => {
         }, 3000);
 
         onClose();
-        return;
       }
 
       setTimeout(() => {
