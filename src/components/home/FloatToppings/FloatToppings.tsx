@@ -36,7 +36,6 @@ type ToppingProps = {
     id: number;
     smeltTypeId: number;
     status: SmeltStatus;
-    senderName?: string;
   };
 };
 
