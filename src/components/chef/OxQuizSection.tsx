@@ -1,4 +1,4 @@
-import { Text, Flex, Button, Input } from "@chakra-ui/react";
+import { Text, Flex, Button, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 
@@ -15,12 +15,6 @@ export const OxQuizSection = () => {
       ...option,
       isSelected: i === index,
     }));
-    setOptions(updatedOptions);
-  };
-  const handleInputChange = (index: number, value: string): void => {
-    const updatedOptions = options.map((option, i) =>
-      i === index ? { ...option, text: value } : option
-    );
     setOptions(updatedOptions);
     setQuizQuestions(updatedOptions.map((option) => option.text));
     setQuizAnswerIndex(updatedOptions.findIndex((option) => option.isSelected));
@@ -50,14 +44,9 @@ export const OxQuizSection = () => {
             border={option.isSelected ? "2px solid green" : "1px solid #ccc"}
             boxShadow={option.isSelected ? "0 0 5px green" : "none"}
           >
-            <Input
-              placeholder="선지를 작성해 주세요"
-              value={option.text}
-              onChange={(e) => handleInputChange(index, e.target.value)}
-              bg="white"
-              flex="1"
-              disabled={true}
-            />
+            <Box bg="white" flex="1">
+              {option.text}
+            </Box>
             <Button
               ml="10px"
               bg={option.isSelected ? "green.200" : "gray.100"}
