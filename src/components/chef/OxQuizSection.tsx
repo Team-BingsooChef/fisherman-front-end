@@ -38,13 +38,14 @@ export const OxQuizSection = () => {
           <Flex
             key={index}
             align="center"
+            w="full"
             bg="white"
             p="10px"
             borderRadius="10px"
             border={option.isSelected ? "2px solid green" : "1px solid #ccc"}
             boxShadow={option.isSelected ? "0 0 5px green" : "none"}
           >
-            <Box bg="white" flex="1" w="full" textAlign="center">
+            <Box bg="white" flex="1" textAlign="center">
               {option.text}
             </Box>
             <Button
