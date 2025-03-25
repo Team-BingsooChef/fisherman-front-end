@@ -51,7 +51,12 @@ export default function SettingPage() {
         bgColor="white"
       >
         <Box m="20px 0 20px 0">
-          <Box position="relative">
+          <Box
+            display="flex"
+            w="full"
+            alignContent="center"
+            justifyContent="center"
+          >
             <Avatar
               src="https://bit.ly/broken-link"
               width="100px"
