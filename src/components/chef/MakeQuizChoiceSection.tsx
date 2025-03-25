@@ -18,7 +18,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   const [selectQuizType, setSelectQuizType] = useState<string | null>(null); // OX 또는 객관식 유형 관리
   const maxQuestionLength = 30;
 
-  const { setQuiz, setQuizTitle, setQuizContent, setQuizType, resetForm } =
+  const { setQuiz, setQuizTitle, setQuizContent, setQuizType } =
     useSmeltStore();
   const handleQuizTypeSelection = (clickType: "OX" | "MULTIPLE") => {
     if (selectQuizType === clickType) {
@@ -49,7 +49,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
       isClosable: true,
       position: "bottom",
     });
-    resetForm();
+
     navigate(`/${currentFishingSpotId}`);
   };
 

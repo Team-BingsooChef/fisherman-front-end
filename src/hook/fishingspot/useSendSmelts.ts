@@ -25,6 +25,7 @@ export function useSendSmelts(fishingSpotId: number) {
     },
     onError: (error) => {
       console.error("Smelts 전송 실패:", error);
+      resetForm();
     },
   });
 }
