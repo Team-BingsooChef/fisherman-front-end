@@ -6,7 +6,7 @@ interface SmeltState extends SmeltsPostRequestBody {
   setTitle: (title: string) => void;
   setContent: (content: string) => void;
   setSenderName: (senderName: string) => void;
-  setQuiz: (quiz: SmeltsPostRequestBody["quiz"] | null) => void; //설정 x -> null
+  setQuiz: (quiz: SmeltsPostRequestBody["quiz"] | null) => void;
   resetForm: () => void;
 }
 
