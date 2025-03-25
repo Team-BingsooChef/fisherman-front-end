@@ -46,5 +46,4 @@ const InsideWrapper = styled.div<{ backgroundColor: string }>`
   background-color: ${({ backgroundColor }) => backgroundColor};
   background-size: cover;
   background-position: center;
-  overflow-y: scroll;
 `;
