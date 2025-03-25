@@ -153,7 +153,7 @@ export const MakeSureDrawing = () => {
         textAlign="center"
       >
         뽑기를 진행하시겠습니까? <br />
-        코인 1개가 차감됩니다.
+        코인 5개가 차감됩니다.
       </Text>
       <Flex w="calc(100% - 60px)" gap="26px" mt="20px">
         <BlueEllipseButton onClick={handleDrawing}>예</BlueEllipseButton>

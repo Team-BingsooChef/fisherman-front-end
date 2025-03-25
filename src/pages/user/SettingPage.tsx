@@ -7,7 +7,6 @@ import {
   Text,
   Flex,
   Box,
-  Image,
   Button,
   IconButton,
   useDisclosure,
