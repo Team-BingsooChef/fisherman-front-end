@@ -6,9 +6,9 @@ import {
   DrawerContent,
   Flex,
   Box,
-  Image,
   Button,
   useDisclosure,
+  Avatar,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import {
@@ -20,7 +20,7 @@ import {
   LogOut,
   MenuIcon,
 } from "lucide-react";
-import profile_example from "../../../assets/profile_example.jpg";
+
 import { useQueryUserInfo } from "../../../hook/user/useQueryUserInfo";
 
 export const Menu = () => {
@@ -54,9 +54,8 @@ export const Menu = () => {
           {/* <DrawerCloseButton color="#595353" /> */}
           <DrawerHeader>
             <Flex align="center" gap="8px">
-              <Image
-                src={profile_example}
-                alt="profile"
+              <Avatar
+                src="https://bit.ly/broken-link"
                 width="30px"
                 height="30px"
                 borderRadius="full"

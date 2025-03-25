@@ -21,13 +21,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   const handleQuizTypeSelection = (clickType: string) => {
     if (quizType === clickType) {
       setQuizType(null); // 같은 버튼을 다시 누르면 선택 해제
-      setQuiz({
-        title: "",
-        content: "",
-        type: "",
-        questions: [],
-        answerIndex: 0,
-      });
+      setQuiz(null);
     } else {
       setQuizType(clickType); // 선택된 유형 설정
       setQuiz({

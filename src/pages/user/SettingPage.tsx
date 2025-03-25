@@ -11,9 +11,9 @@ import {
   Button,
   IconButton,
   useDisclosure,
+  Avatar,
 } from "@chakra-ui/react";
 
-import profile_example from "../../assets/profile_example.jpg";
 import { LockKeyhole, RotateCcw, Trash2, Pencil } from "lucide-react";
 
 import { useQueryUserInfo } from "../../hook/user/useQueryUserInfo";
@@ -53,15 +53,15 @@ export default function SettingPage() {
       >
         <Box m="20px 0 20px 0">
           <Box position="relative">
-            <Image
-              src={profile_example}
-              alt="profile"
+            <Avatar
+              src="https://bit.ly/broken-link"
               width="100px"
               height="100px"
               borderRadius="full"
               objectFit="contain"
+              marginBottom="10px"
             />
-            <Box
+            {/* <Box
               position="absolute"
               borderRadius="50%"
               boxSize="30px"
@@ -74,7 +74,7 @@ export default function SettingPage() {
                 icon={<Pencil size={20} />}
                 borderRadius="50%"
               />
-            </Box>
+            </Box> */}
           </Box>
 
           <Flex align="center" justify="center" gap="2px" fontWeight="Bold">
