@@ -7,7 +7,7 @@ export const MultipleQuizSection = () => {
     { text: "", isSelected: false }, // 기본 선지 1
     { text: "", isSelected: false }, // 기본 선지 2
   ]);
-  const { quiz, setQuiz } = useSmeltStore();
+  const { setQuizQuestions, setQuizAnswerIndex } = useSmeltStore();
   const addOption = () => {
     if (options.length < 4) {
       setOptions([...options, { text: "", isSelected: false }]);
@@ -20,14 +20,7 @@ export const MultipleQuizSection = () => {
       i === index ? { ...option, text: value } : option
     );
     setOptions(updatedOptions);
-    setQuiz({
-      ...quiz,
-      title: quiz?.title || "",
-      content: quiz?.content || "",
-      type: quiz?.type || "",
-      answerIndex: quiz?.answerIndex || 0,
-      questions: updatedOptions.map((option) => option.text),
-    });
+    setQuizQuestions(updatedOptions.map((option) => option.text));
   };
 
   // 선지 선택
@@ -37,14 +30,7 @@ export const MultipleQuizSection = () => {
       isSelected: i === index, // 선택된 선지만 true로 설정
     }));
     setOptions(updatedOptions);
-    setQuiz({
-      ...quiz,
-      title: quiz?.title || "",
-      content: quiz?.content || "",
-      type: quiz?.type || "",
-      answerIndex: index,
-      questions: updatedOptions.map((option) => option.text),
-    });
+    setQuizAnswerIndex(updatedOptions.findIndex((option) => option.isSelected));
   };
 
   return (

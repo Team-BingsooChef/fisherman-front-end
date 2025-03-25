@@ -7,6 +7,7 @@ import { MultipleQuizSection } from "./MultipleQuizSection";
 import { OxQuizSection } from "./OxQuizSection";
 import { useSendSmelts } from "../../hook/fishingspot/useSendSmelts";
 import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
+
 export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   const navigate = useNavigate();
   const currentFishingSpotId = Number(
@@ -14,23 +15,20 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   );
   const toast = useToast();
   const [question, setQuestion] = useState("");
-  const [quizType, setQuizType] = useState<string | null>(null); // OX 또는 객관식 유형 관리
+  const [selectQuizType, setSelectQuizType] = useState<string | null>(null); // OX 또는 객관식 유형 관리
   const maxQuestionLength = 30;
 
-  const { quiz, setQuiz } = useSmeltStore();
-  const handleQuizTypeSelection = (clickType: string) => {
-    if (quizType === clickType) {
-      setQuizType(null); // 같은 버튼을 다시 누르면 선택 해제
+  const { setQuiz, setQuizTitle, setQuizContent, setQuizType } =
+    useSmeltStore();
+  const handleQuizTypeSelection = (clickType: "OX" | "MULTIPLE") => {
+    if (selectQuizType === clickType) {
+      setSelectQuizType(null);
       setQuiz(null);
     } else {
-      setQuizType(clickType); // 선택된 유형 설정
-      setQuiz({
-        title: question,
-        content: question,
-        type: clickType,
-        questions: quiz?.questions || [],
-        answerIndex: quiz?.answerIndex || 0,
-      });
+      setSelectQuizType(clickType);
+      setQuizType(clickType);
+      setQuizTitle(question);
+      setQuizContent(question);
     }
   };
 
@@ -75,7 +73,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
       >
         퀴즈 추가 (선택)
       </Text>
-      {!quizType && (
+      {!selectQuizType && (
         <>
           <Text mb="20px">
             퀴즈를 설정하고 싶지 않다면, 완료를 눌러 넘어가세요.
@@ -94,7 +92,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
       </Text>
       <Flex gap="12px">
         <Button
-          bg={quizType === "OX" ? "#B5B5B5" : "#D9D9D9"}
+          bg={selectQuizType === "OX" ? "#B5B5B5" : "#D9D9D9"}
           color="black"
           fontSize="20px"
           fontWeight="semiBold"
@@ -107,7 +105,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
           OX
         </Button>
         <Button
-          bg={quizType === "MULTIPLE" ? "#B5B5B5" : "#D9D9D9"}
+          bg={selectQuizType === "MULTIPLE" ? "#B5B5B5" : "#D9D9D9"}
           color="black"
           fontSize="20px"
           fontWeight="semiBold"
@@ -121,7 +119,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
         </Button>
       </Flex>
 
-      {quizType && (
+      {selectQuizType && (
         <>
           <Text
             fontSize="16px"
@@ -149,8 +147,8 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
           <Text w="full" fontSize="12px" color="black" textAlign="right">
             {question.length}/{maxQuestionLength}
           </Text>
-          {quizType === "OX" && <OxQuizSection />}
-          {quizType === "MULTIPLE" && <MultipleQuizSection />}
+          {selectQuizType === "OX" && <OxQuizSection />}
+          {selectQuizType === "MULTIPLE" && <MultipleQuizSection />}
         </>
       )}
 

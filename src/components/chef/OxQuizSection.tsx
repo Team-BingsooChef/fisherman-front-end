@@ -1,8 +1,9 @@
 import { Text, Flex, Button, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
+
 export const OxQuizSection = () => {
-  const { quiz, setQuiz } = useSmeltStore();
+  const { setQuizQuestions, setQuizAnswerIndex } = useSmeltStore();
   const [options, setOptions] = useState([
     { text: "O", isSelected: false }, // 기본 선지 1
     { text: "X", isSelected: false }, // 기본 선지 2
@@ -15,21 +16,14 @@ export const OxQuizSection = () => {
       isSelected: i === index,
     }));
     setOptions(updatedOptions);
-    setQuiz({
-      ...quiz,
-      title: quiz?.title || "",
-      content: quiz?.content || "",
-      type: quiz?.type || "",
-      questions: ["O", "X"],
-      answerIndex: index,
-    });
   };
-
   const handleInputChange = (index: number, value: string): void => {
     const updatedOptions = options.map((option, i) =>
       i === index ? { ...option, text: value } : option
     );
     setOptions(updatedOptions);
+    setQuizQuestions(updatedOptions.map((option) => option.text));
+    setQuizAnswerIndex(updatedOptions.findIndex((option) => option.isSelected));
   };
 
   return (
