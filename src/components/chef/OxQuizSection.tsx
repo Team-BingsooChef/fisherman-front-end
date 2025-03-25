@@ -44,7 +44,7 @@ export const OxQuizSection = () => {
             border={option.isSelected ? "2px solid green" : "1px solid #ccc"}
             boxShadow={option.isSelected ? "0 0 5px green" : "none"}
           >
-            <Box bg="white" flex="1">
+            <Box bg="white" flex="1" w="full" textAlign="center">
               {option.text}
             </Box>
             <Button
