@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { WhiteLeftHeader } from "../../components/common/Header";
 import { Flex, Text, Button, Textarea, useToast } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { MultipleQuizSection } from "./MultipleQuizSection";
 import { OxQuizSection } from "./OxQuizSection";
@@ -27,10 +27,16 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
     } else {
       setSelectQuizType(clickType);
       setQuizType(clickType);
+    }
+  };
+
+  useEffect(() => {
+    if (selectQuizType) {
       setQuizTitle(question);
       setQuizContent(question);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [question]);
 
   const mutation = useSendSmelts(currentFishingSpotId);
   const submitSmelts = () => {
