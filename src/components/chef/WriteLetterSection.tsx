@@ -11,7 +11,8 @@ export const WriteLetterSection = ({
   onNext: () => void;
 }) => {
   const navigate = useNavigate();
-  const { senderName, setSenderName, content, setContent } = useSmeltStore();
+  const { senderName, setSenderName, setTitle, content, setContent } =
+    useSmeltStore();
 
   const maxChefNameLength = 8;
   const maxToppingContentLength = 300;
@@ -20,6 +21,12 @@ export const WriteLetterSection = ({
   const currentFishingSpotId = Number(
     localStorage.getItem("currentFishingSpotId")
   );
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value.slice(0, maxToppingContentLength);
+    setContent(value);
+    setTitle(value);
+  };
   return (
     <>
       <WhiteLeftHeader
@@ -75,9 +82,7 @@ export const WriteLetterSection = ({
       </Text>
       <Textarea
         value={content}
-        onChange={(e) =>
-          setContent(e.target.value.slice(0, maxToppingContentLength))
-        }
+        onChange={handleChangeInput}
         w="full"
         h="60%"
         bg="white"

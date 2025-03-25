@@ -9,26 +9,34 @@ export default function RedirectPage() {
   const { isPending, isError, error } = useEmailLogin();
   const { data } = useGetFishingSpotId();
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const isFreshUser = searchParams.get("isFreshUser");
-    const fishingSpotId = data?.fishingSpotId;
+  useEffect(
+    () => {
+      const searchParams = new URLSearchParams(location.search);
+      const isFreshUser = searchParams.get("isFreshUser");
+      const fishingSpotId = data?.fishingSpotId;
 
-    if (isFreshUser === "true") {
-      navigate("/aftersignup", { state: { oauthuser: true } });
-    } else if (isFreshUser === "false") {
-      const redirectFishingSpotId = localStorage.getItem(
-        "redirectFishingSpotId"
-      );
-      if (redirectFishingSpotId) {
-        localStorage.removeItem("redirectFishingSpotId");
-        navigate(`/${redirectFishingSpotId}`);
-      } else {
-        navigate(`/${fishingSpotId}`);
+      if (isFreshUser === "true") {
+        navigate("/aftersignup", { state: { oauthuser: true } });
+      } else if (isFreshUser === "false") {
+        const redirectFishingSpotId = localStorage.getItem(
+          "redirectFishingSpotId"
+        );
+        const isValidId =
+          redirectFishingSpotId &&
+          redirectFishingSpotId !== "undefined" &&
+          redirectFishingSpotId.trim() !== "";
+
+        if (!isValidId) {
+          localStorage.removeItem("redirectFishingSpotId");
+          navigate(`/${fishingSpotId}`);
+        } else {
+          navigate(`/${redirectFishingSpotId}`);
+        }
       }
-    }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    []
+  );
 
   return (
     <div>

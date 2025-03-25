@@ -27,7 +27,7 @@ export const LotteryMachine = () => {
             borderRadius="8px"
           >
             <PopoverBody fontWeight="semibold">
-              3개의 코인을 사용하여 1개의 빙어를 뽑을 수 있습니다. 뽑은 빙어로
+              5개의 코인을 사용하여 1개의 빙어를 뽑을 수 있습니다. 뽑은 빙어로
               친구에게 편지를 써 보세요!
             </PopoverBody>
           </PopoverContent>

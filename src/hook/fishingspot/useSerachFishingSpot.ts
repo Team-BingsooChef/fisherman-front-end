@@ -7,6 +7,7 @@ export const useSearchFishingSpot = (keyword: string) => {
     {
       queryKey: ["searchFishingSpot", keyword],
       queryFn: () => searchFishingSpot(keyword),
+      enabled: !!keyword,
     }
   );
   return { data, error, isLoading };

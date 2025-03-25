@@ -38,7 +38,7 @@ const Wrapper = styled.div`
 
 const InsideWrapper = styled.div<{ backgroundColor: string }>`
   width: 100%;
-  max-width: 430px;
+  max-width: 600px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -46,5 +46,4 @@ const InsideWrapper = styled.div<{ backgroundColor: string }>`
   background-color: ${({ backgroundColor }) => backgroundColor};
   background-size: cover;
   background-position: center;
-  overflow-y: scroll;
 `;

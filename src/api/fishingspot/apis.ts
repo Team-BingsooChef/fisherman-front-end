@@ -17,7 +17,7 @@ export async function searchFishingSpot(
   keyword: string
 ): Promise<FishingSpotSearchResponse> {
   const res = await api.get(`/fishing-spots`, {
-    params: keyword,
+    params: { keyword },
   });
   return res.data;
 }

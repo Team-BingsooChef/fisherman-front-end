@@ -9,7 +9,7 @@ import EmailCheckPage from "../pages/auth/EmailCheckPage";
 import AfterSignUpPage from "../pages/auth/AfterSignUpPage";
 import SettingPage from "../pages/user/SettingPage";
 import SeeToppnigListPage from "../pages/user/SeeToppingListPage";
-import SearchPage from "../pages/user/SerachPage";
+import SearchPage from "../pages/user/SearchPage";
 import SetPasswordPage from "../pages/auth/SetPasswordPage";
 import FishDrawingPage from "../pages/user/FishDrawingPage";
 import FishBagPage from "../pages/user/FishBagPage";

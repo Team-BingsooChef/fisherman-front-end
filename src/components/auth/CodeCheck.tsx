@@ -1,55 +1,29 @@
 import styled from "@emotion/styled";
-import { useState, useEffect, useRef } from "react";
-import { Box, Flex, Text, useToast } from "@chakra-ui/react";
+import { useRef } from "react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavyRectangleButton } from "../common/CustomedButton";
-import { verifyEmailCode } from "../../api/auth/apis"; // API 함수 임포트
-import { EmailCodeSendRequest } from "../../api/auth/types"; // 요청 타입
+import { useEmailVerify } from "../../hook/auth/useEmailVerify";
+import { useVerificationTimer } from "../../hook/auth/useVerificationTimer";
 
 export const CodeCheck = () => {
-  const [timeLeft, setTimeLeft] = useState(300); // 5분 타이머
-  const [timeExpired, setTimeExpired] = useState(false);
-  const [code, setCode] = useState<string[]>(Array(6).fill(""));
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const toast = useToast();
-
-  const from = location.state?.from || "unknown";
   const email = localStorage.getItem("user_email");
+  const from = location.state?.from || "signup";
 
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
-      return () => clearInterval(timer);
-    } else {
-      setTimeExpired(true);
-      toast({
-        title: "입력 시간이 끝났습니다.",
-        description: "다시 메일을 전송할까요?",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-  }, [timeLeft, toast]);
+  const { timeLeft, timeExpired, code, handleCodeChange, startTimer } =
+    useVerificationTimer();
+  const { verifyCode, resendCode, isVerifying, isResending } = useEmailVerify();
 
-  const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}분 ${secs < 10 ? `0${secs}` : secs}초`;
-  };
-
+  // 입력 처리
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const value = e.target.value.slice(0, 1);
-    const newCode = [...code];
-    newCode[index] = value;
-    setCode(newCode);
-
-    if (value && index < inputRefs.current.length - 1) {
+    handleCodeChange(index, e.target.value);
+    if (e.target.value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
   };
@@ -58,104 +32,77 @@ export const CodeCheck = () => {
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
-    if (e.key === "Backspace" && index > 0 && !code[index]) {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
   };
 
   const handleSubmit = async () => {
-    if (!email) {
-      toast({
-        title: "이메일 정보가 없습니다.",
-        description: "다시 시도해주세요.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+    if (!email || code.join("").length !== 6) {
       return;
     }
-
-    const auth_code = code.join("");
-    if (auth_code.length !== 6) {
-      toast({
-        title: "인증 코드가 올바르지 않습니다.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
-
-    const req: EmailCodeSendRequest = { email };
 
     try {
-      await verifyEmailCode(auth_code, req);
-
-      toast({
-        title: "인증되었습니다.",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
+      await verifyCode({
+        auth_code: code.join(""),
+        req: { email },
       });
 
-      if (from === "signup") {
-        navigate("/setpassword", { state: { action: "setpassword" } });
-      } else if (from === "findpassword") {
-        navigate("/setpassword", { state: { action: "resetpassword" } });
-      } else {
-        console.error("Unknown navigation source");
-      }
+      navigate("/setpassword", {
+        state: { action: from === "signup" ? "setpassword" : "resetpassword" },
+      });
     } catch (error) {
-      console.error("인증 코드 검증 실패:", error);
-      toast({
-        title: "인증 번호가 틀렸습니다.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+      console.error("Verification failed:", error);
     }
   };
 
-  const handleResend = () => {
-    toast({
-      title: "인증 코드를 다시 전송했습니다.",
-      status: "info",
-      duration: 3000,
-      isClosable: true,
-    });
-    setTimeLeft(300);
-    setTimeExpired(false);
+  // 재전송 처리
+  const handleResend = async () => {
+    if (!email) {
+      return;
+    }
+    await resendCode({ email });
+    startTimer();
   };
 
   return (
     <CodeCheckWrapper>
       <InputsContainer>
-        {code.map((_, index) => (
+        {code.map((digit, index) => (
           <CodeInput
             key={index}
             type="text"
             maxLength={1}
-            value={code[index]}
+            value={digit}
             onChange={(e) => handleInputChange(e, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            ref={(el) => (inputRefs.current[index] = el!)}
+            ref={(el) => el && (inputRefs.current[index] = el)}
+            disabled={isVerifying}
           />
         ))}
       </InputsContainer>
+
       <Text color="#13353B" mt="25px">
-        코드 입력까지{" "}
-        <span style={{ fontWeight: "bold" }}>{formatTime(timeLeft)}</span>{" "}
-        남았습니다
+        {timeExpired ? (
+          "인증 시간이 만료되었습니다"
+        ) : (
+          <>
+            코드 입력까지 <b>{formatTime(timeLeft)}</b> 남았습니다
+          </>
+        )}
       </Text>
 
       <Box mt="148px" w="100%">
         <NavyRectangleButton onClick={handleSubmit}>
           인증하기
         </NavyRectangleButton>
+
         {timeExpired && (
           <Flex justify="center" mt="42px" gap="8px">
-            <Text fontSize="14px">메일이 전송되지 않았나요?</Text>
-            <ResendButton onClick={handleResend}>다시 전송</ResendButton>
+            <Text fontSize="14px">메일을 받지 못하셨나요?</Text>
+            <ResendButton onClick={handleResend} disabled={isResending}>
+              {isResending ? "전송 중..." : "재전송"}
+            </ResendButton>
           </Flex>
         )}
       </Box>
@@ -163,6 +110,7 @@ export const CodeCheck = () => {
   );
 };
 
+// 스타일 컴포넌트 및 유틸 함수 (이전과 동일)
 const CodeCheckWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -197,3 +145,10 @@ const ResendButton = styled.button`
   text-decoration: underline;
   cursor: pointer;
 `;
+
+// 유틸 함수
+const formatTime = (seconds: number) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}분 ${secs < 10 ? `0${secs}` : secs}초`;
+};
