@@ -65,6 +65,7 @@ export default function useSmeltsStatistics() {
         smeltTypeName: translateSmeltTypeName(smeltType.name),
         smeltImageUrl: smeltType.imageUrl,
         count: matchingSmelt ? matchingSmelt.count : 0,
+        probability: smeltType.probability,
       };
     }
   );

@@ -55,5 +55,6 @@ export type SmeltsCategoryQueryResponseBody = {
     name: string;
     imageUrl: string;
     iceImageUrl: string;
+    probability: number;
   }[];
 };
