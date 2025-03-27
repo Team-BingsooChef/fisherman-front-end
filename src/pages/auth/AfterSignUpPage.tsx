@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Box, useToast, Input, Text, Flex } from "@chakra-ui/react";
 import { BlueRectangleButton } from "../../components/common/CustomedButton";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import fisherman from "../../assets/pictures/fisherman_small.svg";
 import { signUpEmail } from "../../api/auth/apis";
 import { EmailSignUpRequest } from "../../api/auth/types";
@@ -11,9 +10,6 @@ import { useChangeUserInfo } from "../../hook/user/useChangeUserInfo";
 import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 
 export default function AfterSignUpPage() {
-  const location = useLocation();
-  const isOAuthUser = location.state?.oauthuser;
-
   const navigate = useNavigate();
   const toast = useToast();
   const [username, setUsername] = useState("");
@@ -21,6 +17,9 @@ export default function AfterSignUpPage() {
   const { changeNickname } = useChangeUserInfo();
   const { data } = useGetFishingSpotId();
   const fishingSpotId = data?.fishingSpotId;
+
+  // setPassword에서 온 경우 emailUser, 아니면 OAuth 사용자
+  const isEmailUser = localStorage.getItem("user_password") !== null;
 
   const handleSubmit = async () => {
     if (!username) {
@@ -33,7 +32,7 @@ export default function AfterSignUpPage() {
       return;
     }
 
-    if (isOAuthUser) {
+    if (!isEmailUser) {
       try {
         await changeNickname(username);
         toast({
@@ -43,10 +42,11 @@ export default function AfterSignUpPage() {
           duration: 3000,
           isClosable: true,
         });
-        const redirectUrl = localStorage.getItem("redirectUrl");
-        if (redirectUrl) {
-          localStorage.removeItem("redirectUrl"); // 저장된 링크 삭제
-          navigate(redirectUrl); // 저장된 링크로 리디렉션
+        const currentFishingSpotId = localStorage.getItem(
+          "currentFishingSpotId"
+        );
+        if (currentFishingSpotId) {
+          navigate(`/${currentFishingSpotId}`);
         } else {
           navigate(`/${fishingSpotId}`);
         }
@@ -61,7 +61,6 @@ export default function AfterSignUpPage() {
         });
       }
     } else {
-      // 일반 회원가입 사용자인 경우 기존 로직 실행
       const email = localStorage.getItem("user_email");
       const password = localStorage.getItem("user_password");
 
@@ -91,6 +90,8 @@ export default function AfterSignUpPage() {
           isClosable: true,
         });
         navigate("/login");
+        localStorage.removeItem("user_email");
+        localStorage.removeItem("user_password");
       } catch (error) {
         console.error("회원가입 실패:", error);
         toast({
