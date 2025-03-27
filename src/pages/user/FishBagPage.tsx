@@ -2,6 +2,7 @@ import { WhiteLeftHeader } from "../../components/common/Header";
 import styled from "@emotion/styled";
 import { Box, SimpleGrid, Flex, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { StarIcon } from "@chakra-ui/icons";
 import useSmeltsStatistics from "../../hook/inventory/useSmeltsStatistics";
 
 export default function FishBagPage() {
@@ -31,7 +32,31 @@ export default function FishBagPage() {
           maxW="500px"
         >
           {fishData?.map((item) => (
-            <Box key={item.smeltTypeId} w="100%">
+            <Box key={item.smeltTypeId} w="100%" position="relative">
+              {/* 별 등급 */}
+              <Box
+                position="absolute"
+                top="0"
+                left="0"
+                bg="yellow.400"
+                color="white"
+                px={2}
+                py={1}
+                fontSize="xs"
+                fontWeight="bold"
+                borderBottomRightRadius="md"
+                zIndex="1"
+                transform="translate(-10%, -10%) rotate(-15deg)"
+                boxShadow="md"
+                display="flex"
+                alignItems="center"
+                gap="1px"
+              >
+                {Array.from({ length: item.starRating }).map((_, i) => (
+                  <StarIcon key={i} boxSize={3} />
+                ))}
+              </Box>
+
               <Box
                 bg="#d9d9d9"
                 width="100%"

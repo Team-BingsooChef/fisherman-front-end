@@ -65,7 +65,7 @@ export default function useSmeltsStatistics() {
         smeltTypeName: translateSmeltTypeName(smeltType.name),
         smeltImageUrl: smeltType.imageUrl,
         count: matchingSmelt ? matchingSmelt.count : 0,
-        probability: smeltType.probability,
+        starRating: getStarRating(smeltType.probability),
       };
     }
   );
@@ -74,3 +74,19 @@ export default function useSmeltsStatistics() {
     data: detailedSmeltsStatistics,
   };
 }
+
+const getStarRating = (probability: number): number => {
+  if (probability >= 20) {
+    return 1;
+  }
+  if (probability >= 17) {
+    return 2;
+  }
+  if (probability >= 10) {
+    return 3;
+  }
+  if (probability >= 6) {
+    return 4;
+  }
+  return 5; // 4% 이하
+};
