@@ -42,7 +42,9 @@ export default function SettingPage() {
 
   return (
     <Wrapper>
-      <WhiteLeftHeader text="계정 설정" onBackClick={goHome} />
+      <Box w="calc(100% - 60px)">
+        <WhiteLeftHeader text="계정 설정" onBackClick={goHome} />
+      </Box>
       <Flex
         direction="column"
         w="full"
@@ -156,7 +158,7 @@ export default function SettingPage() {
 }
 
 const Wrapper = styled.div`
-  width: calc(100% - 60px);
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
