@@ -82,7 +82,16 @@ export default function SettingPage() {
               />
             </Box> */}
           </Box>
-
+          <Text
+            fontSize="18px"
+            color="#555555"
+            fontWeight="medium"
+            letterSpacing="-0.3px"
+            mb="8px"
+            textAlign="center"
+          >
+            {userInfoData?.email}
+          </Text>
           <Flex align="center" justify="center" gap="2px" fontWeight="Bold">
             <Text fontSize="24px" color="#3887C7">
               {userInfoData?.nickname}
