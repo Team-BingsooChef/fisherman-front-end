@@ -15,7 +15,9 @@ export default function AfterSignUpPage() {
   const [username, setUsername] = useState("");
 
   const { changeNickname } = useChangeUserInfo();
-  const { data } = useGetFishingSpotId();
+  const { data } = useGetFishingSpotId({
+    enabled: !isEmailUser, // isEmailUser면 훅 실행 X
+  });
   const fishingSpotId = data?.fishingSpotId;
 
   // setPassword에서 온 경우 emailUser, 아니면 OAuth 사용자
