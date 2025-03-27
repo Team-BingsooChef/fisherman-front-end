@@ -5,7 +5,7 @@ import { WhiteHeader } from "../../components/common/Header";
 import { CodeCheck } from "../../components/auth/CodeCheck";
 
 export default function EmailCheckPage() {
-  const email = localStorage.getItem("saved_email");
+  const email = localStorage.getItem("user_email");
   const navigate = useNavigate();
   const from = useLocation().state?.from || "unknown"; // 기본값 설정
   const goBack = () => {
