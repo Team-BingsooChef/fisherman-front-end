@@ -5,10 +5,17 @@ import {
 import { AxiosError } from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetFishingSpotId = () => {
+interface UseGetFishingSpotIdOptions {
+  enabled?: boolean;
+}
+
+export const useGetFishingSpotId = ({
+  enabled = true,
+}: UseGetFishingSpotIdOptions = {}) => {
   const { data, error } = useQuery<FishingSpotIdResponse, AxiosError>({
     queryKey: ["fishingSpotId"],
     queryFn: getFishingSpotId,
+    enabled,
   });
 
   return { data, error };
