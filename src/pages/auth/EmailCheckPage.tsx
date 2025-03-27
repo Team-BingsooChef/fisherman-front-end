@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Text, Box } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { WhiteHeader } from "../../components/common/Header";
 import { CodeCheck } from "../../components/auth/CodeCheck";
 
