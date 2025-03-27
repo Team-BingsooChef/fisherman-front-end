@@ -1,14 +1,13 @@
 import { Flex, Box, Text, Input, useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { BlueRectangleButton } from "../../common/CustomedButton";
-import { getEmailCode } from "../../../api/auth/apis";
 import { EmailCodeSendRequest } from "../../../api/auth/types";
+import { useGetEmailCode } from "../../../hook/auth/useGetEmailCode";
 
 export const CheckDuplicate = () => {
   const [email, setEmail] = useState("");
   const toast = useToast();
-  const navigate = useNavigate();
+  const { getEmailCode, isSending } = useGetEmailCode();
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -23,23 +22,10 @@ export const CheckDuplicate = () => {
         isClosable: true,
       });
       return;
-    }
-
-    localStorage.setItem("user_email", email);
-
-    const req: EmailCodeSendRequest = { email };
-
-    try {
-      await getEmailCode(req);
-      navigate("/emailcheck", { state: { from: "signup" } });
-    } catch (error) {
-      console.error("이메일 인증 요청 실패:", error);
-      toast({
-        title: "이메일 인증 요청에 실패했습니다.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+    } else {
+      localStorage.setItem("user_email", email);
+      const req: EmailCodeSendRequest = { email };
+      getEmailCode(req);
     }
   };
 
@@ -66,7 +52,10 @@ export const CheckDuplicate = () => {
           _focus={{ backgroundColor: "#FFFEFE", boxShadow: "none" }}
         />
       </Flex>
-      <BlueRectangleButton onClick={handleEmailVerification}>
+      <BlueRectangleButton
+        onClick={handleEmailVerification}
+        isLoading={isSending}
+      >
         인증하기
       </BlueRectangleButton>
     </Box>

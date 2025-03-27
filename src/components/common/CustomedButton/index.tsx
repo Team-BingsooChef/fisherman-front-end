@@ -4,11 +4,13 @@ import { COLOR } from "../../../styles/color";
 interface BlueRectangleButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  isLoading?: boolean;
 }
 
 export const BlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({
   children,
   onClick,
+  isLoading,
 }) => {
   return (
     <Button
@@ -24,6 +26,7 @@ export const BlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({
         bg: COLOR.DEEPBLUE, // hover 시 배경색
         color: "white", // hover 시 텍스트 색상 유지
       }}
+      isLoading={isLoading}
       // _active={{
       //   transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
       // }}
