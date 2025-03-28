@@ -74,6 +74,10 @@ const ToppingElement = ({ topping }: ToppingProps) => {
       return;
     } //chef면 클릭 막기
     localStorage.setItem("selectedToppingId", topping.id.toString());
+    localStorage.setItem(
+      "selectedToppingTypeId",
+      topping.smeltTypeId.toString()
+    );
 
     switch (topping.status) {
       case SmeltStatus.UNREAD:

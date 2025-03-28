@@ -8,23 +8,23 @@ import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement
 
 import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
-import { useSmeltsDetail } from "../../../hook/smelts/useSmeltsDetail";
-import { useSolveQuiz } from "../../../hook/smelts/useSolveQuiz"; // 추가
+
+import { useSolveQuiz } from "../../../hook/smelts/useSolveQuiz";
 
 export const OpenQuiz = () => {
   const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
+  const selectedToppingTypeId = Number(
+    localStorage.getItem("selectedToppingTypeId")
+  );
   const { data } = useQueryQuiz(selectedToppingId);
   const { getImageUrl } = useSmeltsImg();
-  const { data: smeltsDetail } = useSmeltsDetail(selectedToppingId);
-  const { mutate: solveQuizMutate } = useSolveQuiz(selectedToppingId); // 추가
+
+  const { mutate: solveQuizMutate } = useSolveQuiz(selectedToppingId);
 
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null); // 선택한 답변
   const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null); // 정답 여부
 
-  const imgURL =
-    smeltsDetail?.smelt.status === "READ"
-      ? getImageUrl(smeltsDetail?.smelt.smeltTypeId ?? 1) || ""
-      : getImageUrl(smeltsDetail?.smelt.smeltTypeId ?? 1, true) || "";
+  const imgURL = getImageUrl(selectedToppingTypeId, true) ?? ""; // 아이스 이미지 URL 가져오기
 
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
