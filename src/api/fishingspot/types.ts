@@ -1,10 +1,8 @@
 export interface SmeltsPostRequestBody {
   smeltTypeId: number;
-  title: string;
   content: string;
   senderName: string;
   quiz?: {
-    title: string;
     content: string;
     type: string;
     questions: string[];
