@@ -139,17 +139,19 @@ export const Menu = () => {
               로그아웃
             </Button>
 
-            <Button
-              leftIcon={<Github size="20" color="#777C89" />}
-              bg="#F9F7F7"
-              _hover={{ bg: "#AFD5F4" }}
-              color="#595353"
-              fontWeight="semibold"
-              width="100%"
-              justifyContent="flex-start"
-            >
-              포피셔 소개
-            </Button>
+            <Link to="/aboutus">
+              <Button
+                leftIcon={<Github size="20" color="#777C89" />}
+                bg="#F9F7F7"
+                _hover={{ bg: "#AFD5F4" }}
+                color="#595353"
+                fontWeight="semibold"
+                width="100%"
+                justifyContent="flex-start"
+              >
+                포피셔 소개
+              </Button>
+            </Link>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
