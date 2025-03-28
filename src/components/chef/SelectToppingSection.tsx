@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { WhiteLeftHeader } from "../../components/common/Header";
@@ -28,7 +27,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
   );
 
   return (
-    <Wrapper>
+    <>
       <WhiteLeftHeader
         text="빙어 보내기"
         onBackClick={() => navigate(`/${currentFishingSpotId}`)}
@@ -157,14 +156,6 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
       >
         다음
       </Button>
-    </Wrapper>
+    </>
   );
 };
-
-const Wrapper = styled.div`
-  width: calc(100% - 60px);
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
