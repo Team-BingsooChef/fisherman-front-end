@@ -16,6 +16,8 @@ import FishBagPage from "../pages/user/FishBagPage";
 import RedirectPage from "../pages/auth/RedirectPage";
 import SendingPage from "../pages/chef/SendingPage";
 import TestPage from "./TestPage";
+import AboutUsPage from "../pages/common/AboutUsPage";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -85,6 +87,7 @@ const router = createBrowserRouter([
         path: "test",
         element: <TestPage />,
       },
+      { path: "aboutus", element: <AboutUsPage /> },
     ],
   },
 ]);
