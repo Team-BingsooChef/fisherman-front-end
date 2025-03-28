@@ -148,7 +148,7 @@ export const ToppingsPagination = () => {
         이전
       </IconButton>
       <Text>
-        {currentPage + 1} / {totalPages + 1}
+        {currentPage + 1} / {totalPages}
       </Text>
       <IconButton
         onClick={handleNextPage}
