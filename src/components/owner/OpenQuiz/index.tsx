@@ -2,14 +2,27 @@ import { useState, useEffect } from "react";
 import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
 import { useModalHeight } from "../../../hook/useModalHeight";
 import { Circle, X, XIcon } from "lucide-react";
-import { Flex, IconButton, Button, Text, Image } from "@chakra-ui/react";
-
+import {
+  Flex,
+  IconButton,
+  Button,
+  Text,
+  Image,
+  keyframes,
+} from "@chakra-ui/react";
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
-
 import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
-
 import { useSolveQuiz } from "../../../hook/smelts/useSolveQuiz";
+
+// 흔들림 애니메이션
+const shake = keyframes`
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+`;
 
 export const OpenQuiz = () => {
   const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
@@ -21,14 +34,15 @@ export const OpenQuiz = () => {
 
   const { mutate: solveQuizMutate } = useSolveQuiz(selectedToppingId);
 
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null); // 선택한 답변
-  const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null); // 정답 여부
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null);
+  const [wrongAnswer, setWrongAnswer] = useState<string | null>(null); // 오답 상태
+  const [isShaking, setIsShaking] = useState(false); // 흔들림 상태
 
-  const imgURL = getImageUrl(selectedToppingTypeId, true) ?? ""; // 아이스 이미지 URL 가져오기
+  const imgURL = getImageUrl(selectedToppingTypeId, true) ?? "";
 
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
-
   const [modalHeight, setModalHeight] = useState("50%");
 
   useEffect(() => {
@@ -46,28 +60,38 @@ export const OpenQuiz = () => {
 
   const handleClose = () => onClose();
 
-  // 답변 선택 시 호출되는 함수
+  useEffect(() => {
+    if (wrongAnswer) {
+      setIsShaking(true);
+      const timer = setTimeout(() => {
+        setWrongAnswer(null);
+        setIsShaking(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [wrongAnswer]);
+
   const clickAnswer = (questionId: number) => {
-    if (selectedAnswer !== null) {
+    if (correctAnswer === true) {
       return;
-    } // 이미 답변을 선택한 경우 무시
+    }
 
     setSelectedAnswer(questionId.toString());
 
-    // 퀴즈 정답 제출
     solveQuizMutate(
       { questionId },
       {
         onSuccess: (response) => {
-          setCorrectAnswer(response.result); // 정답 여부 저장
+          setCorrectAnswer(response.result);
           if (response.result) {
-            setTimeout(() => {
-              setModalState("readmessage"); // 정답이면 모달 상태 변경
-            }, 1000); // 1초 후에 모달 상태 변경
+            setTimeout(() => setModalState("readmessage"), 1000);
+          } else {
+            setWrongAnswer(questionId.toString());
           }
         },
         onError: (error) => {
           console.error("퀴즈 제출 실패:", error);
+          setSelectedAnswer(null);
         },
       }
     );
@@ -78,9 +102,9 @@ export const OpenQuiz = () => {
       <Header onClose={handleClose} img={imgURL} />
       <Question title={data?.quiz.title ?? "퀴즈 조회 X"} />
       <Flex gap="20px" mt="20px" justify="center">
-        {data?.questions.map((option, index) => (
+        {data?.questions.map((option) => (
           <IconButton
-            key={index}
+            key={option.id}
             bg={option.content === "O" ? "#03526B" : "#BF2A2A"}
             borderRadius="30px"
             boxSize="140px"
@@ -94,14 +118,18 @@ export const OpenQuiz = () => {
             }
             _hover={{ bg: "blue.600" }}
             border={
-              selectedAnswer === option.content
-                ? correctAnswer === true
-                  ? "5px solid green"
-                  : correctAnswer === false
-                  ? "5px solid red"
-                  : "none"
+              correctAnswer === true && selectedAnswer === option.id.toString()
+                ? "5px solid green"
+                : wrongAnswer === option.id.toString()
+                ? "5px solid red"
                 : "none"
             }
+            animation={
+              wrongAnswer === option.id.toString() && isShaking
+                ? `${shake} 0.5s ease-in-out`
+                : "none"
+            }
+            isDisabled={correctAnswer === true}
             onClick={() => clickAnswer(option.id)}
           />
         ))}
@@ -114,24 +142,28 @@ export const OpenQuiz = () => {
       <Header onClose={handleClose} img={imgURL} />
       <Question title={data?.quiz.title ?? "퀴즈 조회 X"} />
       <Flex direction="column" gap="10px" mt="20px" width="100%" align="center">
-        {data?.questions.map((option, index) => (
+        {data?.questions.map((option) => (
           <Button
-            key={index}
+            key={option.id}
             width="calc(100% - 40px)"
             borderRadius="12px"
             onClick={() => clickAnswer(option.id)}
             border={
-              selectedAnswer === option.id.toString()
-                ? correctAnswer === true
-                  ? "5px solid green"
-                  : correctAnswer === false
-                  ? "5px solid red"
-                  : "none"
+              correctAnswer === true && selectedAnswer === option.id.toString()
+                ? "5px solid green"
+                : wrongAnswer === option.id.toString()
+                ? "5px solid red"
+                : "none"
+            }
+            animation={
+              wrongAnswer === option.id.toString() && isShaking
+                ? `${shake} 0.5s ease-in-out`
                 : "none"
             }
             bg="#03526B"
             color="white"
             _hover={{ bg: "blue.600" }}
+            isDisabled={correctAnswer === true}
           >
             {option.content}
           </Button>
@@ -145,8 +177,8 @@ export const OpenQuiz = () => {
 
 const Header = ({ onClose, img }: { onClose: () => void; img: string }) => (
   <Flex w="full" justify="center" align="center" p="10px">
-    <Image src={img} boxSize="80px" position="absolute" top="-40px" />
-    <Text fontSize="24px" fontWeight="bold" color="#03526B">
+    <Image src={img} boxSize="80px" position="absolute" top="-50px" />
+    <Text fontSize="24px" fontWeight="bold" color="#03526B" mt="30px">
       퀴즈
     </Text>
     <IconButton
