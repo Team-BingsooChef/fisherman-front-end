@@ -84,7 +84,7 @@ export const OpenQuiz = () => {
         onSuccess: (response) => {
           setCorrectAnswer(response.result);
           if (response.result) {
-            setTimeout(() => setModalState("readmessage"), 1000);
+            setTimeout(() => setModalState("readMessage"), 1000);
           } else {
             setWrongAnswer(questionId.toString());
           }
