@@ -4,15 +4,13 @@ import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore"; // zustand
 
 export function useSendSmelts(fishingSpotId: number) {
   const queryClient = useQueryClient();
-  const { smeltTypeId, title, content, senderName, quiz, resetForm } =
-    useSmeltStore();
+  const { smeltTypeId, content, senderName, quiz, resetForm } = useSmeltStore();
 
   return useMutation({
     mutationFn: () =>
       sendSmelts(fishingSpotId, {
         //zustand
         smeltTypeId,
-        title,
         content,
         senderName,
         quiz,

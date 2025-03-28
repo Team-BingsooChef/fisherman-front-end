@@ -11,8 +11,7 @@ export const WriteLetterSection = ({
   onNext: () => void;
 }) => {
   const navigate = useNavigate();
-  const { senderName, setSenderName, setTitle, content, setContent } =
-    useSmeltStore();
+  const { senderName, setSenderName, content, setContent } = useSmeltStore();
 
   const maxChefNameLength = 8;
   const maxToppingContentLength = 300;
@@ -25,7 +24,6 @@ export const WriteLetterSection = ({
   const handleChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value.slice(0, maxToppingContentLength);
     setContent(value);
-    setTitle(value);
   };
   return (
     <>

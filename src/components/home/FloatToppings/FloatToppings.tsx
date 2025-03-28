@@ -74,6 +74,10 @@ const ToppingElement = ({ topping }: ToppingProps) => {
       return;
     } //chef면 클릭 막기
     localStorage.setItem("selectedToppingId", topping.id.toString());
+    localStorage.setItem(
+      "selectedToppingTypeId",
+      topping.smeltTypeId.toString()
+    );
 
     switch (topping.status) {
       case SmeltStatus.UNREAD:
@@ -148,7 +152,7 @@ export const ToppingsPagination = () => {
         이전
       </IconButton>
       <Text>
-        {currentPage + 1} / {totalPages + 1}
+        {currentPage + 1} / {totalPages}
       </Text>
       <IconButton
         onClick={handleNextPage}

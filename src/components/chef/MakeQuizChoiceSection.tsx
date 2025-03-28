@@ -18,8 +18,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
   const [selectQuizType, setSelectQuizType] = useState<string | null>(null); // OX 또는 객관식 유형 관리
   const maxQuestionLength = 30;
 
-  const { setQuiz, setQuizTitle, setQuizContent, setQuizType } =
-    useSmeltStore();
+  const { setQuiz, setQuizContent, setQuizType } = useSmeltStore();
   const handleQuizTypeSelection = (clickType: "OX" | "MULTIPLE") => {
     if (selectQuizType === clickType) {
       setSelectQuizType(null);
@@ -32,7 +31,6 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
 
   useEffect(() => {
     if (selectQuizType) {
-      setQuizTitle(question);
       setQuizContent(question);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

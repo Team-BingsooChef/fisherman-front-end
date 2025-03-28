@@ -12,13 +12,13 @@ import { useReply } from "../../../hook/smelts/useReply";
 
 export const ReadMessage = () => {
   const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
+  const selectedToppingTypeId = Number(
+    localStorage.getItem("selectedToppingTypeId")
+  );
   const { data } = useSmeltsDetail(selectedToppingId);
   const { getImageUrl } = useSmeltsImg();
 
-  const imgURL =
-    data?.smelt.status === "READ"
-      ? getImageUrl(data?.smelt.smeltTypeId ?? 1)
-      : getImageUrl(data?.smelt.smeltTypeId ?? 1, true);
+  const imgURL = getImageUrl(selectedToppingTypeId, false) ?? ""; //얼음 풀린 이미지
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
 
