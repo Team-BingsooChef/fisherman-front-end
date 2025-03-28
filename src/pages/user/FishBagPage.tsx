@@ -1,12 +1,14 @@
 import { WhiteLeftHeader } from "../../components/common/Header";
 import styled from "@emotion/styled";
 import { Box, SimpleGrid, Flex, Text } from "@chakra-ui/react";
-
 import { useNavigate } from "react-router-dom";
+import { StarIcon } from "@chakra-ui/icons";
 import useSmeltsStatistics from "../../hook/inventory/useSmeltsStatistics";
+
 export default function FishBagPage() {
   const navigate = useNavigate();
   const { data: fishData } = useSmeltsStatistics();
+
   return (
     <Wrapper>
       <WhiteLeftHeader
@@ -19,43 +21,68 @@ export default function FishBagPage() {
         flexDir="column"
         align="center"
         bg="white"
-        border={1}
-        borderColor="gray.400"
         borderRadius="8px"
+        px={{ base: 4, md: 6 }}
+        py={4}
       >
-        <SimpleGrid columns={3} spacing="20px" mt={4}>
+        <SimpleGrid
+          columns={3}
+          spacing={{ base: "16px", md: "24px" }}
+          width="100%"
+          maxW="500px"
+        >
           {fishData?.map((item) => (
-            <Box key={item.smeltTypeId}>
+            <Box key={item.smeltTypeId} w="100%" position="relative">
+              {/* 별 등급 */}
+              <Box
+                position="absolute"
+                top="0"
+                left="0"
+                bg="yellow.400"
+                color="white"
+                px={2}
+                py={1}
+                fontSize="xs"
+                fontWeight="bold"
+                borderBottomRightRadius="md"
+                zIndex="1"
+                transform="translate(-10%, -10%) rotate(-15deg)"
+                boxShadow="md"
+                display="flex"
+                alignItems="center"
+                gap="1px"
+              >
+                {Array.from({ length: item.starRating }).map((_, i) => (
+                  <StarIcon key={i} boxSize={3} />
+                ))}
+              </Box>
+
               <Box
                 bg="#d9d9d9"
-                boxSize="100px"
+                width="100%"
+                aspectRatio="1/1"
                 position="relative"
                 display="flex"
                 flexDir="column"
                 alignItems="center"
+                justifyContent="center"
                 borderRadius="8px"
                 boxShadow="sm"
                 _hover={{ transform: "translateY(-2px)", boxShadow: "md" }}
                 transition="all 0.2s"
               >
-                {/* 물고기 이미지와 정보 */}
-
-                <Box
-                  boxSize="90px"
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <img
-                    src={item.smeltImageUrl}
-                    alt="fish"
-                    width="70px"
-                    height="70px"
-                  />
-                </Box>
+                <img
+                  src={item.smeltImageUrl}
+                  alt="fish"
+                  style={{
+                    width: "70%",
+                    height: "70%",
+                    objectFit: "contain",
+                  }}
+                />
               </Box>
               <Text
-                fontSize="14px"
+                fontSize={{ base: "12px", sm: "14px" }}
                 fontWeight="semibold"
                 textAlign="center"
                 mt="4px"

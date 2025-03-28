@@ -42,7 +42,9 @@ export default function SettingPage() {
 
   return (
     <Wrapper>
-      <WhiteLeftHeader text="계정 설정" onBackClick={goHome} />
+      <Box w="calc(100% - 60px)">
+        <WhiteLeftHeader text="계정 설정" onBackClick={goHome} />
+      </Box>
       <Flex
         direction="column"
         w="full"
@@ -80,7 +82,16 @@ export default function SettingPage() {
               />
             </Box> */}
           </Box>
-
+          <Text
+            fontSize="18px"
+            color="#555555"
+            fontWeight="medium"
+            letterSpacing="-0.3px"
+            mb="8px"
+            textAlign="center"
+          >
+            {userInfoData?.email}
+          </Text>
           <Flex align="center" justify="center" gap="2px" fontWeight="Bold">
             <Text fontSize="24px" color="#3887C7">
               {userInfoData?.nickname}
@@ -156,7 +167,7 @@ export default function SettingPage() {
 }
 
 const Wrapper = styled.div`
-  width: calc(100% - 60px);
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
