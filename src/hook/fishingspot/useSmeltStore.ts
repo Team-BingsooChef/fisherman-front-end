@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { SmeltsPostRequestBody } from "../../api/fishingspot/types";
 
 interface QuizState {
-  content: string;
+  title: string;
   type: "OX" | "MULTIPLE";
   questions: string[];
   answerIndex: number;
@@ -15,43 +15,34 @@ interface SmeltState extends Omit<SmeltsPostRequestBody, "quiz"> {
   quiz: QuizState | null;
 
   setSmeltTypeId: (smeltTypeId: number) => void;
-
   setContent: (content: string) => void;
   setSenderName: (senderName: string) => void;
-
   setQuiz: (quiz: QuizState | null) => void;
-
-  setQuizContent: (content: string) => void;
+  setQuizTitle: (title: string) => void;
   setQuizType: (type: "OX" | "MULTIPLE") => void;
   setQuizQuestions: (questions: string[]) => void;
   setQuizAnswerIndex: (answerIndex: number) => void;
-
   resetForm: () => void;
-
   hasValidQuiz: () => boolean;
 }
 
 export const useSmeltStore = create<SmeltState>((set, get) => ({
   smeltTypeId: 0,
-  title: "",
   content: "",
   senderName: "",
   quiz: null,
 
   setSmeltTypeId: (smeltTypeId) => set({ smeltTypeId }),
-
   setContent: (content) => set({ content }),
   setSenderName: (senderName) => set({ senderName }),
-
   setQuiz: (quiz) => set({ quiz }),
 
-  setQuizContent: (content) =>
+  setQuizTitle: (title) =>
     set((state) => ({
       quiz: state.quiz
-        ? { ...state.quiz, content }
+        ? { ...state.quiz, title }
         : {
-            title: "",
-            content,
+            title,
             type: "OX",
             questions: [],
             answerIndex: 0,
@@ -64,7 +55,6 @@ export const useSmeltStore = create<SmeltState>((set, get) => ({
         ? { ...state.quiz, type }
         : {
             title: "",
-            content: "",
             type,
             questions: [],
             answerIndex: 0,
@@ -77,7 +67,6 @@ export const useSmeltStore = create<SmeltState>((set, get) => ({
         ? { ...state.quiz, questions }
         : {
             title: "",
-            content: "",
             type: "OX",
             questions,
             answerIndex: 0,
@@ -90,7 +79,6 @@ export const useSmeltStore = create<SmeltState>((set, get) => ({
         ? { ...state.quiz, answerIndex }
         : {
             title: "",
-            content: "",
             type: "OX",
             questions: [],
             answerIndex,
@@ -100,7 +88,6 @@ export const useSmeltStore = create<SmeltState>((set, get) => ({
   resetForm: () =>
     set({
       smeltTypeId: 0,
-
       content: "",
       senderName: "",
       quiz: null,
@@ -108,6 +95,6 @@ export const useSmeltStore = create<SmeltState>((set, get) => ({
 
   hasValidQuiz: () => {
     const { quiz } = get();
-    return !!quiz && !!quiz.content;
+    return !!quiz && !!quiz.title;
   },
 }));
