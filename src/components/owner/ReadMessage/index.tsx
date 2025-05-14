@@ -102,7 +102,7 @@ export const ReadMessage = () => {
         >
           {!isReplying && (
             <Box w="calc(100% - 200px)" mt="80px">
-              <NavyEllipseButton onClick={handleReplySubmit}>
+              <NavyEllipseButton onClick={() => setIsReplying(true)}>
                 답장 남기기
               </NavyEllipseButton>
             </Box>
