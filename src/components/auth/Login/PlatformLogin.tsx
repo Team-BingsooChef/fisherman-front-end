@@ -1,4 +1,4 @@
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, useToast } from "@chakra-ui/react";
 import kakaoIcon from "../../../assets/icon/kakao_icon.svg";
 import naverIcon from "../../../assets/icon/naver_icon.svg";
 import googleIcon from "../../../assets/icon/google_icon.svg";
@@ -10,8 +10,20 @@ interface PlatformLoginProps {
 }
 
 export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
+  const toast = useToast();
   const onKaKaoClick = () => {
     window.location.href = `${API_BASE_URL}/oauth2/authorize/kakao`;
+  };
+
+  const onOtherPlatformClick = () => {
+    toast({
+      title: "준비 중입니다.",
+      description: "현재 플랫폼은 카카오만 지원하고 있어요.",
+      status: "info",
+      duration: 2000,
+      isClosable: true,
+      position: "bottom",
+    });
   };
 
   return (
@@ -55,6 +67,7 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
           카카오로 시작하기
         </Button>
         <Button
+          onClick={onOtherPlatformClick}
           w="full"
           h="60px"
           borderRadius="16px"
@@ -85,6 +98,7 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
           네이버로 시작하기
         </Button>
         <Button
+          onClick={onOtherPlatformClick}
           w="full"
           h="60px"
           borderRadius="16px"
