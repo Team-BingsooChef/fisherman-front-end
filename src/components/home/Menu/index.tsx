@@ -9,6 +9,7 @@ import {
   Button,
   useDisclosure,
   Avatar,
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import {
@@ -20,13 +21,35 @@ import {
   LogOut,
   MenuIcon,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import { useQueryUserInfo } from "../../../hook/user/useQueryUserInfo";
+import { logOut } from "../../../api/auth/apis";
+import { on } from "events";
 
 export const Menu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+  const toast = useToast();
   const { data: userInfoData } = useQueryUserInfo();
   const nickName = userInfoData?.nickname;
+
+  const handleLogout = async (): Promise<void> => {
+    try {
+      onClose();
+      await logOut();
+      toast({
+        title: "로그아웃 성공",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "bottom",
+      });
+      navigate("/login", { replace: true });
+    } catch (error) {
+      console.error("로그아웃 요청 실패:", error);
+    }
+  };
 
   return (
     <>
@@ -135,6 +158,7 @@ export const Menu = () => {
               fontWeight="semibold"
               width="100%"
               justifyContent="flex-start"
+              onClick={handleLogout}
             >
               로그아웃
             </Button>
