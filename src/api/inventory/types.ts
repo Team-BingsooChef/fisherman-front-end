@@ -25,6 +25,7 @@ export type SentSmeltsQueryResponseBody = {
     fishermanNickname: string;
     smeltTypeId: number;
     status: string;
+    wrongCount: number;
     letter: {
       id: number;
       senderName: string;

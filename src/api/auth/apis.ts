@@ -46,3 +46,7 @@ export async function emailLogin(
     throw error;
   }
 }
+
+export function logOut(): Promise<void> {
+  return api.post(`/auth/logout`);
+}

@@ -3,7 +3,7 @@ export interface SmeltsPostRequestBody {
   content: string;
   senderName: string;
   quiz?: {
-    content: string;
+    title: string;
     type: string;
     questions: string[];
     answerIndex: number;

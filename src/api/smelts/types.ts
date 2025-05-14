@@ -37,7 +37,6 @@ export type SmeltsLetterQueryResponseBody = {
   };
   letter: {
     id: number;
-    title: string;
     content: string;
     senderName: string;
     createdTime: string;
