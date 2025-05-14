@@ -161,7 +161,7 @@ const ToppingByMeElement = ({
             m="20px 0 20px 0"
             fontWeight="semibold"
           >
-            이 편지는 n번 만에 열어봤어요!
+            이 편지는 {topping.wrongCount} 번 만에 열어봤어요!
           </Text>
         </>
       )}
