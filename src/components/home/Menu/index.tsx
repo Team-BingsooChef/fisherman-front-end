@@ -20,6 +20,7 @@ import {
   Dice5,
   LogOut,
   MenuIcon,
+  Backpack,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -115,6 +116,20 @@ export const Menu = () => {
                 justifyContent="flex-start"
               >
                 빙어 뽑기
+              </Button>
+            </Link>
+
+            <Link to="/fishbag">
+              <Button
+                leftIcon={<Backpack size="20" color="#777C89" />}
+                bg="#F9F7F7"
+                _hover={{ bg: "#AFD5F4" }}
+                color="#595353"
+                fontWeight="semibold"
+                width="100%"
+                justifyContent="flex-start"
+              >
+                가방
               </Button>
             </Link>
 
