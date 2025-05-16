@@ -129,7 +129,7 @@ export const Menu = () => {
                 width="100%"
                 justifyContent="flex-start"
               >
-                가방
+                내 가방
               </Button>
             </Link>
 
