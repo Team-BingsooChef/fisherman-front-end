@@ -9,7 +9,7 @@ export type QuizQueryResponseBody = {
     title: string;
     type: string;
     wrongCount: number;
-    isSolved: boolean;
+    isSolved: boolean | null;
   };
   questions: {
     id: number;
