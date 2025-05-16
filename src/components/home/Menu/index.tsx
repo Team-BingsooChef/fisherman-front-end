@@ -25,7 +25,6 @@ import { useNavigate } from "react-router-dom";
 
 import { useQueryUserInfo } from "../../../hook/user/useQueryUserInfo";
 import { logOut } from "../../../api/auth/apis";
-import { on } from "events";
 
 export const Menu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

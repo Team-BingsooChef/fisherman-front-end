@@ -11,6 +11,7 @@ import "./ToppingPosition.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";
 import { useDetermineRole } from "../../../hook/fishingspot/useDetermineRole";
 
 export const Toppings = () => {
@@ -41,6 +42,9 @@ type ToppingProps = {
 
 const ToppingElement = ({ topping }: ToppingProps) => {
   const role = useDetermineRole();
+  const { data: quizData } = useQueryQuiz(
+    Number(localStorage.getItem("selectedToppingId"))
+  );
 
   const { setModalState } = useModalStateStore();
   const { onOpen } = useModalOpenStore();
@@ -81,9 +85,18 @@ const ToppingElement = ({ topping }: ToppingProps) => {
 
     switch (topping.status) {
       case SmeltStatus.UNREAD:
-        setModalState("openQuiz");
-        onOpen();
+        if (quizData?.quiz.isSolved === true) {
+          setModalState("readMessage");
+          onOpen();
+        } else if (quizData?.quiz.isSolved === null) {
+          setModalState("openQuiz");
+          onOpen();
+        } else {
+          setModalState("readMessage");
+          onOpen();
+        }
         break;
+
       case SmeltStatus.READ:
         setModalState("readMessage");
         onOpen();
