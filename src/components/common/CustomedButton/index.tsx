@@ -22,11 +22,13 @@ export const BlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({
       fontWeight="extrabold"
       height="60px"
       borderRadius="16px"
+      marginTop="10px"
       _hover={{
         bg: COLOR.DEEPBLUE, // hover 시 배경색
         color: "white", // hover 시 텍스트 색상 유지
       }}
       isLoading={isLoading}
+
       // _active={{
       //   transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
       // }}

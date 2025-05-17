@@ -24,17 +24,36 @@ export const AuthBottomWrapper = ({
   linkTo,
 }: AuthBottomWrapperProps) => {
   return (
-    <Flex flexDir="column" mb="40px" mt="50px" bottom="0">
+    <Flex
+      flexDir="column"
+      mb="40px"
+      mt="20px"
+      bottom="0"
+      css={{
+        "@media (min-height: 920px)": {
+          marginTop: "50px",
+        },
+      }}
+    >
       <Image
         src={fisherman}
         alt="fisherman"
-        width={200}
-        height={200}
+        width={80}
+        height={80}
         css={{
-          "@media (min-height: 950px)": {
+          display: "none",
+
+          "@media (min-height: 920px)": {
+            display: "block",
             marginTop: "100px",
-            width: "300px",
-            height: "300px",
+            width: "200px",
+            height: "140px",
+          },
+          "@media (min-height: 1100px)": {
+            display: "block",
+            marginTop: "100px",
+            width: "240px",
+            height: "240px",
           },
         }}
       />

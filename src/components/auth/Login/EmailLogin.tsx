@@ -57,7 +57,15 @@ export const EmailLogin = () => {
 
   return (
     <>
-      <Box mt="76px" w="full">
+      <Box
+        mt="70px"
+        w="full"
+        css={{
+          "@media (min-height: 920px)": {
+            marginTop: "76px",
+          },
+        }}
+      >
         <WhiteInput
           value={email}
           text="이메일"
@@ -71,7 +79,13 @@ export const EmailLogin = () => {
           placeholder="비밀번호를 입력해 주세요"
         />
       </Box>
-      <Flex w="full" mt="12px" mb="44px" justify="space-between">
+      <Flex
+        w="full"
+        mt="12px"
+        mb="20px"
+        css={{ "@media (min-width: 768px)": { marginBottom: "60px" } }}
+        justify="space-between"
+      >
         <Checkbox
           color="#777C89"
           fontWeight="semibold"

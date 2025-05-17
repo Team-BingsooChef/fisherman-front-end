@@ -136,9 +136,16 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
         <Image
           src={fisherman}
           alt="fisherman"
-          width={200}
-          height={200}
+          width={100}
+          height={100}
           css={{
+            display: "none",
+            "@media (min-height: 768px)": {
+              display: "block",
+              marginTop: "100px",
+              width: "200px",
+              height: "200px",
+            },
             "@media (min-height: 950px)": {
               marginTop: "100px",
               width: "300px",

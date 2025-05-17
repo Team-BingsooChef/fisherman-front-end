@@ -43,21 +43,25 @@ export default function StartPage() {
         <Image
           src={fisherman_big}
           alt="fisherman"
-          width={260}
-          height={260}
+          width={200}
+          height={200}
           mb="-32px"
           zIndex="1"
           css={{
-            "@media (min-height: 950px)": {
-              width: "360px",
-              height: "360px",
+            "@media (min-height: 920px)": {
+              width: "300px",
+              height: "300px",
+            },
+            "@media (min-height: 1100px)": {
+              width: "350px",
+              height: "350px",
             },
           }}
         />
         <FishingspotContainer>
           <FishImage
             src={shark}
-            boxSize="100px"
+            boxSize="80px"
             objectFit="contain"
             top="10%"
             left="10%"
@@ -66,7 +70,7 @@ export default function StartPage() {
           />
           <FishImage
             src={Bungeoppang}
-            boxSize="100px"
+            boxSize="80px"
             objectFit="contain"
             top="26%"
             left="70%"
@@ -75,7 +79,7 @@ export default function StartPage() {
           />
           <FishImage
             src={RibbonFish}
-            boxSize="100px"
+            boxSize="80px"
             objectFit="contain"
             top="60%"
             left="50%"
@@ -84,7 +88,7 @@ export default function StartPage() {
           />
           <FishImage
             src={PufferFish}
-            boxSize="100px"
+            boxSize="80px"
             objectFit="contain"
             top="40%"
             left="20%"
@@ -99,6 +103,7 @@ export default function StartPage() {
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,6 +136,15 @@ const FishImage = styled(Image)<FishImageProps>`
   top: ${({ top }) => top};
   left: ${({ left }) => left};
   animation: float ${({ duration }) => duration} infinite ease-in-out;
+
+  @media (min-height: 920px) {
+    width: 100px;
+    height: 100px;
+  }
+  @media (min-height: 1100px) {
+    width: 130px;
+    height: 130px;
+  }
 
   @keyframes float {
     0% {

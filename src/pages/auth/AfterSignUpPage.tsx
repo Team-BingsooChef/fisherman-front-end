@@ -110,7 +110,15 @@ export default function AfterSignUpPage() {
 
   return (
     <Wrapper>
-      <Box marginTop="160px" w="100%">
+      <Box
+        marginTop="100px"
+        w="100%"
+        css={{
+          "@media (min-height: 768px)": {
+            marginTop: "160px",
+          },
+        }}
+      >
         <Text
           mb="80px"
           color="#03526B"
@@ -141,14 +149,21 @@ export default function AfterSignUpPage() {
         <BlueRectangleButton onClick={handleSubmit}>완료</BlueRectangleButton>
       </Box>
       <Flex w="full" justify="center" position="relative">
-        <Box mb="90px" position="fixed" bottom="0">
+        <Box
+          mt="60px"
+          css={{
+            "@media (min-height: 768px)": {
+              marginTop: "100px",
+            },
+          }}
+        >
           <Image
             src={fisherman}
             alt="fisherman"
-            width={180}
-            height={180}
+            width={160}
+            height={160}
             css={{
-              "@media (min-height: 920px)": {
+              "@media (min-height: 768px)": {
                 width: "240px",
                 height: "240px",
               },
