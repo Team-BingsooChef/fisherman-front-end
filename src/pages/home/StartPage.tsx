@@ -47,6 +47,12 @@ export default function StartPage() {
           height={260}
           mb="-32px"
           zIndex="1"
+          css={{
+            "@media (min-height: 950px)": {
+              width: "360px",
+              height: "360px",
+            },
+          }}
         />
         <FishingspotContainer>
           <FishImage

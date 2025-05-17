@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Box, useToast, Input, Text, Flex } from "@chakra-ui/react";
+import { Box, useToast, Input, Text, Flex, Image } from "@chakra-ui/react";
 import { BlueRectangleButton } from "../../components/common/CustomedButton";
 import { useNavigate } from "react-router-dom";
 import fisherman from "../../assets/pictures/fisherman_small.svg";
@@ -142,7 +142,22 @@ export default function AfterSignUpPage() {
       </Box>
       <Flex w="full" justify="center" position="relative">
         <Box mb="90px" position="fixed" bottom="0">
-          <img src={fisherman} alt="fisherman" width={180} height={180} />
+          <Image
+            src={fisherman}
+            alt="fisherman"
+            width={180}
+            height={180}
+            css={{
+              "@media (min-height: 920px)": {
+                width: "240px",
+                height: "240px",
+              },
+              "@media (min-height: 1100px)": {
+                width: "300px",
+                height: "300px",
+              },
+            }}
+          />
         </Box>
       </Flex>
     </Wrapper>

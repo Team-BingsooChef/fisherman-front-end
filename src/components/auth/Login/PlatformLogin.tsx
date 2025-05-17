@@ -1,4 +1,4 @@
-import { Flex, Button, useToast } from "@chakra-ui/react";
+import { Flex, Button, useToast, Image } from "@chakra-ui/react";
 import kakaoIcon from "../../../assets/icon/kakao_icon.svg";
 import naverIcon from "../../../assets/icon/naver_icon.svg";
 import googleIcon from "../../../assets/icon/google_icon.svg";
@@ -133,7 +133,19 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
         <BlueRectangleButton onClick={onEmailClick}>
           이메일로 시작하기
         </BlueRectangleButton>
-        <img src={fisherman} alt="fisherman" width={200} height={200} />
+        <Image
+          src={fisherman}
+          alt="fisherman"
+          width={200}
+          height={200}
+          css={{
+            "@media (min-height: 950px)": {
+              marginTop: "100px",
+              width: "300px",
+              height: "300px",
+            },
+          }}
+        />
       </Flex>
     </>
   );

@@ -18,6 +18,12 @@ export const FishingSpot = () => {
         height={260}
         mb="-32px"
         zIndex="1"
+        css={{
+          "@media (min-height: 1000px)": {
+            width: "360px",
+            height: "360px",
+          },
+        }}
       />
       <FishingspotContainer>
         <Toppings />
@@ -38,4 +44,7 @@ const FishingspotContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (min-height: 900px) {
+    height: 48dvh;
+  }
 `;
