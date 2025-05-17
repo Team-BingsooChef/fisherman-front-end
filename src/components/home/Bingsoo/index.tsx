@@ -19,9 +19,9 @@ export const FishingSpot = () => {
         mb="-32px"
         zIndex="1"
         css={{
-          "@media (min-height: 1000px)": {
-            width: "360px",
-            height: "360px",
+          "@media (min-height: 920px)": {
+            width: "320px",
+            height: "320px",
           },
         }}
       />
