@@ -127,6 +127,16 @@ const ToppingElement = ({ topping }: ToppingProps) => {
         alt={matchingSmeltType?.name}
         boxSize="100px"
         objectFit="contain"
+        css={{
+          "@media (min-width: 900px)": {
+            width: "110px",
+            height: "110px",
+          },
+          "@media (min-width: 1100px)": {
+            width: "140px",
+            height: "140px",
+          },
+        }}
       />
       {/* <Text>{topping.senderName}</Text> */}
     </Box>
