@@ -1,3 +1,4 @@
+import "./ToppingPosition.css";
 import { Box, IconButton } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Text, Image } from "@chakra-ui/react";
@@ -7,7 +8,7 @@ import useFishingSpot from "../../../hook/fishingspot/useFishingSpot";
 import { querySmeltsCategory } from "../../../api/smelts/apis";
 import { SmeltStatus } from "../../../api/fishingspot/types";
 import { SmeltsCategoryQueryResponseBody } from "../../../api/smelts/types";
-import "./ToppingPosition.css";
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -20,12 +21,13 @@ export const Toppings = () => {
 
   return (
     <>
-      {data?.smelts?.map((smelt) => (
+      {data?.smelts?.map((smelt, idx) => (
         <ToppingElement
           key={smelt.id}
           topping={{
             ...smelt,
           }}
+          localIndex={idx}
         />
       ))}
     </>
@@ -38,9 +40,10 @@ type ToppingProps = {
     smeltTypeId: number;
     status: SmeltStatus;
   };
+  localIndex: number;
 };
 
-const ToppingElement = ({ topping }: ToppingProps) => {
+const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
   const role = useDetermineRole();
   const { data: quizData } = useQueryQuiz(topping.id);
 
@@ -69,7 +72,7 @@ const ToppingElement = ({ topping }: ToppingProps) => {
       ? matchingSmeltType?.iceImageUrl
       : matchingSmeltType?.imageUrl;
 
-  const groupClass = `group-${topping.id % 8}`;
+  const groupClass = `group-${localIndex % 8}`;
 
   const handleClick = () => {
     if (role !== "owner") {
