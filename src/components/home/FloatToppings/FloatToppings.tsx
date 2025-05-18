@@ -88,7 +88,7 @@ const ToppingElement = ({ topping }: ToppingProps) => {
         if (quizData?.quiz.isSolved === true) {
           setModalState("readMessage");
           onOpen();
-        } else if (quizData?.quiz.isSolved === null) {
+        } else if (quizData?.quiz.isSolved === false) {
           setModalState("openQuiz");
           onOpen();
         } else {
