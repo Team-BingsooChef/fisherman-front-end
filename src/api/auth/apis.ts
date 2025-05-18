@@ -33,9 +33,6 @@ export async function emailLogin(
 
   try {
     const res = await api.post("/login", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
       maxRedirects: 0,
       validateStatus: (status) => status < 400,
     });
