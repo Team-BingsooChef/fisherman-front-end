@@ -1,5 +1,12 @@
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Button, Link as ChakraLink, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Link as ChakraLink,
+  Flex,
+  Text,
+  Image,
+} from "@chakra-ui/react";
 import { MoveLeft } from "lucide-react";
 import { MouseEventHandler } from "react";
 import fisherman from "../../../assets/pictures/fisherman_small.svg";
@@ -17,8 +24,39 @@ export const AuthBottomWrapper = ({
   linkTo,
 }: AuthBottomWrapperProps) => {
   return (
-    <Flex flexDir="column" mb="40px" mt="50px" bottom="0">
-      <img src={fisherman} alt="fisherman" width={180} height={180} />
+    <Flex
+      flexDir="column"
+      mb="40px"
+      mt="20px"
+      bottom="0"
+      css={{
+        "@media (min-height: 920px)": {
+          marginTop: "50px",
+        },
+      }}
+    >
+      <Image
+        src={fisherman}
+        alt="fisherman"
+        width={80}
+        height={80}
+        css={{
+          display: "none",
+
+          "@media (min-height: 920px)": {
+            display: "block",
+            marginTop: "100px",
+            width: "200px",
+            height: "140px",
+          },
+          "@media (min-height: 1100px)": {
+            display: "block",
+            marginTop: "100px",
+            width: "240px",
+            height: "240px",
+          },
+        }}
+      />
       <Flex w="100%" justifyContent="center" mt="50px">
         <Text color="#413C3C" fontSize="14px" marginRight="8px">
           {linkText}

@@ -23,6 +23,11 @@ export default function EmailCheckPage() {
         mt="25px"
         fontWeight="regular"
         letterSpacing={"-0.5px"}
+        css={{
+          "@media (min-height: 950px)": {
+            marginTop: "100px",
+          },
+        }}
       >
         이메일 인증을 위한 코드가 발급되었습니다
         <br />

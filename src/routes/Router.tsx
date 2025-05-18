@@ -43,6 +43,7 @@ const router = createBrowserRouter([
         path: "findpassword",
         element: <FindPasswordPage />,
       },
+      //비밀번호 찾기 뺐음
       {
         path: "emailcheck",
         element: <EmailCheckPage />,

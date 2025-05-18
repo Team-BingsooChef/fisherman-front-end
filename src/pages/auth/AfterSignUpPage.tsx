@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Box, useToast, Input, Text, Flex } from "@chakra-ui/react";
+import { Box, useToast, Input, Text, Flex, Image } from "@chakra-ui/react";
 import { BlueRectangleButton } from "../../components/common/CustomedButton";
 import { useNavigate } from "react-router-dom";
 import fisherman from "../../assets/pictures/fisherman_small.svg";
@@ -110,7 +110,15 @@ export default function AfterSignUpPage() {
 
   return (
     <Wrapper>
-      <Box marginTop="160px" w="100%">
+      <Box
+        marginTop="100px"
+        w="100%"
+        css={{
+          "@media (min-height: 768px)": {
+            marginTop: "160px",
+          },
+        }}
+      >
         <Text
           mb="80px"
           color="#03526B"
@@ -141,8 +149,30 @@ export default function AfterSignUpPage() {
         <BlueRectangleButton onClick={handleSubmit}>완료</BlueRectangleButton>
       </Box>
       <Flex w="full" justify="center" position="relative">
-        <Box mb="90px" position="fixed" bottom="0">
-          <img src={fisherman} alt="fisherman" width={180} height={180} />
+        <Box
+          mt="60px"
+          css={{
+            "@media (min-height: 768px)": {
+              marginTop: "100px",
+            },
+          }}
+        >
+          <Image
+            src={fisherman}
+            alt="fisherman"
+            width={160}
+            height={160}
+            css={{
+              "@media (min-height: 768px)": {
+                width: "240px",
+                height: "240px",
+              },
+              "@media (min-height: 1100px)": {
+                width: "300px",
+                height: "300px",
+              },
+            }}
+          />
         </Box>
       </Flex>
     </Wrapper>

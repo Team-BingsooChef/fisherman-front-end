@@ -14,10 +14,24 @@ export const FishingSpot = () => {
       <Image
         src={fisherman_big}
         alt="fisherman"
-        width={260}
-        height={260}
+        width={200}
+        height={200}
         mb="-32px"
         zIndex="1"
+        css={{
+          "@media (min-height: 760px)": {
+            width: "220px",
+            height: "220px",
+          },
+          "@media (min-height: 900px)": {
+            width: "250px",
+            height: "250px",
+          },
+          "@media (min-height: 1100px)": {
+            width: "320px",
+            height: "320px",
+          },
+        }}
       />
       <FishingspotContainer>
         <Toppings />
@@ -34,8 +48,11 @@ const FishingspotContainer = styled.div`
   border-end-start-radius: 20px;
   border-end-end-radius: 20px;
   width: 100%;
-  height: 40dvh;
+  height: 42dvh;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (min-height: 760px) {
+    height: 48dvh;
+  }
 `;
