@@ -137,9 +137,13 @@ const FishImage = styled(Image)<FishImageProps>`
   left: ${({ left }) => left};
   animation: float ${({ duration }) => duration} infinite ease-in-out;
 
-  @media (min-height: 920px) {
+  @media (min-height: 760px) {
     width: 100px;
     height: 100px;
+  }
+  @media (min-height: 920px) {
+    width: 110px;
+    height: 110px;
   }
   @media (min-height: 1100px) {
     width: 130px;

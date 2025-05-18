@@ -9,6 +9,7 @@ import { XIcon } from "lucide-react";
 import { useSmeltsDetail } from "../../../hook/smelts/useSmeltsDetail";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 import { useReply } from "../../../hook/smelts/useReply";
+import { useResponsive } from "../../../hook/\bglobal/useResponsive";
 
 export const ReadMessage = () => {
   const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
@@ -21,6 +22,7 @@ export const ReadMessage = () => {
   const imgURL = getImageUrl(selectedToppingTypeId, false) ?? ""; //얼음 풀린 이미지
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
+  const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
 
   const [isReplied, setIsReplied] = useState<boolean>(false);
   // data가 변경될 때마다 isReplied 상태 업데이트
@@ -34,8 +36,18 @@ export const ReadMessage = () => {
 
   const mutate = useReply(selectedToppingId);
 
-  // 모달 높이 설정 (isReplying에 따라 변경)
-  useModalHeight(isReplying ? "76%" : "64%");
+  // 모달 높이 설정 (디바이스 및 isReplying 상태에 따라 다르게 설정)
+  let modalHeight = "64%";
+  if (isMobile) {
+    modalHeight = isReplying ? "80%" : "70%";
+  } else if (isTablet) {
+    modalHeight = isReplying ? "76%" : "64%";
+  } else if (isDesktop) {
+    modalHeight = isReplying ? "72%" : "60%";
+  } else if (isLargeDesktop) {
+    modalHeight = isReplying ? "68%" : "55%";
+  }
+  useModalHeight(modalHeight);
 
   const clickClose = () => {
     setModalState("");

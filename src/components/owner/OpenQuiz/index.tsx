@@ -14,6 +14,7 @@ import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement
 import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 import { useSolveQuiz } from "../../../hook/smelts/useSolveQuiz";
+import { useResponsive } from "../../../hook/\bglobal/useResponsive";
 
 // 흔들림 애니메이션
 const shake = keyframes`
@@ -44,18 +45,25 @@ export const OpenQuiz = () => {
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
   const [modalHeight, setModalHeight] = useState("50%");
+  const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
 
   useEffect(() => {
+    let baseHeight = 50;
     if (data?.quiz.type === "MULTIPLE") {
       const questionCount = data.questions.length;
-      const height =
-        questionCount <= 2 ? "50%" : questionCount === 3 ? "60%" : "70%";
-      setModalHeight(height);
-    } else {
-      setModalHeight("50%");
+      baseHeight = questionCount <= 2 ? 50 : questionCount === 3 ? 60 : 70;
     }
-  }, [data]);
 
+    if (isMobile) {
+      baseHeight += 20;
+    } else if (isTablet) {
+      baseHeight += 10;
+    } else if (isLargeDesktop) {
+      baseHeight -= 10;
+    }
+
+    setModalHeight(`${baseHeight}%`);
+  }, [data, isMobile, isTablet, isDesktop, isLargeDesktop]);
   useModalHeight(modalHeight);
 
   const handleClose = () => onClose();

@@ -1,19 +1,26 @@
 import { WhiteLeftHeader } from "../../components/common/Header";
 import styled from "@emotion/styled";
 import { Box, SimpleGrid, Flex, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { StarIcon } from "@chakra-ui/icons";
 import useSmeltsStatistics from "../../hook/inventory/useSmeltsStatistics";
+import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 
 export default function FishBagPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { data: fishData } = useSmeltsStatistics();
+  const { data: fishingSpotData } = useGetFishingSpotId();
 
   return (
     <Wrapper>
       <WhiteLeftHeader
         text="내 빙어"
-        onBackClick={() => navigate("/fishdrawing")}
+        onBackClick={() =>
+          location?.state?.from === "fishdrawing"
+            ? navigate("/fishdrawing")
+            : navigate(`/${fishingSpotData?.fishingSpotId}`)
+        }
       />
       <Flex
         w="full"

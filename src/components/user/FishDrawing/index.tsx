@@ -6,6 +6,7 @@ import {
   PopoverBody,
   Box,
   Flex,
+  Image,
 } from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";
 
@@ -32,7 +33,26 @@ export const LotteryMachine = () => {
             </PopoverBody>
           </PopoverContent>
         </Popover>
-        <img src={lotterymachine} alt="lotterymachine" />
+        <Image
+          src={lotterymachine}
+          alt="lotterymachine"
+          width={400}
+          height={400}
+          css={{
+            "@media (min-height: 760px)": {
+              width: "460px",
+              height: "460px",
+            },
+            "@media (min-height: 900px)": {
+              width: "600px",
+              height: "600px",
+            },
+            "@media (min-height: 1100px)": {
+              width: "720px",
+              height: "720px",
+            },
+          }}
+        />
       </Flex>
     </>
   );

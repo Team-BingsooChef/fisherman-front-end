@@ -88,7 +88,7 @@ const ToppingElement = ({ topping }: ToppingProps) => {
         if (quizData?.quiz.isSolved === true) {
           setModalState("readMessage");
           onOpen();
-        } else if (quizData?.quiz.isSolved === null) {
+        } else if (quizData?.quiz.isSolved === false) {
           setModalState("openQuiz");
           onOpen();
         } else {
@@ -125,8 +125,22 @@ const ToppingElement = ({ topping }: ToppingProps) => {
       <Image
         src={imgSrc}
         alt={matchingSmeltType?.name}
-        boxSize="100px"
+        boxSize="90px"
         objectFit="contain"
+        css={{
+          "@media (min-width: 760px)": {
+            width: "100px",
+            height: "100px",
+          },
+          "@media (min-width: 900px)": {
+            width: "110px",
+            height: "110px",
+          },
+          "@media (min-width: 1100px)": {
+            width: "140px",
+            height: "140px",
+          },
+        }}
       />
       {/* <Text>{topping.senderName}</Text> */}
     </Box>
