@@ -10,8 +10,11 @@ import { useSmeltsDetail } from "../../../hook/smelts/useSmeltsDetail";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 import { useReply } from "../../../hook/smelts/useReply";
 import { useResponsive } from "../../../hook/\bglobal/useResponsive";
+import { useQueryClient } from "@tanstack/react-query";
+import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
 
 export const ReadMessage = () => {
+  const queryClient = useQueryClient();
   const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
   const selectedToppingTypeId = Number(
     localStorage.getItem("selectedToppingTypeId")
@@ -47,9 +50,14 @@ export const ReadMessage = () => {
   } else if (isLargeDesktop) {
     modalHeight = isReplying ? "68%" : "55%";
   }
+  const { data: fishingSpotIdData } = useGetFishingSpotId();
+
   useModalHeight(modalHeight);
 
   const clickClose = () => {
+    queryClient.invalidateQueries({
+      queryKey: ["fishingSpot", fishingSpotIdData?.fishingSpotId],
+    });
     setModalState("");
     onClose();
   };
