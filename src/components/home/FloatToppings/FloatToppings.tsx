@@ -42,9 +42,7 @@ type ToppingProps = {
 
 const ToppingElement = ({ topping }: ToppingProps) => {
   const role = useDetermineRole();
-  const { data: quizData } = useQueryQuiz(
-    Number(localStorage.getItem("selectedToppingId"))
-  );
+  const { data: quizData } = useQueryQuiz(topping.id);
 
   const { setModalState } = useModalStateStore();
   const { onOpen } = useModalOpenStore();
