@@ -27,7 +27,7 @@ export default function useFishingSpot(
     queryFn: () =>
       queryFishingSpot(fishingSpotId, {
         page: currentPage,
-        size: 10,
+        size: 8,
         sort: "id,asc",
       }),
   });
