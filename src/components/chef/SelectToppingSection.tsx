@@ -5,6 +5,7 @@ import { Box, SimpleGrid, Flex, Text, Button } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import useSmeltsStatistics from "../../hook/inventory/useSmeltsStatistics";
 import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
+import { m } from "framer-motion";
 
 export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
   const { data } = useSmeltsStatistics();
@@ -57,19 +58,28 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
       <Flex
         w="full"
         h="66%"
-        maxH="66vh"
         flexDir="column"
         align="center"
         bg="white"
         borderRadius="8px"
         px={{ base: 4, md: 6 }}
         py={4}
+        css={{
+          "@media (min-height: 750px) and (max-height: 920px)": {
+            paddingX: "16px",
+          },
+        }}
       >
         <SimpleGrid
           columns={3}
           spacing={{ base: "16px", md: "24px" }}
           width="100%"
           maxW="500px"
+          css={{
+            "@media (min-height: 750px) and (max-height: 920px)": {
+              spacing: "16px",
+            },
+          }}
         >
           {data?.map((item) => (
             <Box key={item.smeltTypeId} w="100%" position="relative">
@@ -151,7 +161,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
         h="45px"
         w="140px"
         position="absolute"
-        bottom="23px"
+        bottom="20px"
         _hover={{ bg: "#03526B" }}
         isDisabled={!selectedTypeId}
       >
