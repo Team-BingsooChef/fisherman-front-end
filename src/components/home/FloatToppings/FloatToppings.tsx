@@ -134,12 +134,12 @@ const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
             height: "100px",
           },
           "@media (min-width: 900px)": {
-            width: "110px",
-            height: "110px",
+            width: "120px",
+            height: "120px",
           },
           "@media (min-width: 1100px)": {
-            width: "140px",
-            height: "140px",
+            width: "200px",
+            height: "200px",
           },
         }}
       />
