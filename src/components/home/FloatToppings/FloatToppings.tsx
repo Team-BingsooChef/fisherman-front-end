@@ -130,16 +130,13 @@ const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
         objectFit="contain"
         css={{
           "@media (min-width: 760px)": {
-            width: "100px",
-            height: "100px",
+            boxSize: "100px",
           },
           "@media (min-width: 900px)": {
-            width: "120px",
-            height: "120px",
+            boxSize: "120px",
           },
           "@media (min-width: 1100px)": {
-            width: "200px",
-            height: "200px",
+            boxSize: "200px",
           },
         }}
       />
