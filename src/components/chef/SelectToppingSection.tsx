@@ -57,6 +57,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
       <Flex
         w="full"
         h="66%"
+        maxH="66vh"
         flexDir="column"
         align="center"
         bg="white"
