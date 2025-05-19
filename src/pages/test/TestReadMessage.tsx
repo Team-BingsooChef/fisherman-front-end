@@ -1,43 +1,33 @@
 import { useState, useEffect } from "react";
-import { useModalHeight } from "../../../hook/useModalHeight";
-import { useModalOpenStore, useModalStateStore } from "../../../store/modal";
-import { NavyEllipseButton } from "../../common/CustomedButton";
-import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 import { Flex, Box, Text, Image, IconButton, Textarea } from "@chakra-ui/react";
 import { XIcon } from "lucide-react";
-
-import { useSmeltsDetail } from "../../../hook/smelts/useSmeltsDetail";
-import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
-import { useReply } from "../../../hook/smelts/useReply";
-import { useResponsive } from "../../../hook/global/useResponsive";
 import { useQueryClient } from "@tanstack/react-query";
-import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
 
-export const ReadMessage = () => {
-  const queryClient = useQueryClient();
-  const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
-  const selectedToppingTypeId = Number(
-    localStorage.getItem("selectedToppingTypeId")
-  );
-  const { data } = useSmeltsDetail(selectedToppingId);
-  const { getImageUrl } = useSmeltsImg();
+import { useModalHeight } from "../../hook/useModalHeight";
+import { useModalOpenStore, useModalStateStore } from "../../store/modal";
+import { useSmeltsDetail } from "../../hook/smelts/useSmeltsDetail";
+import { useSmeltsImg } from "../../hook/smelts/useSmeltsImg";
+import { useReply } from "../../hook/smelts/useReply";
+import { useResponsive } from "../../hook/global/useResponsive";
+import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 
-  const imgURL = getImageUrl(selectedToppingTypeId, false) ?? ""; //얼음 풀린 이미지
+import { NavyEllipseButton } from "../../components/common/CustomedButton";
+import { ModalInsideWhiteContainer } from "../../components/home/modal/ModalCustomedElement";
+import { mockSmeltsLetterQueryResponse } from "./mockSmeltsLetterQueryResponse";
+
+import shark from "../../assets/fish/Shark.svg";
+
+export const TestReadMessage = () => {
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
   const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
 
   const [isReplied, setIsReplied] = useState<boolean>(false);
   // data가 변경될 때마다 isReplied 상태 업데이트
-  useEffect(() => {
-    setIsReplied(data?.letter.comment !== null);
-  }, [data]);
 
   const [replyDraft, setReplyDraft] = useState(""); // 답장 작성란 입력값 관리
   const [isReplying, setIsReplying] = useState(false); // 답장 작성 중인지 상태 관리
   const maxReplyLength = 30;
-
-  const mutate = useReply(selectedToppingId);
 
   // 모달 높이 설정 (디바이스 및 isReplying 상태에 따라 다르게 설정)
   let modalHeight = "64%";
@@ -50,21 +40,17 @@ export const ReadMessage = () => {
   } else if (isLargeDesktop) {
     modalHeight = isReplying ? "68%" : "55%";
   }
-  const { data: fishingSpotIdData } = useGetFishingSpotId();
 
   useModalHeight(modalHeight);
 
   const clickClose = () => {
-    queryClient.invalidateQueries({
-      queryKey: ["fishingSpot", fishingSpotIdData?.fishingSpotId],
-    });
     setModalState("");
     onClose();
   };
 
   const handleReplySubmit = () => {
     setIsReplying(false);
-    mutate.mutate({ content: replyDraft });
+    setReplyDraft("");
   };
 
   return (
@@ -76,7 +62,7 @@ export const ReadMessage = () => {
         top="10px"
         right="10px"
       />
-      <Image src={imgURL} boxSize="80px" position="absolute" top="-40px" />
+      <Image src={shark} boxSize="80px" position="absolute" top="-40px" />
       <Text
         width=" calc(100% - 40px)"
         fontSize="16px"
@@ -85,12 +71,12 @@ export const ReadMessage = () => {
         mt="60px"
         mb="10px"
       >
-        {data?.letter.senderName}가 보낸 편지
+        {mockSmeltsLetterQueryResponse?.letter.senderName}가 보낸 편지
       </Text>
       <Flex w="100%" h="44%" justify="center">
         <ModalInsideWhiteContainer height="240px">
           <Text p="10px" fontSize="16px" fontWeight="regular">
-            {data?.letter.content}
+            {mockSmeltsLetterQueryResponse?.letter.content}
           </Text>
         </ModalInsideWhiteContainer>
       </Flex>
@@ -109,7 +95,7 @@ export const ReadMessage = () => {
           </Text>
           <Box w="full" bg="white" p="10px" h="70px" borderRadius="16px">
             <Text fontSize="16px" fontWeight="regular" borderRadius="md">
-              {data?.letter.comment?.content}
+              {mockSmeltsLetterQueryResponse?.letter.comment?.content}
             </Text>
           </Box>
         </Box>

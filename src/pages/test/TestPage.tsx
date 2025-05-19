@@ -1,4 +1,4 @@
-import { WhiteLeftHeader } from "../components/common/Header";
+import { WhiteLeftHeader } from "../../components/common/Header";
 import { Box, SimpleGrid, Flex, Text, Button } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import { mockSmeltsStatistics } from "./mockSmeltsStatistics";

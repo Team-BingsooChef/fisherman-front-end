@@ -1,4 +1,4 @@
-import shark from "../assets/fish/shark.svg";
+import shark from "../../assets/fish/shark.svg";
 
 export const mockSmeltsStatistics = [
   {

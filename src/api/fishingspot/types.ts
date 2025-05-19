@@ -25,13 +25,11 @@ export interface FishingSpotQueryResponseBody {
   currPage: number;
   totalPages: number;
   totalElements: number;
-  smelts: [
-    {
-      id: number;
-      smeltTypeId: number;
-      status: SmeltStatus;
-    }
-  ];
+  smelts: {
+    id: number;
+    smeltTypeId: number;
+    status: SmeltStatus;
+  }[];
 }
 
 export interface FishingSpotSearchResponseBody {

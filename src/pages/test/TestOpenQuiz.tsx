@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
-import { useModalHeight } from "../../../hook/useModalHeight";
+import { useModalStateStore, useModalOpenStore } from "../../store/modal";
+import { useModalHeight } from "../../hook/useModalHeight";
 import { Circle, X, XIcon } from "lucide-react";
 import {
   Flex,
@@ -10,11 +10,14 @@ import {
   Image,
   keyframes,
 } from "@chakra-ui/react";
-import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
-import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";
-import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
-import { useSolveQuiz } from "../../../hook/smelts/useSolveQuiz";
-import { useResponsive } from "../../../hook/global/useResponsive";
+import { ModalInsideWhiteContainer } from "../../components/home/modal/ModalCustomedElement";
+import { useQueryQuiz } from "../../hook/smelts/useQueryQuiz";
+import { useSmeltsImg } from "../../hook/smelts/useSmeltsImg";
+import { useSolveQuiz } from "../../hook/smelts/useSolveQuiz";
+import { useResponsive } from "../../hook/global/useResponsive";
+import shark from "../../assets/fish/Shark.svg";
+import { mockQuizOX } from "./mockQuizOX";
+import { mockQuizQueryData } from "./mockQuizqueryData";
 
 // 흔들림 애니메이션
 const shake = keyframes`
@@ -25,22 +28,11 @@ const shake = keyframes`
   100% { transform: translateX(0); }
 `;
 
-export const OpenQuiz = () => {
-  const selectedToppingId = Number(localStorage.getItem("selectedToppingId"));
-  const selectedToppingTypeId = Number(
-    localStorage.getItem("selectedToppingTypeId")
-  );
-  const { data } = useQueryQuiz(selectedToppingId);
-  const { getImageUrl } = useSmeltsImg();
-
-  const { mutate: solveQuizMutate } = useSolveQuiz(selectedToppingId);
-
+export const TestOpenQuiz = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null);
   const [wrongAnswer, setWrongAnswer] = useState<string | null>(null); // 오답 상태
   const [isShaking, setIsShaking] = useState(false); // 흔들림 상태
-
-  const imgURL = getImageUrl(selectedToppingTypeId, true) ?? "";
 
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
@@ -49,8 +41,8 @@ export const OpenQuiz = () => {
 
   useEffect(() => {
     let baseHeight = 50;
-    if (data?.quiz.type === "MULTIPLE") {
-      const questionCount = data.questions.length;
+    if (mockQuizQueryData?.quiz.type === "MULTIPLE") {
+      const questionCount = mockQuizQueryData.questions.length;
       baseHeight = questionCount <= 2 ? 50 : questionCount === 3 ? 60 : 70;
     }
 
@@ -63,7 +55,7 @@ export const OpenQuiz = () => {
     }
 
     setModalHeight(`${baseHeight}%`);
-  }, [data, isMobile, isTablet, isDesktop, isLargeDesktop]);
+  }, [mockQuizQueryData, isMobile, isTablet, isDesktop, isLargeDesktop]);
   useModalHeight(modalHeight);
 
   const handleClose = () => onClose();
@@ -79,38 +71,12 @@ export const OpenQuiz = () => {
     }
   }, [wrongAnswer]);
 
-  const clickAnswer = (questionId: number) => {
-    if (correctAnswer === true) {
-      return;
-    }
-
-    setSelectedAnswer(questionId.toString());
-
-    solveQuizMutate(
-      { questionId },
-      {
-        onSuccess: (response) => {
-          setCorrectAnswer(response.result);
-          if (response.result) {
-            setTimeout(() => setModalState("readMessage"), 1000);
-          } else {
-            setWrongAnswer(questionId.toString());
-          }
-        },
-        onError: (error) => {
-          console.error("퀴즈 제출 실패:", error);
-          setSelectedAnswer(null);
-        },
-      }
-    );
-  };
-
   const renderOXQuiz = () => (
     <Flex w="100%" h="100%" flexDir="column" align="center" position="relative">
-      <Header onClose={handleClose} img={imgURL} />
-      <Question title={data?.quiz.title ?? "퀴즈 조회 X"} />
+      <Header onClose={handleClose} img={shark} />
+      <Question title={mockQuizOX.quiz.title ?? "퀴즈 조회 X"} />
       <Flex gap="20px" mt="20px" justify="center">
-        {data?.questions.map((option) => (
+        {mockQuizOX?.questions.map((option) => (
           <IconButton
             key={option.id}
             bg={option.content === "O" ? "#03526B" : "#BF2A2A"}
@@ -138,7 +104,6 @@ export const OpenQuiz = () => {
                 : "none"
             }
             isDisabled={correctAnswer === true}
-            onClick={() => clickAnswer(option.id)}
           />
         ))}
       </Flex>
@@ -147,15 +112,14 @@ export const OpenQuiz = () => {
 
   const renderMultipleQuiz = () => (
     <>
-      <Header onClose={handleClose} img={imgURL} />
-      <Question title={data?.quiz.title ?? "퀴즈 조회 X"} />
+      <Header onClose={handleClose} img={shark} />
+      <Question title={mockQuizQueryData?.quiz.title ?? "퀴즈 조회 X"} />
       <Flex direction="column" gap="10px" mt="20px" width="100%" align="center">
-        {data?.questions.map((option) => (
+        {mockQuizQueryData?.questions.map((option) => (
           <Button
             key={option.id}
             width="calc(100% - 40px)"
             borderRadius="12px"
-            onClick={() => clickAnswer(option.id)}
             border={
               correctAnswer === true && selectedAnswer === option.id.toString()
                 ? "5px solid green"
@@ -180,7 +144,9 @@ export const OpenQuiz = () => {
     </>
   );
 
-  return data?.quiz.type === "MULTIPLE" ? renderMultipleQuiz() : renderOXQuiz();
+  return mockQuizQueryData?.quiz.type === "MULTIPLE"
+    ? renderMultipleQuiz()
+    : renderOXQuiz();
 };
 
 const Header = ({ onClose, img }: { onClose: () => void; img: string }) => (

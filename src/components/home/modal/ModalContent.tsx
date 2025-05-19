@@ -5,6 +5,8 @@ import { ReadMessage } from "../../owner/ReadMessage";
 
 import { FishDrawingResult } from "../../owner/FishDrawing";
 import { MakeSureDrawing } from "../../owner/FishDrawing";
+import { TestOpenQuiz } from "../../../pages/test/TestOpenQuiz";
+import { TestReadMessage } from "../../../pages/test/TestReadMessage";
 
 //Chef의 Modal component들은 chef에, Owner의 Modal component들은 owner에 들어가져있음
 
@@ -23,6 +25,12 @@ export const ModalContent = () => {
       return <FishDrawingResult />;
     case "makeSureDrawing":
       return <MakeSureDrawing />;
+    //test용
+    case "testOpenQuiz":
+      return <TestOpenQuiz />;
+    case "testReadMessage":
+      return <TestReadMessage />;
+
     default:
       return <div>Default Modal Content</div>;
   }
