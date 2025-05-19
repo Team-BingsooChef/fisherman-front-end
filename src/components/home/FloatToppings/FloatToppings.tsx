@@ -129,17 +129,17 @@ const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
         width="90px"
         height="90px"
         css={{
-          "@media (min-height: 760px)": {
-            width: "100px",
-            height: "100px",
+          "@media (min-height: 750px)": {
+            width: "110px",
+            height: "110px",
           },
           "@media (min-height: 900px)": {
             width: "120px",
             height: "120px",
           },
           "@media (min-height: 1100px)": {
-            width: "200px",
-            height: "200px",
+            width: "180px",
+            height: "180px",
           },
         }}
         objectFit="contain"
