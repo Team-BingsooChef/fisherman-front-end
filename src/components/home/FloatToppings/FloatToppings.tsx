@@ -118,7 +118,7 @@ const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
   return (
     <Box
       className={`topping-box ${groupClass}`}
-      data-group={topping.id % 7}
+      data-group={localIndex % 7}
       textAlign="center"
       onClick={handleClick}
       cursor={role === "owner" ? "pointer" : "not-allowed"}
