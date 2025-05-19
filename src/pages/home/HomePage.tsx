@@ -18,7 +18,7 @@ export default function HomePage() {
       {role === "chef" ? (
         <ChefView currentFishingSpotId={Number(currentFishingSpotId)} />
       ) : (
-        <OwnerView />
+        <OwnerView currentFishingSpotId={Number(currentFishingSpotId)} />
       )}
       <ModalLayout />
     </Wrapper>

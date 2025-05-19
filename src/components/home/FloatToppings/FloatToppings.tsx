@@ -4,14 +4,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Text, Image } from "@chakra-ui/react";
 import { useModalStateStore, useModalOpenStore } from "../../../store/modal";
 
-import useFishingSpot from "../../../hook/fishingspot/useFishingSpot";
 import { querySmeltsCategory } from "../../../api/smelts/apis";
 import { SmeltStatus } from "../../../api/fishingspot/types";
 import { SmeltsCategoryQueryResponseBody } from "../../../api/smelts/types";
 import { FishingSpotQueryResponseBody } from "../../../api/fishingspot/types";
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";
 import { useDetermineRole } from "../../../hook/fishingspot/useDetermineRole";
