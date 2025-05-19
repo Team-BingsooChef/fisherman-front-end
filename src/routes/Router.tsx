@@ -15,7 +15,7 @@ import FishDrawingPage from "../pages/user/FishDrawingPage";
 import FishBagPage from "../pages/user/FishBagPage";
 import RedirectPage from "../pages/auth/RedirectPage";
 import SendingPage from "../pages/chef/SendingPage";
-import TestPage from "./TestPage";
+import { TestPage } from "./TestPage";
 import AboutUsPage from "../pages/common/AboutUsPage";
 
 const router = createBrowserRouter([

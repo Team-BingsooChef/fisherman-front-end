@@ -63,25 +63,39 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
         borderRadius="8px"
         px={{ base: 4, md: 6 }}
         py={4}
-        css={{
-          "@media (min-height: 750px) and (max-height: 920px)": {
-            spacing: "16px",
-          },
-        }}
       >
         <SimpleGrid
           columns={3}
           spacing={{ base: "16px", md: "24px" }}
           width="100%"
           maxW="500px"
-          css={{
-            "@media (min-height: 750px) and (max-height: 920px)": {
-              spacing: "16px",
-            },
-          }}
         >
           {data?.map((item) => (
-            <Box key={item.smeltTypeId} w="100%" position="relative">
+            <Box
+              key={item.smeltTypeId}
+              w="100%"
+              position="relative"
+              css={{
+                "@media (min-height: 830px) and (max-height: 920px) and (min-width: 600px)":
+                  {
+                    width: "90%",
+                  },
+                "@media (min-height: 760px) and (max-height: 830px) and (min-width: 600px)":
+                  {
+                    width: "86%",
+                  },
+                "@media (min-height: 600px) and (max-height: 700px) and (min-width: 600px)":
+                  {
+                    width: "76%",
+                    paddingLeft: "20px",
+                  },
+                "@media (min-height: 700px) and (max-height: 760px) and (min-width: 600px)":
+                  {
+                    width: "86%",
+                    paddingLeft: "20px",
+                  },
+              }}
+            >
               {/* 별 등급 표시 */}
               <Box
                 position="absolute"
