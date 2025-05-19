@@ -138,8 +138,8 @@ const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
             height: "120px",
           },
           "@media (min-height: 1100px)": {
-            width: "180px",
-            height: "180px",
+            width: "170px",
+            height: "170px",
           },
         }}
         objectFit="contain"
