@@ -174,7 +174,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
         h="45px"
         w="140px"
         position="absolute"
-        bottom="23px"
+        bottom="20px"
         _hover={{ bg: "#03526B" }}
         isDisabled={!selectedTypeId}
       >
