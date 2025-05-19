@@ -48,17 +48,15 @@ const Overlay = styled.div`
   justify-content: center;
   overflow-y: auto;
   overflow-x: hidden;
-
   z-index: 10;
 `;
 
 // 모달 컨테이너 스타일
 const ModalWrapper = styled.div`
   width: 100%;
-  max-width: 430px;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
