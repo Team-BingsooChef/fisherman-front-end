@@ -78,6 +78,9 @@ export const ModalInsideWhiteContainer = styled.div<ModalInsideContainerProps>`
   width: calc(100% - 40px);
   height: ${(props) =>
     props.height || "auto"}; // props로 받은 height 또는 기본값
+  @media (min-width: 600px) {
+    height: 255px;
+  }
 `;
 
 interface ModalTitleProps {

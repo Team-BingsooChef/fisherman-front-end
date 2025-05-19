@@ -4,7 +4,7 @@ export const mockQuizQueryData: QuizQueryResponseBody = {
   quiz: {
     id: 101,
     title: "아래 중 빙어에 해당하지 않는 것은?",
-    type: "객관식",
+    type: "MULTIPLE",
     wrongCount: 2,
     isSolved: false,
   },

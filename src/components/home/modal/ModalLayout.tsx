@@ -54,7 +54,7 @@ const Overlay = styled.div`
 // 모달 컨테이너 스타일
 const ModalWrapper = styled.div`
   width: 100%;
-  max-width: 500px;
+  max-width: 430px;
   display: flex;
   flex-direction: column;
   align-items: center;
