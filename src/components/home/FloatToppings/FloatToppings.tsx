@@ -126,19 +126,9 @@ const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
       <Image
         src={imgSrc}
         alt={matchingSmeltType?.name}
-        boxSize="90px"
+        boxSize={["90px", "100px", "120px", "200px"]}
+        // 480 768 992 1280
         objectFit="contain"
-        css={{
-          "@media (min-width: 760px)": {
-            boxSize: "100px",
-          },
-          "@media (min-width: 900px)": {
-            boxSize: "120px",
-          },
-          "@media (min-width: 1100px)": {
-            boxSize: "200px",
-          },
-        }}
       />
       {/* <Text>{topping.senderName}</Text> */}
     </Box>
