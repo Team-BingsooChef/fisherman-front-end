@@ -2,7 +2,12 @@ import styled from "@emotion/styled";
 import { Flex, Image } from "@chakra-ui/react";
 import { Toppings } from "../FloatToppings/FloatToppings";
 import fisherman_big from "../../../assets/pictures/fisherman_small.svg";
-export const FishingSpot = () => {
+import { FishingSpotQueryResponseBody } from "../../../api/fishingspot/types";
+export const FishingSpot = ({
+  fishingSpotFishData,
+}: {
+  fishingSpotFishData: FishingSpotQueryResponseBody;
+}) => {
   return (
     <Flex
       w="100%"
@@ -34,7 +39,7 @@ export const FishingSpot = () => {
         }}
       />
       <FishingspotContainer>
-        <Toppings />
+        <Toppings fishingSpotFishData={fishingSpotFishData} />
       </FishingspotContainer>
     </Flex>
   );

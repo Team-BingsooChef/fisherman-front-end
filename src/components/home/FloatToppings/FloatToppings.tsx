@@ -8,6 +8,7 @@ import useFishingSpot from "../../../hook/fishingspot/useFishingSpot";
 import { querySmeltsCategory } from "../../../api/smelts/apis";
 import { SmeltStatus } from "../../../api/fishingspot/types";
 import { SmeltsCategoryQueryResponseBody } from "../../../api/smelts/types";
+import { FishingSpotQueryResponseBody } from "../../../api/fishingspot/types";
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -15,13 +16,14 @@ import { useParams } from "react-router-dom";
 import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";
 import { useDetermineRole } from "../../../hook/fishingspot/useDetermineRole";
 
-export const Toppings = () => {
-  const { fishingSpotId } = useParams();
-  const { data } = useFishingSpot(Number(fishingSpotId));
-
+export const Toppings = ({
+  fishingSpotFishData,
+}: {
+  fishingSpotFishData: FishingSpotQueryResponseBody;
+}) => {
   return (
     <>
-      {data?.smelts?.map((smelt, idx) => (
+      {fishingSpotFishData?.smelts?.map((smelt, idx) => (
         <ToppingElement
           key={smelt.id}
           topping={{
@@ -148,12 +150,17 @@ const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
   );
 };
 
-export const ToppingsPagination = () => {
-  const { fishingSpotId } = useParams();
-  const { currentPage, totalPages, nextPage, prevPage } = useFishingSpot(
-    Number(fishingSpotId)
-  );
-
+export const ToppingsPagination = ({
+  currentPage,
+  totalPages,
+  nextPage,
+  prevPage,
+}: {
+  currentPage: number;
+  totalPages: number;
+  nextPage: () => void;
+  prevPage: () => void;
+}) => {
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
       nextPage();

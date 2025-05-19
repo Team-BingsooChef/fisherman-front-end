@@ -7,8 +7,20 @@ import { House } from "lucide-react";
 import { useQueryOwnerName } from "../../../hook/fishingspot/useQueryOwnerName";
 import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
 import { useNavigate } from "react-router-dom";
+import useFishingSpot from "../../../hook/fishingspot/useFishingSpot";
 
-export const OwnerView = () => {
+export const OwnerView = ({
+  currentFishingSpotId,
+}: {
+  currentFishingSpotId: number;
+}) => {
+  const {
+    data: fishingSpotFishData,
+    currentPage,
+    totalPages,
+    nextPage,
+    prevPage,
+  } = useFishingSpot(currentFishingSpotId);
   return (
     <>
       <Menu />
@@ -17,7 +29,9 @@ export const OwnerView = () => {
       </Text>
       <CopyLink />
       <Box h="60px" />
-      <FishingSpot />
+      {fishingSpotFishData && (
+        <FishingSpot fishingSpotFishData={fishingSpotFishData} />
+      )}
       <Flex
         mt="8px"
         mb="8px"
@@ -29,16 +43,32 @@ export const OwnerView = () => {
           },
         }}
       >
-        <ToppingsPagination />
+        <ToppingsPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          nextPage={nextPage}
+          prevPage={prevPage}
+        />
       </Flex>
     </>
   );
 };
 
-export const ChefView = () => {
+export const ChefView = ({
+  currentFishingSpotId,
+}: {
+  currentFishingSpotId: number;
+}) => {
   const nickname = useQueryOwnerName();
   const navigate = useNavigate();
   const { data: fishingSpotData } = useGetFishingSpotId();
+  const {
+    data: fishingSpotFishData,
+    currentPage,
+    totalPages,
+    nextPage,
+    prevPage,
+  } = useFishingSpot(currentFishingSpotId);
 
   const clickGoHome = () => {
     if (!fishingSpotData?.fishingSpotId) {
@@ -64,7 +94,9 @@ export const ChefView = () => {
       </Text>
       <AddToppingButton />
       <Box h="60px" />
-      <FishingSpot />
+      {fishingSpotFishData && (
+        <FishingSpot fishingSpotFishData={fishingSpotFishData} />
+      )}
       <Flex
         mt="8px"
         mb="8px"
@@ -76,7 +108,12 @@ export const ChefView = () => {
           },
         }}
       >
-        <ToppingsPagination />
+        <ToppingsPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          nextPage={nextPage}
+          prevPage={prevPage}
+        />
       </Flex>
     </>
   );
