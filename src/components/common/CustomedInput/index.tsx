@@ -1,26 +1,34 @@
-import { 
-    Input, Text
- } from "@chakra-ui/react";
-
+import { Input, Text } from "@chakra-ui/react";
+import { kMaxLength } from "buffer";
 
 interface InputProps {
-    value: string;
-    text: string;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    placeholder: string;
+  value: string;
+  text: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+  maxLength?: number;
 }
 
-export const WhiteInput: React.FC<InputProps> = ({ value, text, handleChange, placeholder }) => {
+export const WhiteInput: React.FC<InputProps> = ({
+  value,
+  text,
+  handleChange,
+  placeholder,
+  maxLength,
+}) => {
   return (
     <>
-      <Text mb='8px' color="#03526B" alignSelf="start" fontWeight="semibold" >{text}</Text>
+      <Text mb="8px" color="#03526B" alignSelf="start" fontWeight="semibold">
+        {text}
+      </Text>
       <Input
-      variant="filled"
+        maxLength={maxLength}
+        variant="filled"
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
-        _placeholder={{ opacity: 1, color: 'gray.500' }}
-        size='sm'
+        _placeholder={{ opacity: 1, color: "gray.500" }}
+        size="sm"
         width={"100%"}
         height="60px"
         fontWeight="medium"

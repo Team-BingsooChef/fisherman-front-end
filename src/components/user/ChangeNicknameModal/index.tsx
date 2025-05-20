@@ -38,6 +38,7 @@ export const ChangeNicknameModal = ({
     });
     onClose();
   };
+  const maxNicknameLength = 8;
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -56,7 +57,8 @@ export const ChangeNicknameModal = ({
                 value={changedNickname}
                 text="닉네임"
                 handleChange={handleChangeNickname}
-                placeholder="변경할 닉네임을 입력해 주세요"
+                placeholder="변경할 닉네임을 입력해 주세요 (8자 이내)"
+                maxLength={8}
               />
               <Button
                 bgColor="#03526B"
