@@ -4,7 +4,6 @@ import { Menu } from "../../components/home/Menu";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { CopyLink } from "../../components/home/HomeBottomButton";
 import { Text, Flex, IconButton, Box, Image } from "@chakra-ui/react";
-import { House } from "lucide-react";
 import fisherman_big from "../../assets/pictures/fisherman_small.svg";
 import { TestToppingElement } from "./TestToppingElement";
 import { mockFishingSpotFish } from "./mockFishingSpotFish";

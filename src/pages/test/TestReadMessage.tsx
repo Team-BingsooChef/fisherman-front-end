@@ -1,28 +1,21 @@
 import { useState, useEffect } from "react";
 import { Flex, Box, Text, Image, IconButton, Textarea } from "@chakra-ui/react";
 import { XIcon } from "lucide-react";
-import { useQueryClient } from "@tanstack/react-query";
 
 import { useModalHeight } from "../../hook/useModalHeight";
 import { useModalOpenStore, useModalStateStore } from "../../store/modal";
-import { useSmeltsDetail } from "../../hook/smelts/useSmeltsDetail";
-import { useSmeltsImg } from "../../hook/smelts/useSmeltsImg";
-import { useReply } from "../../hook/smelts/useReply";
-
-import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 
 import { NavyEllipseButton } from "../../components/common/CustomedButton";
 import { ModalInsideWhiteContainer } from "../../components/home/modal/ModalCustomedElement";
 import { mockSmeltsLetterQueryResponse } from "./mockSmeltsLetterQueryResponse";
 
 import shark from "../../assets/fish/Shark.svg";
-import { m } from "framer-motion";
 
 export const TestReadMessage = () => {
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
 
-  const [isReplied, setIsReplied] = useState<boolean>(false);
+  const [isReplied] = useState<boolean>(false);
   // data가 변경될 때마다 isReplied 상태 업데이트
 
   const [replyDraft, setReplyDraft] = useState(""); // 답장 작성란 입력값 관리

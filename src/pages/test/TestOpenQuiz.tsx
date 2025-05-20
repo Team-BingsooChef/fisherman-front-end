@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useModalStateStore, useModalOpenStore } from "../../store/modal";
+import { useModalOpenStore } from "../../store/modal";
 import { useModalHeight } from "../../hook/useModalHeight";
 import { Circle, X, XIcon } from "lucide-react";
 import {
@@ -26,12 +26,11 @@ const shake = keyframes`
 `;
 
 export const TestOpenQuiz = () => {
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null);
+  const [selectedAnswer] = useState<string | null>(null);
+  const [correctAnswer] = useState<boolean | null>(null);
   const [wrongAnswer, setWrongAnswer] = useState<string | null>(null); // 오답 상태
   const [isShaking, setIsShaking] = useState(false); // 흔들림 상태
 
-  const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
   const [modalHeight, setModalHeight] = useState("500px");
 
