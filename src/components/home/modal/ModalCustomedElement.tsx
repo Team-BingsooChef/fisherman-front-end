@@ -3,6 +3,7 @@ import { Text, Input, Box, Flex } from "@chakra-ui/react";
 
 interface ModalInsideContainerProps {
   height?: string; // height를 선택적으로 받음
+  state?: string;
   value?: string;
   placeholder?: string;
   maxLength?: number; // 최대 글자 수 (선택)
@@ -77,9 +78,10 @@ export const ModalInsideWhiteContainer = styled.div<ModalInsideContainerProps>`
   border-radius: 16px;
   width: calc(100% - 40px);
   height: ${(props) =>
-    props.height || "auto"}; // props로 받은 height 또는 기본값
+    props.state === "quiz" ? "100px" : props.height || "auto"};
+
   @media (min-width: 600px) {
-    height: 255px;
+    height: ${(props) => (props.state === "quiz" ? "100px" : "255px")};
   }
 `;
 

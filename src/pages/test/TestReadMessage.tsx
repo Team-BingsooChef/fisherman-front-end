@@ -140,7 +140,6 @@ export const TestReadMessage = () => {
           display="flex"
           flexDir="column"
           alignItems="center"
-          css={{}}
         >
           {!isReplying && (
             <Box w="50%" mt="80px">
