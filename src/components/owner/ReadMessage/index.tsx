@@ -34,7 +34,7 @@ export const ReadMessage = () => {
 
   const [replyDraft, setReplyDraft] = useState(""); // 답장 작성란 입력값 관리
   const [isReplying, setIsReplying] = useState(false); // 답장 작성 중인지 상태 관리
-  const maxReplyLength = 30;
+  const maxReplyLength = 0;
 
   const mutate = useReply(selectedToppingId);
 
@@ -234,7 +234,14 @@ export const ReadMessage = () => {
                 bg="white"
                 placeholder="답장을 작성하세요..."
                 value={replyDraft}
-                onChange={(e) => setReplyDraft(e.target.value)}
+                onChange={(e) => {
+                  const input = e.target.value;
+                  if (input.length <= maxReplyLength) {
+                    setReplyDraft(input);
+                  } else {
+                    setReplyDraft(input.slice(0, maxReplyLength));
+                  }
+                }}
                 mb="10px"
               />
               <Text w="full" textAlign="right" fontSize="12px" color="black">
