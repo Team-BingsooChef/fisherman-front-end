@@ -51,7 +51,9 @@ export default function FishDrawingPage() {
 
         {/* 가방 */}
         <Button
-          onClick={() => navigate("/fishbag")}
+          onClick={() =>
+            navigate("/fishbag", { state: { from: "fishdrawing" } })
+          }
           w="110px"
           h="46px"
           bgColor="#AFD5F4"
