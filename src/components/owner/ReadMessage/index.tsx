@@ -45,24 +45,66 @@ export const ReadMessage = () => {
   let modalHeight = "500px";
 
   if (window.innerWidth < 600) {
-    // 모바일 등 폭이 작은 기기
+    // 모바일
     if (windowHeight < 600) {
-      modalHeight = isReplying ? "500px" : "360px";
-    } else if (windowHeight >= 600 && windowHeight < 730) {
-      modalHeight = isReplying ? "556px" : "410px";
-    } else if (windowHeight >= 730 && windowHeight < 850) {
-      modalHeight = isReplying ? "560px" : "430px";
+      if (isReplied) {
+        modalHeight = "420px";
+      } else if (isReplying) {
+        modalHeight = "500px";
+      } else {
+        modalHeight = "360px";
+      }
+    } else if (windowHeight < 730) {
+      if (isReplied) {
+        modalHeight = "470px";
+      } else if (isReplying) {
+        modalHeight = "556px";
+      } else {
+        modalHeight = "410px";
+      }
+    } else if (windowHeight < 850) {
+      if (isReplied) {
+        modalHeight = "480px";
+      } else if (isReplying) {
+        modalHeight = "560px";
+      } else {
+        modalHeight = "430px";
+      }
     } else {
-      modalHeight = isReplying ? "560px" : "440px";
+      if (isReplied) {
+        modalHeight = "490px";
+      } else if (isReplying) {
+        modalHeight = "560px";
+      } else {
+        modalHeight = "440px";
+      }
     }
   } else {
-    // width가 600 이상인 기기
+    // 태블릿/PC
     if (windowHeight < 750) {
-      modalHeight = isReplying ? "560px" : "400px";
-    } else if (windowHeight >= 750 && windowHeight < 820) {
-      modalHeight = isReplying ? "580px" : "420px";
+      if (isReplied) {
+        modalHeight = "460px";
+      } else if (isReplying) {
+        modalHeight = "560px";
+      } else {
+        modalHeight = "400px";
+      }
+    } else if (windowHeight < 820) {
+      if (isReplied) {
+        modalHeight = "480px";
+      } else if (isReplying) {
+        modalHeight = "580px";
+      } else {
+        modalHeight = "420px";
+      }
     } else {
-      modalHeight = isReplying ? "620px" : "480px";
+      if (isReplied) {
+        modalHeight = "500px";
+      } else if (isReplying) {
+        modalHeight = "620px";
+      } else {
+        modalHeight = "480px";
+      }
     }
   }
 
@@ -124,10 +166,10 @@ export const ReadMessage = () => {
       {isReplied ? (
         <Box
           w="calc(100% - 40px)"
-          mt="50px"
+          mt="55px"
           css={{
             "@media (max-width: 600px)": {
-              marginTop: "70px",
+              marginTop: "50px",
             },
           }}
         >
@@ -141,7 +183,16 @@ export const ReadMessage = () => {
             답장
           </Text>
           <Box w="full" bg="white" p="10px" h="70px" borderRadius="16px">
-            <Text fontSize="16px" fontWeight="regular" borderRadius="md">
+            <Text
+              fontSize="16px"
+              fontWeight="regular"
+              borderRadius="md"
+              css={{
+                "@media (max-width: 600px)": {
+                  fontSize: "14px",
+                },
+              }}
+            >
               {data?.letter.comment?.content}
             </Text>
           </Box>
