@@ -45,7 +45,10 @@ type ToppingProps = {
 
 const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
   const role = useDetermineRole();
-  const { data: quizData } = useQueryQuiz(topping.id);
+  const isOwner = role === "owner";
+  const { data: quizData } = useQueryQuiz(topping.id, {
+    enabled: isOwner,
+  });
 
   const { setModalState } = useModalStateStore();
   const { onOpen } = useModalOpenStore();
