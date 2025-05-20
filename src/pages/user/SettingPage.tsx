@@ -114,6 +114,7 @@ export default function SettingPage() {
       <Box
         m="15px 0 0 0"
         p={3}
+        px="30px"
         h="60px"
         w="full"
         display="flex"
@@ -134,6 +135,7 @@ export default function SettingPage() {
         w="full"
         m="0 0 15px 0"
         p={3}
+        px="30px"
         h="60px"
         display="flex"
         gap="8px"
@@ -150,6 +152,7 @@ export default function SettingPage() {
       <Button
         w="full"
         p={3}
+        px="30px"
         h="60px"
         display="flex"
         gap="8px"
