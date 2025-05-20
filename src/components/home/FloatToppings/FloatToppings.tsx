@@ -8,7 +8,7 @@ import { querySmeltsCategory } from "../../../api/smelts/apis";
 import { SmeltStatus } from "../../../api/fishingspot/types";
 import { SmeltsCategoryQueryResponseBody } from "../../../api/smelts/types";
 import { FishingSpotQueryResponseBody } from "../../../api/fishingspot/types";
-
+import { useDetermineRole } from "../../../hook/fishingspot/useDetermineRole";
 import { useEffect, useState } from "react";
 
 import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";

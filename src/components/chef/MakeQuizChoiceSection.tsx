@@ -55,7 +55,10 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
     <>
       <WhiteLeftHeader
         text="빙어 보내기"
-        onBackClick={() => navigate(`/${currentFishingSpotId}`)}
+        onBackClick={() => {
+          console.log(currentFishingSpotId);
+          navigate(`/${currentFishingSpotId}`);
+        }}
       />
       <Flex gap="15px" m="14px 0 30px 0">
         <div
