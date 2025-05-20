@@ -23,11 +23,11 @@ export default function RedirectPage() {
         );
         const isValidId =
           redirectFishingSpotId &&
-          redirectFishingSpotId !== "undefined" &&
+          // eslint-disable-next-line eqeqeq
+          redirectFishingSpotId != null &&
           redirectFishingSpotId.trim() !== "";
 
         if (!isValidId) {
-          localStorage.removeItem("redirectFishingSpotId");
           navigate(`/${fishingSpotId}`);
         } else {
           navigate(`/${redirectFishingSpotId}`);
