@@ -157,7 +157,15 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
         </>
       )}
 
-      <Flex gap="23px" mt="20px" mb="20px">
+      <Flex
+        gap="23px"
+        css={{
+          position: selectQuizType ? undefined : "absolute",
+          bottom: selectQuizType ? undefined : "23px",
+          marginTop: selectQuizType ? "20px" : "0px",
+          marginBottom: selectQuizType ? "20px" : "0px",
+        }}
+      >
         <Button
           bg="#D9D9D9"
           color="black"
