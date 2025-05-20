@@ -138,7 +138,7 @@ const ToppingByMeElement = ({
                   답장
                 </Text>
               </Box>
-              <ModalInsideWhiteContainer height="60px">
+              <ModalInsideWhiteContainer height="60px" state="seemine">
                 <Box
                   w="full"
                   h="full"

@@ -78,10 +78,19 @@ export const ModalInsideWhiteContainer = styled.div<ModalInsideContainerProps>`
   border-radius: 16px;
   width: calc(100% - 40px);
   height: ${(props) =>
-    props.state === "quiz" ? "100px" : props.height || "auto"};
+    props.state === "seemine"
+      ? "60px"
+      : props.state === "quiz"
+      ? "100px"
+      : props.height || "auto"};
 
   @media (min-width: 600px) {
-    height: ${(props) => (props.state === "quiz" ? "100px" : "255px")};
+    height: ${(props) =>
+      props.state === "seemine"
+        ? "60px"
+        : props.state === "quiz"
+        ? "100px"
+        : "255px"};
   }
 `;
 
