@@ -56,7 +56,6 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
       <WhiteLeftHeader
         text="빙어 보내기"
         onBackClick={() => {
-          console.log(currentFishingSpotId);
           navigate(`/${currentFishingSpotId}`);
         }}
       />

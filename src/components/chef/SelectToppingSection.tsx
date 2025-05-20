@@ -23,7 +23,7 @@ export const SelectToppingSection = ({ onNext }: { onNext: () => void }) => {
   };
 
   const currentFishingSpotId = Number(
-    localStorage.getItem("currentFishingSpotId")
+    localStorage.getItem("redirectFishingSpotId")
   );
 
   return (
