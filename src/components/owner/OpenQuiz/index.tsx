@@ -14,7 +14,6 @@ import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement
 import { useQueryQuiz } from "../../../hook/smelts/useQueryQuiz";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 import { useSolveQuiz } from "../../../hook/smelts/useSolveQuiz";
-import { useResponsive } from "../../../hook/global/useResponsive";
 
 // 흔들림 애니메이션
 const shake = keyframes`
@@ -44,26 +43,52 @@ export const OpenQuiz = () => {
 
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
-  const [modalHeight, setModalHeight] = useState("50%");
-  const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
+
+  const [modalHeight, setModalHeight] = useState("500px");
 
   useEffect(() => {
-    let baseHeight = 50;
+    let modalHeight = 380; // 기본값
+
+    // 문제 개수에 따라 modalHeight 조정
     if (data?.quiz.type === "MULTIPLE") {
       const questionCount = data.questions.length;
-      baseHeight = questionCount <= 2 ? 50 : questionCount === 3 ? 60 : 70;
+      if (questionCount <= 2) {
+        modalHeight = 320;
+      } else if (questionCount === 3) {
+        modalHeight = 390;
+      } else {
+        modalHeight = 420;
+      }
     }
 
-    if (isMobile) {
-      baseHeight += 20;
-    } else if (isTablet) {
-      baseHeight += 10;
-    } else if (isLargeDesktop) {
-      baseHeight -= 10;
+    // 기기 해상도(width, height)별 분기
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth < 600) {
+      // 모바일 (가로 600 미만)
+      if (windowHeight < 600) {
+        modalHeight += 0; // 필요하면 조정
+      } else if (windowHeight < 730) {
+        modalHeight += 40;
+      } else if (windowHeight < 850) {
+        modalHeight += 60;
+      } else {
+        modalHeight += 80;
+      }
+    } else {
+      // 태블릿/PC (가로 600 이상)
+      if (windowHeight < 750) {
+        modalHeight += 10;
+      } else if (windowHeight < 820) {
+        modalHeight += 30;
+      } else {
+        modalHeight += 50;
+      }
     }
 
-    setModalHeight(`${baseHeight}%`);
-  }, [data, isMobile, isTablet, isDesktop, isLargeDesktop]);
+    setModalHeight(`${modalHeight}px`);
+  }, [data]);
   useModalHeight(modalHeight);
 
   const handleClose = () => onClose();
@@ -149,7 +174,14 @@ export const OpenQuiz = () => {
     <>
       <Header onClose={handleClose} img={imgURL} />
       <Question title={data?.quiz.title ?? "퀴즈 조회 X"} />
-      <Flex direction="column" gap="10px" mt="20px" width="100%" align="center">
+      <Flex
+        direction="column"
+        gap="10px"
+        mt={data?.questions.length === 2 ? "10px" : "0px"}
+        mb="5px"
+        width="100%"
+        align="center"
+      >
         {data?.questions.map((option) => (
           <Button
             key={option.id}
@@ -201,8 +233,8 @@ const Header = ({ onClose, img }: { onClose: () => void; img: string }) => (
 );
 
 const Question = ({ title }: { title: string }) => (
-  <Flex w="100%" h="30%" mt="20px" justify="center" position="relative">
-    <ModalInsideWhiteContainer height="100%">
+  <Flex w="100%" h="30%" mt="10px" justify="center" position="relative">
+    <ModalInsideWhiteContainer height="200px" state="quiz">
       Q. {title}
     </ModalInsideWhiteContainer>
   </Flex>

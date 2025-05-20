@@ -9,7 +9,7 @@ import { XIcon } from "lucide-react";
 import { useSmeltsDetail } from "../../../hook/smelts/useSmeltsDetail";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 import { useReply } from "../../../hook/smelts/useReply";
-import { useResponsive } from "../../../hook/global/useResponsive";
+
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
 
@@ -25,7 +25,6 @@ export const ReadMessage = () => {
   const imgURL = getImageUrl(selectedToppingTypeId, false) ?? ""; //얼음 풀린 이미지
   const { setModalState } = useModalStateStore();
   const { onClose } = useModalOpenStore();
-  const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
 
   const [isReplied, setIsReplied] = useState<boolean>(false);
   // data가 변경될 때마다 isReplied 상태 업데이트
@@ -39,20 +38,37 @@ export const ReadMessage = () => {
 
   const mutate = useReply(selectedToppingId);
 
-  // 모달 높이 설정 (디바이스 및 isReplying 상태에 따라 다르게 설정)
-  let modalHeight = "64%";
-  if (isMobile) {
-    modalHeight = isReplying ? "80%" : "70%";
-  } else if (isTablet) {
-    modalHeight = isReplying ? "76%" : "64%";
-  } else if (isDesktop) {
-    modalHeight = isReplying ? "72%" : "60%";
-  } else if (isLargeDesktop) {
-    modalHeight = isReplying ? "68%" : "55%";
+  const [windowHeight, setInitWindowHeight] = useState(window.innerHeight);
+  useEffect(() => {
+    setInitWindowHeight(window.innerHeight);
+  }, []);
+  let modalHeight = "500px";
+
+  if (window.innerWidth < 600) {
+    // 모바일 등 폭이 작은 기기
+    if (windowHeight < 600) {
+      modalHeight = isReplying ? "500px" : "360px";
+    } else if (windowHeight >= 600 && windowHeight < 730) {
+      modalHeight = isReplying ? "556px" : "410px";
+    } else if (windowHeight >= 730 && windowHeight < 850) {
+      modalHeight = isReplying ? "560px" : "430px";
+    } else {
+      modalHeight = isReplying ? "560px" : "440px";
+    }
+  } else {
+    // width가 600 이상인 기기
+    if (windowHeight < 750) {
+      modalHeight = isReplying ? "560px" : "400px";
+    } else if (windowHeight >= 750 && windowHeight < 820) {
+      modalHeight = isReplying ? "580px" : "420px";
+    } else {
+      modalHeight = isReplying ? "620px" : "480px";
+    }
   }
-  const { data: fishingSpotIdData } = useGetFishingSpotId();
 
   useModalHeight(modalHeight);
+
+  const { data: fishingSpotIdData } = useGetFishingSpotId();
 
   const clickClose = () => {
     queryClient.invalidateQueries({
@@ -89,7 +105,16 @@ export const ReadMessage = () => {
       </Text>
       <Flex w="100%" h="44%" justify="center">
         <ModalInsideWhiteContainer height="240px">
-          <Text p="10px" fontSize="16px" fontWeight="regular">
+          <Text
+            p="10px"
+            fontSize="16px"
+            fontWeight="regular"
+            css={{
+              "@media (max-width: 600px)": {
+                fontSize: "14px",
+              },
+            }}
+          >
             {data?.letter.content}
           </Text>
         </ModalInsideWhiteContainer>
@@ -97,7 +122,15 @@ export const ReadMessage = () => {
 
       {/* 답장 여부에 따른 UI 변경 */}
       {isReplied ? (
-        <Box w="calc(100% - 40px)" mt="40px">
+        <Box
+          w="calc(100% - 40px)"
+          mt="50px"
+          css={{
+            "@media (max-width: 600px)": {
+              marginTop: "70px",
+            },
+          }}
+        >
           <Text
             width=" calc(100% - 40px)"
             fontSize="16px"
@@ -121,7 +154,7 @@ export const ReadMessage = () => {
           alignItems="center"
         >
           {!isReplying && (
-            <Box w="calc(100% - 200px)" mt="80px">
+            <Box w="50%" mt="80px">
               <NavyEllipseButton onClick={() => setIsReplying(true)}>
                 답장 남기기
               </NavyEllipseButton>
@@ -135,6 +168,12 @@ export const ReadMessage = () => {
                 fontWeight="regular"
                 textAlign="left"
                 mb="10px"
+                mt="10px"
+                css={{
+                  "@media (max-width: 600px)": {
+                    marginTop: "20px",
+                  },
+                }}
               >
                 답장
               </Text>

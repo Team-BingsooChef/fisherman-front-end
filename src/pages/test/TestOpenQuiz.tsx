@@ -11,10 +11,7 @@ import {
   keyframes,
 } from "@chakra-ui/react";
 import { ModalInsideWhiteContainer } from "../../components/home/modal/ModalCustomedElement";
-import { useQueryQuiz } from "../../hook/smelts/useQueryQuiz";
-import { useSmeltsImg } from "../../hook/smelts/useSmeltsImg";
-import { useSolveQuiz } from "../../hook/smelts/useSolveQuiz";
-import { useResponsive } from "../../hook/global/useResponsive";
+
 import shark from "../../assets/fish/Shark.svg";
 import { mockQuizOX } from "./mockQuizOX";
 import { mockQuizQueryData } from "./mockQuizqueryData";
@@ -80,6 +77,7 @@ export const TestOpenQuiz = () => {
     }
 
     setModalHeight(`${modalHeight}px`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mockQuizQueryData]);
   useModalHeight(modalHeight);
 
