@@ -13,7 +13,9 @@ export default function RootLayout() {
     "/fishdrawing",
     "/fishbag",
     "/sending",
-    "/test",
+    // "/test",
+    // "/testmultiplecreate",
+    // "/testsendingletter",
   ].includes(location.pathname)
     ? COLOR.SERVE
     : COLOR.PRIMARY;

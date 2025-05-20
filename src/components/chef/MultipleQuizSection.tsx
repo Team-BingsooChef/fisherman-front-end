@@ -1,4 +1,4 @@
-import { Text, Flex, Button, Input } from "@chakra-ui/react";
+import { Text, Flex, Button, Input, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSmeltStore } from "../../hook/fishingspot/useSmeltStore";
 
@@ -34,7 +34,7 @@ export const MultipleQuizSection = () => {
   };
 
   return (
-    <>
+    <Box w="full" overscrollY="auto">
       <Text
         fontSize="16px"
         fontWeight="bold"
@@ -42,6 +42,11 @@ export const MultipleQuizSection = () => {
         mb="6px"
         w="full"
         textAlign="left"
+        css={{
+          "@media (max-height: 800px)": {
+            marginTop: "10px",
+          },
+        }}
       >
         선지 작성
       </Text>
@@ -52,7 +57,7 @@ export const MultipleQuizSection = () => {
             key={index}
             align="center"
             bg="white"
-            p="10px"
+            p="8px"
             borderRadius="10px"
             border={option.isSelected ? "2px solid green" : "1px solid #ccc"}
             boxShadow={option.isSelected ? "0 0 5px green" : "none"}
@@ -88,6 +93,6 @@ export const MultipleQuizSection = () => {
           </Button>
         )}
       </Flex>
-    </>
+    </Box>
   );
 };
