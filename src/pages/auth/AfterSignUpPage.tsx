@@ -8,6 +8,7 @@ import { signUpEmail } from "../../api/auth/apis";
 import { EmailSignUpRequest } from "../../api/auth/types";
 import { useChangeUserInfo } from "../../hook/user/useChangeUserInfo";
 import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
+import { AxiosError } from "axios";
 
 export default function AfterSignUpPage() {
   const navigate = useNavigate();
@@ -99,7 +100,8 @@ export default function AfterSignUpPage() {
         console.error("회원가입 실패:", error);
         toast({
           title: "회원가입 실패",
-          description: "다시 시도해주세요.",
+          description:
+            error instanceof AxiosError ? error.message : String(error),
           status: "error",
           duration: 3000,
           isClosable: true,
