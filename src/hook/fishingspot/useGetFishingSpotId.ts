@@ -12,11 +12,11 @@ interface UseGetFishingSpotIdOptions {
 export const useGetFishingSpotId = ({
   enabled = true,
 }: UseGetFishingSpotIdOptions = {}) => {
-  const { data, error } = useQuery<FishingSpotIdResponse, AxiosError>({
+  const { data, error, refetch } = useQuery<FishingSpotIdResponse, AxiosError>({
     queryKey: ["fishingSpotId"],
     queryFn: getFishingSpotId,
     enabled,
   });
 
-  return { data, error };
+  return { data, error, refetch };
 };

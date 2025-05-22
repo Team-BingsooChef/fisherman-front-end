@@ -10,11 +10,16 @@ import PufferFish from "../../assets/fish/PufferFish.svg";
 
 import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 export default function StartPage() {
-  const { data: fishingSpotData } = useGetFishingSpotId();
-  const fishingSpotId = fishingSpotData?.fishingSpotId;
+  const { data, refetch } = useGetFishingSpotId({
+    enabled: false,
+  });
+
   const navigate = useNavigate();
 
-  const handleStart = () => {
+  const handleStart = async () => {
+    const resultId = await refetch();
+
+    const fishingSpotId = resultId?.data?.fishingSpotId;
     if (fishingSpotId) {
       navigate(`/${fishingSpotId}`);
     } else {
