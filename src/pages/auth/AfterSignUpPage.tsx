@@ -45,11 +45,11 @@ export default function AfterSignUpPage() {
           duration: 3000,
           isClosable: true,
         });
-        const currentFishingSpotId = localStorage.getItem(
-          "currentFishingSpotId"
+        const redirectFishingSpotId = localStorage.getItem(
+          "redirectFishingSpotId"
         );
-        if (currentFishingSpotId) {
-          navigate(`/${currentFishingSpotId}`);
+        if (redirectFishingSpotId) {
+          navigate(`/${redirectFishingSpotId}`);
         } else {
           navigate(`/${fishingSpotId}`);
         }

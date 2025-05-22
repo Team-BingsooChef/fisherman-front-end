@@ -1,10 +1,10 @@
 import { api } from "../../config/axios";
-import { AxiosResponse } from "axios";
 
 import {
   EmailCodeSendRequest,
   EmailSignUpRequest,
   EmailSignInRequest,
+  EmailSignInResponse,
 } from "./types";
 
 export function getEmailCode(req: EmailCodeSendRequest): Promise<void> {
@@ -26,7 +26,7 @@ export function signUpEmail(req: EmailSignUpRequest): Promise<void> {
 
 export async function emailLogin(
   req: EmailSignInRequest
-): Promise<AxiosResponse> {
+): Promise<EmailSignInResponse> {
   const formData = new FormData();
   formData.append("email", req.email);
   formData.append("password", req.password);

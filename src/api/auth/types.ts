@@ -12,3 +12,7 @@ export interface EmailSignInRequest {
   email: string;
   password: string;
 }
+
+export interface EmailSignInResponse {
+  freshUser: boolean;
+}
