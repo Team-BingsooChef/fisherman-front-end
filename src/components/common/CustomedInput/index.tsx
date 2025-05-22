@@ -1,5 +1,4 @@
 import { Input, Text } from "@chakra-ui/react";
-import { kMaxLength } from "buffer";
 
 interface InputProps {
   value: string;

@@ -38,7 +38,7 @@ export const ChangeNicknameModal = ({
     });
     onClose();
   };
-  const maxNicknameLength = 8;
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>

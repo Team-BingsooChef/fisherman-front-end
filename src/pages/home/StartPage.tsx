@@ -10,7 +10,7 @@ import PufferFish from "../../assets/fish/PufferFish.svg";
 
 import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 export default function StartPage() {
-  const { data, refetch } = useGetFishingSpotId({
+  const { refetch } = useGetFishingSpotId({
     enabled: false,
   });
 
