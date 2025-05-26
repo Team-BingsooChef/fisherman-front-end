@@ -89,19 +89,17 @@ export const ChefView = ({
           onClick={clickGoHome}
         />
       </Flex>
-      {fishingSpotData && (
+      {fishingSpotFishData && (
         <>
           <Text fontSize="l" fontWeight="Bold" color="#03526B">
             사랑하는 {nickname}의 호수를 채워주세요
           </Text>
           <AddToppingButton />
           <Box h="60px" />
-          {fishingSpotFishData && (
-            <FishingSpot fishingSpotFishData={fishingSpotFishData} />
-          )}
+          <FishingSpot fishingSpotFishData={fishingSpotFishData} />
         </>
       )}
-      {!fishingSpotData && (
+      {!fishingSpotFishData && (
         <>
           <Text
             fontSize="l"
