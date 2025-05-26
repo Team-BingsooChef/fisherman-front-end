@@ -13,7 +13,7 @@ export default function NotFoundPage() {
 
   const navigate = useNavigate();
 
-  const handleStart = async () => {
+  const handleGoMain = async () => {
     const resultId = await refetch();
 
     const fishingSpotId = resultId?.data?.fishingSpotId;
@@ -43,7 +43,7 @@ export default function NotFoundPage() {
         홈으로 돌아가 볼까요?
       </Text>
       <Box w="calc(100% - 200px)" mt="20px">
-        <BlueRectangleButton onClick={handleStart}>
+        <BlueRectangleButton onClick={handleGoMain}>
           메인으로
         </BlueRectangleButton>
       </Box>
