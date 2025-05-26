@@ -26,7 +26,7 @@ export default function SettingPage() {
   const { data: fishingSpotData } = useGetFishingSpotId();
 
   const goHome = () => {
-    navigate(`/${fishingSpotData?.fishingSpotId}`);
+    navigate(`/spot/${fishingSpotData?.fishingSpotId}`);
   };
 
   // 상태를 나타내는 타입

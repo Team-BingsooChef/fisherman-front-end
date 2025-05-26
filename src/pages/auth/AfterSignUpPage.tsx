@@ -50,9 +50,9 @@ export default function AfterSignUpPage() {
           "redirectFishingSpotId"
         );
         if (redirectFishingSpotId) {
-          navigate(`/${redirectFishingSpotId}`);
+          navigate(`/spot/${redirectFishingSpotId}`);
         } else {
-          navigate(`/${fishingSpotId}`);
+          navigate(`/spot/${fishingSpotId}`);
         }
       } catch (error) {
         console.error("닉네임 변경 실패:", error);

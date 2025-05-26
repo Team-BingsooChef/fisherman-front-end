@@ -23,9 +23,9 @@ export const useEmailLogin = () => {
           redirectFishingSpotId.trim() !== "";
 
         if (!isValidId) {
-          navigate(`/${fishingSpotId}`);
+          navigate(`/spot/${fishingSpotId}`);
         } else {
-          navigate(`/${redirectFishingSpotId}`);
+          navigate(`/spot/${redirectFishingSpotId}`);
         }
       }
     },

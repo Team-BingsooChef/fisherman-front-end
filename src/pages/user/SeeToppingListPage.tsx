@@ -14,7 +14,9 @@ export default function SeeToppnigListPage() {
       <Box w="calc(100% - 60px)">
         <WhiteLeftHeader
           text="내가 보낸 빙어"
-          onBackClick={() => navigate(`/${fishingSpotData?.fishingSpotId}`)}
+          onBackClick={() =>
+            navigate(`/spot/${fishingSpotData?.fishingSpotId}`)
+          }
         />
         <Text fontSize="14px" fontWeight="semibold" color="#777C89">
           물고기를 누르면, 물고기 주인의 페이지를 방문할 수 있어요

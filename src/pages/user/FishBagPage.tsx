@@ -19,7 +19,7 @@ export default function FishBagPage() {
         onBackClick={() =>
           location?.state?.from === "fishdrawing"
             ? navigate("/fishdrawing")
-            : navigate(`/${fishingSpotData?.fishingSpotId}`)
+            : navigate(`/spot/${fishingSpotData?.fishingSpotId}`)
         }
       />
       <Flex

@@ -39,7 +39,7 @@ export default function AboutUsPage() {
             color="#03526B"
             position="absolute"
             onClick={() => {
-              navigate(`/${fishingSpotData?.fishingSpotId}`);
+              navigate(`/spot/${fishingSpotData?.fishingSpotId}`);
             }}
           />
           <Text color="#03526B" fontSize="20px" fontWeight="Bold" ml="40px">

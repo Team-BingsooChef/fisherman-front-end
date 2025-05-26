@@ -20,7 +20,7 @@ export default function SearchPage() {
     <Wrapper>
       <WhiteLeftHeader
         text="낚시꾼 찾기"
-        onBackClick={() => navigate(`/${fishingSpotData?.fishingSpotId}`)}
+        onBackClick={() => navigate(`/spot/${fishingSpotData?.fishingSpotId}`)}
       />
 
       <Flex align="center" w="full" gap="8px">
@@ -44,7 +44,7 @@ export default function SearchPage() {
             bg="#F7FAFC"
             align="center"
             cursor="pointer"
-            onClick={() => navigate(`/${user.fishingSpotId}`)}
+            onClick={() => navigate(`/spot/${user.fishingSpotId}`)}
           >
             <Avatar boxSize="40px" borderRadius="full" objectFit="contain" />
             {/* <Image

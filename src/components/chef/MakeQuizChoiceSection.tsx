@@ -48,7 +48,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
       position: "bottom",
     });
 
-    navigate(`/${currentFishingSpotId}`);
+    navigate(`/spot/${currentFishingSpotId}`);
   };
 
   return (
@@ -56,7 +56,7 @@ export const MakeQuizChoiceSection = ({ onPrev }: { onPrev: () => void }) => {
       <WhiteLeftHeader
         text="빙어 보내기"
         onBackClick={() => {
-          navigate(`/${currentFishingSpotId}`);
+          navigate(`/spot/${currentFishingSpotId}`);
         }}
       />
       <Flex gap="15px" m="14px 0 30px 0">

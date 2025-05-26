@@ -74,7 +74,7 @@ export const ChefView = ({
     if (!fishingSpotData?.fishingSpotId) {
       navigate("/login");
     } else {
-      navigate(`/${fishingSpotData?.fishingSpotId}`);
+      navigate(`/spot/${fishingSpotData?.fishingSpotId}`);
     }
   };
 

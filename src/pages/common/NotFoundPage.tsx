@@ -18,7 +18,7 @@ export default function NotFoundPage() {
 
     const fishingSpotId = resultId?.data?.fishingSpotId;
     if (fishingSpotId) {
-      navigate(`/${fishingSpotId}`);
+      navigate(`/spot/${fishingSpotId}`);
     } else {
       navigate("/login");
     }

@@ -34,7 +34,7 @@ export default function FishDrawingPage() {
     <Wrapper>
       <WhiteLeftHeader
         text="빙어 뽑기"
-        onBackClick={() => navigate(`/${fishingSpotData?.fishingSpotId}`)}
+        onBackClick={() => navigate(`/spot/${fishingSpotData?.fishingSpotId}`)}
       />
 
       <Flex direction="column" align="flex-end" w="full" gap="13px">
