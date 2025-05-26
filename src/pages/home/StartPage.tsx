@@ -36,13 +36,6 @@ export default function StartPage() {
         <BlueRectangleButton onClick={handleStart}>
           시작하기
         </BlueRectangleButton>
-        <button
-          onClick={() => {
-            throw new Error("This is your first error!");
-          }}
-        >
-          Break the world
-        </button>
       </Box>
       <Box h="60px" />
       <Flex
