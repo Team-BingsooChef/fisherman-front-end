@@ -20,6 +20,9 @@ importers:
       '@emotion/styled':
         specifier: 11.11.0
         version: 11.11.0(@emotion/react@11.11.3(@types/react@18.3.12)(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
+      '@sentry/react':
+        specifier: ^9.22.0
+        version: 9.22.0(react@18.3.1)
       '@tanstack/react-query':
         specifier: ^5.66.0
         version: 5.66.0(react@18.3.1)
@@ -1061,6 +1064,36 @@ packages:
     resolution: {integrity: sha512-3j4jx1TppORdTAoBJRd+/wJRGCPC0ETWkXOecJ6PPZLj6SptXkrXcNqdj0oclbKML6FkQltdz7bBA3rUSirZug==}
     cpu: [x64]
     os: [win32]
+
+  '@sentry-internal/browser-utils@9.22.0':
+    resolution: {integrity: sha512-Ou1tBnVxFAIn8i9gvrWzRotNJQYiu3awNXpsFCw6qFwmiKAVPa6b13vCdolhXnrIiuR77jY1LQnKh9hXpoRzsg==}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/feedback@9.22.0':
+    resolution: {integrity: sha512-zgMVkoC61fgi41zLcSZA59vOtKxcLrKBo1ECYhPD1hxEaneNqY5fhXDwlQBw96P5l2yqkgfX6YZtSdU4ejI9yA==}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/replay-canvas@9.22.0':
+    resolution: {integrity: sha512-EcG9IMSEalFe49kowBTJObWjof/iHteDwpyuAszsFDdQUYATrVUtwpwN7o52vDYWJud4arhjrQnMamIGxa79eQ==}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/replay@9.22.0':
+    resolution: {integrity: sha512-9GOycoKbrclcRXfcbNV8svbmAsOS5R4wXBQmKF4pFLkmFA/lJv9kdZSNYkRvkrxdNfbMIJXP+DV9EqTZcryXig==}
+    engines: {node: '>=18'}
+
+  '@sentry/browser@9.22.0':
+    resolution: {integrity: sha512-3TeRm74dvX0JdjX0AgkQa+22iUHwHnY+Q6M05NZ+tDeCNHGK/mEBTeqquS1oQX67jWyuvYmG3VV6RJUxtG9Paw==}
+    engines: {node: '>=18'}
+
+  '@sentry/core@9.22.0':
+    resolution: {integrity: sha512-ixvtKmPF42Y6ckGUbFlB54OWI75H2gO5UYHojO6eXFpS7xO3ZGgV/QH6wb40mWK+0w5XZ0233FuU9VpsuE6mKA==}
+    engines: {node: '>=18'}
+
+  '@sentry/react@9.22.0':
+    resolution: {integrity: sha512-mI43NnioBYdG5TiXqRlhV1feZs9bnrrl+k5HOHBK7VQtymaXO0fkcsRLZTkdSgLRLMJGasZuvVhq2xK+18QyWQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      react: ^16.14.0 || 17.x || 18.x || 19.x
 
   '@swc/core-darwin-arm64@1.9.3':
     resolution: {integrity: sha512-hGfl/KTic/QY4tB9DkTbNuxy5cV4IeejpPD4zo+Lzt4iLlDWIeANL4Fkg67FiVceNJboqg48CUX+APhDHO5G1w==}
@@ -3379,6 +3412,41 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.27.4':
     optional: true
+
+  '@sentry-internal/browser-utils@9.22.0':
+    dependencies:
+      '@sentry/core': 9.22.0
+
+  '@sentry-internal/feedback@9.22.0':
+    dependencies:
+      '@sentry/core': 9.22.0
+
+  '@sentry-internal/replay-canvas@9.22.0':
+    dependencies:
+      '@sentry-internal/replay': 9.22.0
+      '@sentry/core': 9.22.0
+
+  '@sentry-internal/replay@9.22.0':
+    dependencies:
+      '@sentry-internal/browser-utils': 9.22.0
+      '@sentry/core': 9.22.0
+
+  '@sentry/browser@9.22.0':
+    dependencies:
+      '@sentry-internal/browser-utils': 9.22.0
+      '@sentry-internal/feedback': 9.22.0
+      '@sentry-internal/replay': 9.22.0
+      '@sentry-internal/replay-canvas': 9.22.0
+      '@sentry/core': 9.22.0
+
+  '@sentry/core@9.22.0': {}
+
+  '@sentry/react@9.22.0(react@18.3.1)':
+    dependencies:
+      '@sentry/browser': 9.22.0
+      '@sentry/core': 9.22.0
+      hoist-non-react-statics: 3.3.2
+      react: 18.3.1
 
   '@swc/core-darwin-arm64@1.9.3':
     optional: true
