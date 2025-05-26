@@ -96,7 +96,7 @@ const ToppingByMeElement = ({
           {/* 상대 낚시터로 navigate */}
           <Image
             src={getImageUrl(topping.smeltTypeId)}
-            onClick={() => navigate(`/${topping.fishingSpotId}`)}
+            onClick={() => navigate(`/spot/${topping.fishingSpotId}`)}
             alt="topping icon"
             position="absolute"
             top="-20px"
