@@ -63,6 +63,14 @@ const ToppingByMeElement = ({
   const { getImageUrl } = useSmeltsImg();
   const navigate = useNavigate();
 
+  const handleImageClick = () => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "visit_by_me", {
+        fishing_spot_id: topping.fishingSpotId,
+      });
+    }
+    navigate(`/spot/${topping.fishingSpotId}`);
+  };
   return (
     <Flex
       flexDir="column"
@@ -96,7 +104,7 @@ const ToppingByMeElement = ({
           {/* 상대 낚시터로 navigate */}
           <Image
             src={getImageUrl(topping.smeltTypeId)}
-            onClick={() => navigate(`/spot/${topping.fishingSpotId}`)}
+            onClick={handleImageClick}
             alt="topping icon"
             position="absolute"
             top="-20px"

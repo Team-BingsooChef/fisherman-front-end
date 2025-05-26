@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { useEmailLogin } from "../../hook/auth/useEmailLogin";
 import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare let gtag: (...args: any[]) => void;
+
 export default function RedirectPage() {
   const navigate = useNavigate();
 
@@ -18,6 +21,9 @@ export default function RedirectPage() {
       if (isFreshUser === "true") {
         navigate("/aftersignup", { state: { oauthuser: true } });
       } else if (isFreshUser === "false") {
+        gtag("event", "login", {
+          method: "oauth",
+        });
         const redirectFishingSpotId = localStorage.getItem(
           "redirectFishingSpotId"
         );

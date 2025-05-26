@@ -10,6 +10,9 @@ import { useChangeUserInfo } from "../../hook/user/useChangeUserInfo";
 import { useGetFishingSpotId } from "../../hook/fishingspot/useGetFishingSpotId";
 import { AxiosError } from "axios";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare let gtag: (...args: any[]) => void;
+
 export default function AfterSignUpPage() {
   const navigate = useNavigate();
   const toast = useToast();
@@ -39,6 +42,10 @@ export default function AfterSignUpPage() {
     if (!isEmailUser) {
       try {
         await changeNickname(username);
+        gtag("event", "sign_up", {
+          method: "oauth",
+        });
+
         toast({
           title: "닉네임 설정 성공!",
           description: "환영합니다!",
@@ -87,6 +94,9 @@ export default function AfterSignUpPage() {
 
       try {
         await signUpEmail(req);
+        gtag("event", "sign_up", {
+          method: "email",
+        });
         toast({
           title: "회원가입 성공!",
           status: "success",

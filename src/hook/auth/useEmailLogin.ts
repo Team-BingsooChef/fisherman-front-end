@@ -4,6 +4,9 @@ import { EmailSignInRequest, EmailSignInResponse } from "../../api/auth/types";
 import { emailLogin } from "../../api/auth/apis";
 import { useGetFishingSpotId } from "../fishingspot/useGetFishingSpotId";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare let gtag: (...args: any[]) => void;
+
 export const useEmailLogin = () => {
   const { data: fishingSpotId } = useGetFishingSpotId();
   const navigate = useNavigate();
@@ -13,6 +16,9 @@ export const useEmailLogin = () => {
       if (data.freshUser === true) {
         navigate("/aftersignup", { state: { oauthuser: false } });
       } else {
+        gtag("event", "login", {
+          method: "email",
+        });
         const redirectFishingSpotId = localStorage.getItem(
           "redirectFishingSpotId"
         );

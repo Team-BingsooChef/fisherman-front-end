@@ -34,13 +34,20 @@ export const ReadMessage = () => {
 
   const [replyDraft, setReplyDraft] = useState(""); // 답장 작성란 입력값 관리
   const [isReplying, setIsReplying] = useState(false); // 답장 작성 중인지 상태 관리
-  const maxReplyLength = 0;
+  const maxReplyLength = 20;
 
   const mutate = useReply(selectedToppingId);
 
   const [windowHeight, setInitWindowHeight] = useState(window.innerHeight);
   useEffect(() => {
     setInitWindowHeight(window.innerHeight);
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "read_message", {
+        topping_id: selectedToppingId,
+        topping_status: data?.smelt.status,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   let modalHeight = "500px";
 
