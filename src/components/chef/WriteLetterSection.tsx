@@ -18,7 +18,7 @@ export const WriteLetterSection = ({
 
   const isNextButtonEnabled = senderName.length > 0 && content.length > 0;
   const currentFishingSpotId = Number(
-    localStorage.getItem("currentFishingSpotId")
+    localStorage.getItem("redirectFishingSpotId")
   );
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
