@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { COLOR } from "../../styles/color";
+import GaPageTracker from "../../config/GaPageTracker";
 
 export default function RootLayout() {
   const location = useLocation();
@@ -23,6 +24,8 @@ export default function RootLayout() {
   return (
     <Wrapper>
       <InsideWrapper backgroundColor={background}>
+        <GaPageTracker />
+        {/* Google Analytics 페이지 트래킹 */}
         <Outlet />
       </InsideWrapper>
     </Wrapper>
