@@ -60,3 +60,11 @@ jobs:
           aws cloudfront create-invalidation \
             --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} \
             --paths "/*"
+
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: fisherman-z4
+          SENTRY_PROJECT: javascript-react
+          environment: production
