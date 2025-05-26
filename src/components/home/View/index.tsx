@@ -1,5 +1,5 @@
 import { Menu } from "../Menu";
-import { FishingSpot } from "../Bingsoo";
+import { FishingSpot, NoDataFishingSpot } from "../Bingsoo";
 import { ToppingsPagination } from "../FloatToppings/FloatToppings";
 import { AddToppingButton, CopyLink } from "../HomeBottomButton";
 import { Text, Flex, IconButton, Box } from "@chakra-ui/react";
@@ -89,14 +89,36 @@ export const ChefView = ({
           onClick={clickGoHome}
         />
       </Flex>
-      <Text fontSize="l" fontWeight="Bold" color="#03526B">
-        사랑하는 {nickname}의 호수를 채워주세요
-      </Text>
-      <AddToppingButton />
-      <Box h="60px" />
-      {fishingSpotFishData && (
-        <FishingSpot fishingSpotFishData={fishingSpotFishData} />
+      {fishingSpotData && (
+        <>
+          <Text fontSize="l" fontWeight="Bold" color="#03526B">
+            사랑하는 {nickname}의 호수를 채워주세요
+          </Text>
+          <AddToppingButton />
+          <Box h="60px" />
+          {fishingSpotFishData && (
+            <FishingSpot fishingSpotFishData={fishingSpotFishData} />
+          )}
+        </>
       )}
+      {!fishingSpotData && (
+        <>
+          <Text
+            fontSize="l"
+            fontWeight="Bold"
+            color="#03526B"
+            textAlign="center"
+            mt="30px"
+          >
+            이 낚시터의 주인이 아직 없어요
+            <br />
+            다른 낚시터로 이동해 보세요!
+          </Text>
+          <Box h="60px" />
+          <NoDataFishingSpot />
+        </>
+      )}
+
       <Flex
         mt="8px"
         mb="8px"

@@ -64,3 +64,39 @@ const FishingspotContainer = styled.div`
     height: 48dvh;
   }
 `;
+
+export const NoDataFishingSpot = () => {
+  return (
+    <Flex
+      w="100%"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="flex-end"
+      h="100%"
+    >
+      <Image
+        src={fisherman_big}
+        alt="fisherman"
+        width={200}
+        height={200}
+        mb="-32px"
+        zIndex="1"
+        css={{
+          "@media (min-height: 768px)": {
+            width: "220px",
+            height: "220px",
+          },
+          "@media (min-height: 900px)": {
+            width: "250px",
+            height: "250px",
+          },
+          "@media (min-height: 1100px)": {
+            width: "320px",
+            height: "320px",
+          },
+        }}
+      />
+      <FishingspotContainer></FishingspotContainer>
+    </Flex>
+  );
+};
