@@ -46,7 +46,7 @@ export const CopyLink = () => {
       return;
     }
 
-    const link = `https://www.smelt-fishing.com/${fishingSpotData.fishingSpotId}`;
+    const link = `https://www.smelt-fishing.com/spot/${fishingSpotData.fishingSpotId}`;
 
     try {
       await navigator.clipboard.writeText(link);
