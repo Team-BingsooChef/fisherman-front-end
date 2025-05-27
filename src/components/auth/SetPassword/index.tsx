@@ -88,6 +88,15 @@ export const ReSetPassword = () => {
         });
         navigate("/setting");
       },
+      onError: (error) => {
+        toast({
+          title: "비밀번호 변경에 실패했습니다.",
+          description: error.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      },
     });
   };
 
@@ -111,8 +120,8 @@ export const ReSetPassword = () => {
             변경하기
           </BlueRectangleButton>
         </Box>
-        <Flex w="full" justify="center" position="relative">
-          <Box mb="90px" position="fixed" bottom="0">
+        <Flex w="full" justify="center">
+          <Box mt="20px">
             <img src={fisherman} alt="fisherman" width={180} height={180} />
           </Box>
         </Flex>
