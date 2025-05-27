@@ -18,9 +18,9 @@ export default function RedirectPage() {
       const isFreshUser = searchParams.get("isFreshUser");
       const fishingSpotId = data?.fishingSpotId;
 
-      if (isFreshUser === "true") {
+      if (isFreshUser) {
         navigate("/aftersignup", { state: { oauthuser: true } });
-      } else if (isFreshUser === "false") {
+      } else {
         gtag("event", "login", {
           method: "oauth",
         });
