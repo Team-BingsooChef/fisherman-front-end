@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import * as Sentry from "@sentry/react";
+import { ErrorBoundary } from "@sentry/react";
 
 Sentry.init({
   dsn: "https://aadc799b8cfb33c8d76fe2b0abb2e7c6@o4509388525207552.ingest.us.sentry.io/4509388526059520",
@@ -9,4 +10,8 @@ Sentry.init({
   sendDefaultPii: true,
 });
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <ErrorBoundary fallback={<p>Something went wrong.</p>}>
+    <App />
+  </ErrorBoundary>
+);
