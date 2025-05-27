@@ -68,3 +68,5 @@ jobs:
           SENTRY_ORG: fisherman-z4
           SENTRY_PROJECT: javascript-react
           environment: production
+        with:
+          ignore_missing: true
