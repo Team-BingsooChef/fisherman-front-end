@@ -192,3 +192,33 @@ export const SettingHeader = ({ text }: HeaderProps) => {
     </Flex>
   );
 };
+
+export const BlueLeftHeader = ({ text, onBackClick }: HeaderProps) => {
+  return (
+    <Flex
+      w="100%"
+      h="70px"
+      align="center"
+      backgroundColor={COLOR.PRIMARY}
+      position="relative"
+    >
+      <IconButton
+        icon={<ChevronLeft size={28} />}
+        variant="ghost"
+        aria-label="goBack"
+        color={TEXTCOLOR.HEADER_BLACK}
+        position="absolute"
+        onClick={onBackClick}
+      />
+      <Text
+        color={TEXTCOLOR.HEADER_BLACK}
+        fontSize="20px"
+        fontWeight="Bold"
+        textAlign="center"
+        w="100%"
+      >
+        {text}
+      </Text>
+    </Flex>
+  );
+};

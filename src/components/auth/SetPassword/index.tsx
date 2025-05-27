@@ -4,6 +4,8 @@ import { PasswordInput } from "../PasswordInput";
 import { BlueRectangleButton } from "../../common/CustomedButton";
 import { useToast, Box, Flex } from "@chakra-ui/react";
 import fisherman from "../../../assets/pictures/fisherman_small.svg";
+import { BlueLeftHeader } from "../../common/Header";
+import { useGetFishingSpotId } from "../../../hook/fishingspot/useGetFishingSpotId";
 
 import { useChangeUserInfo } from "../../../hook/user/useChangeUserInfo";
 
@@ -100,9 +102,16 @@ export const ReSetPassword = () => {
     });
   };
 
+  const { data: fishingSpotData } = useGetFishingSpotId();
+
+  const goHome = () => {
+    navigate(`/spot/${fishingSpotData?.fishingSpotId}`);
+  };
+
   return (
     <>
-      <Box w="full" marginTop="160px">
+      <BlueLeftHeader text="비밀번호 설정" onBackClick={goHome} />
+      <Box w="full" marginTop="100px">
         <PasswordInput
           value={originPassword}
           text="현재 비밀번호"
