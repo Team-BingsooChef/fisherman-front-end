@@ -1,6 +1,6 @@
-import { Flex, Button, useToast, Image } from "@chakra-ui/react";
+import { Flex, Button, Image } from "@chakra-ui/react";
 import kakaoIcon from "../../../assets/icon/kakao_icon.svg";
-import naverIcon from "../../../assets/icon/naver_icon.svg";
+
 import googleIcon from "../../../assets/icon/google_icon.svg";
 import { BlueRectangleButton } from "../../common/CustomedButton";
 import fisherman from "../../../assets/pictures/fisherman_small.svg";
@@ -10,7 +10,6 @@ interface PlatformLoginProps {
 }
 
 export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
-  const toast = useToast();
   const onKaKaoClick = () => {
     window.location.href = `${API_BASE_URL}/oauth2/authorize/kakao`;
   };
