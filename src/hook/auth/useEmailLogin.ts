@@ -29,7 +29,7 @@ export const useEmailLogin = () => {
           redirectFishingSpotId.trim() !== "";
 
         if (!isValidId) {
-          navigate(`/spot/${fishingSpotId}`);
+          navigate(`/spot/${fishingSpotId?.fishingSpotId}`);
         } else {
           navigate(`/spot/${redirectFishingSpotId}`);
         }
