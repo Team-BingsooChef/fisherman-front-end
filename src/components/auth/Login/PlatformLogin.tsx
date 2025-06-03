@@ -14,16 +14,8 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
   const onKaKaoClick = () => {
     window.location.href = `${API_BASE_URL}/oauth2/authorize/kakao`;
   };
-
-  const onOtherPlatformClick = () => {
-    toast({
-      title: "준비 중입니다.",
-      description: "현재 플랫폼은 카카오만 지원하고 있어요.",
-      status: "info",
-      duration: 2000,
-      isClosable: true,
-      position: "bottom",
-    });
+  const onGoogleClick = () => {
+    window.location.href = `${API_BASE_URL}/oauth2/authorize/google`;
   };
 
   return (
@@ -66,39 +58,9 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
           />
           카카오로 시작하기
         </Button>
+
         <Button
-          onClick={onOtherPlatformClick}
-          w="full"
-          h="60px"
-          borderRadius="16px"
-          variant="ghost"
-          aria-label="naver"
-          bgColor="#03E266"
-          color="white"
-          fontSize="20px"
-          position="relative"
-          _hover={{
-            bgColor: "#03E266",
-            transform: "none",
-          }}
-        >
-          <img
-            src={naverIcon}
-            alt="naver"
-            width={24}
-            height={24}
-            style={{
-              position: "absolute",
-              left: "16px",
-              top: "50%",
-              marginLeft: "4px",
-              transform: "translateY(-50%)",
-            }}
-          />
-          네이버로 시작하기
-        </Button>
-        <Button
-          onClick={onOtherPlatformClick}
+          onClick={onGoogleClick}
           w="full"
           h="60px"
           borderRadius="16px"
@@ -141,7 +103,7 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
           css={{
             display: "none",
 
-            "@media (min-height: 920px)": {
+            "@media (min-height: 700px)": {
               display: "block",
               marginTop: "40px",
               width: "250px",
