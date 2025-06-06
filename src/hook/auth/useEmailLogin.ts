@@ -8,17 +8,25 @@ import { useGetFishingSpotId } from "../fishingspot/useGetFishingSpotId";
 declare let gtag: (...args: any[]) => void;
 
 export const useEmailLogin = () => {
-  const { data: fishingSpotId } = useGetFishingSpotId();
   const navigate = useNavigate();
+  const { data: fishingSpotId, refetch: refetchFishingSpotId } =
+    useGetFishingSpotId({
+      enabled: false,
+    });
+
   return useMutation({
     mutationFn: (req: EmailSignInRequest) => emailLogin(req),
-    onSuccess: (data: EmailSignInResponse) => {
+    onSuccess: async (data: EmailSignInResponse) => {
       if (data.freshUser === true) {
         navigate("/aftersignup", { state: { oauthuser: false } });
       } else {
         gtag("event", "login", {
           method: "email",
         });
+
+        // 로그인 성공 후 fishingSpotId 조회 실행
+        await refetchFishingSpotId();
+
         const redirectFishingSpotId = localStorage.getItem(
           "redirectFishingSpotId"
         );
