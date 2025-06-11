@@ -233,11 +233,6 @@ export const ReSetPassword = () => {
             변경하기
           </BlueRectangleButton>
         </Box>
-        <Flex w="full" justify="center">
-          <Box mt="20px">
-            <img src={fisherman} alt="fisherman" width={180} height={180} />
-          </Box>
-        </Flex>
       </Box>
     </>
   );
