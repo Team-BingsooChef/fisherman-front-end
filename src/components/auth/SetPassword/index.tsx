@@ -111,7 +111,7 @@ export const SetPassword = () => {
           handleChange={handleNewPasswordChange}
         />
         {newPasswordError && (
-          <Text color="red.500" fontSize="sm" mt="2">
+          <Text color="red.500" fontSize="sm" mt="2" fontWeight="semibold">
             비밀번호는 10~15자여야 합니다.
           </Text>
         )}
@@ -221,7 +221,7 @@ export const ReSetPassword = () => {
           handleChange={handleNewPasswordChange}
         />
         {newPasswordError && (
-          <Text color="red.500" fontSize="sm" mt="2">
+          <Text color="red.500" fontSize="sm" mt="2" fontWeight="semibold">
             비밀번호는 10~15자여야 합니다.
           </Text>
         )}

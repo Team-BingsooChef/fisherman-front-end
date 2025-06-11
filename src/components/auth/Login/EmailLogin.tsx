@@ -87,7 +87,7 @@ export const EmailLogin = () => {
           placeholder="비밀번호를 입력해 주세요"
         />
         {passwordError && (
-          <Text color="red.500" fontSize="sm" mt="2">
+          <Text color="red.500" fontSize="sm" mt="2" fontWeight="semibold">
             비밀번호는 10~15자여야 합니다.
           </Text>
         )}
