@@ -10,7 +10,9 @@ export default function HomePage() {
 
   const currentFishingSpotId = fishingSpotId.fishingSpotId;
   if (currentFishingSpotId) {
-    localStorage.setItem("redirectFishingSpotId", currentFishingSpotId);
+    if (role !== "owner") {
+      localStorage.setItem("redirectFishingSpotId", currentFishingSpotId);
+    }
   }
 
   return (
