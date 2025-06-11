@@ -39,7 +39,9 @@ export const useEmailLogin = () => {
         if (!isValidId) {
           navigate(`/spot/${fishingSpotId?.fishingSpotId}`);
         } else {
-          navigate(`/spot/${redirectFishingSpotId}`);
+          navigate(`/spot/${redirectFishingSpotId}`, {
+            state: { from: "loginPage" },
+          });
           localStorage.removeItem("redirectFishingSpotId");
         }
       }

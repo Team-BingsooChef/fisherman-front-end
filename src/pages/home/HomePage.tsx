@@ -3,16 +3,24 @@ import { useParams } from "react-router-dom";
 import { OwnerView, ChefView } from "../../components/home/View";
 import { ModalLayout } from "../../components/home//modal/ModalLayout";
 import { useDetermineRole } from "../../hook/fishingspot/useDetermineRole";
+import { useLocation } from "react-router-dom";
 
 export default function HomePage() {
   const role = useDetermineRole();
   const fishingSpotId = useParams();
 
   const currentFishingSpotId = fishingSpotId.fishingSpotId;
-  if (currentFishingSpotId) {
-    if (role !== "owner") {
-      localStorage.setItem("redirectFishingSpotId", currentFishingSpotId);
-    }
+  const location = useLocation();
+
+  if (
+    currentFishingSpotId &&
+    role !== "owner" &&
+    !(
+      location.state?.from === "loginPage" ||
+      location.state?.from === "redirectPage"
+    )
+  ) {
+    localStorage.setItem("redirectFishingSpotId", currentFishingSpotId);
   }
 
   return (
