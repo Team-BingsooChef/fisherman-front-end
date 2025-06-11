@@ -17,6 +17,7 @@ export const EmailLogin = () => {
   const [rememberEmail, setRememberEmail] = useState(
     !!localStorage.getItem("saved_email")
   );
+  const [passwordError, setPasswordError] = useState(false);
 
   const toast = useToast();
 
@@ -33,7 +34,14 @@ export const EmailLogin = () => {
   };
 
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+    const value = e.target.value;
+    setPassword(value);
+    // 비밀번호 길이 유효성 검사 (10~15자)
+    if (value.length < 10 || value.length > 15) {
+      setPasswordError(true);
+    } else {
+      setPasswordError(false);
+    }
   };
 
   const handleRememberEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,6 +86,11 @@ export const EmailLogin = () => {
           handleChange={handleChangePassword}
           placeholder="비밀번호를 입력해 주세요"
         />
+        {passwordError && (
+          <Text color="red.500" fontSize="sm" mt="2">
+            비밀번호는 10~15자여야 합니다.
+          </Text>
+        )}
       </Box>
       <Flex
         w="full"

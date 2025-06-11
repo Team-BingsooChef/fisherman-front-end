@@ -5,12 +5,14 @@ interface BlueRectangleButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   isLoading?: boolean;
+  isDisabled?: boolean; // 버튼 비활성화 여부
 }
 
 export const BlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({
   children,
   onClick,
   isLoading,
+  isDisabled,
 }) => {
   return (
     <Button
@@ -28,6 +30,7 @@ export const BlueRectangleButton: React.FC<BlueRectangleButtonProps> = ({
         color: "white", // hover 시 텍스트 색상 유지
       }}
       isLoading={isLoading}
+      disabled={isDisabled} // 버튼 비활성화 상태
 
       // _active={{
       //   transform: "scale(0.98)", // 클릭할 때 버튼 살짝 줄어듦
