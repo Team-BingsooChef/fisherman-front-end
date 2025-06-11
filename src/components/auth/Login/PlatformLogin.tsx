@@ -104,9 +104,9 @@ export const PlatformLogin = ({ onEmailClick }: PlatformLoginProps) => {
 
             "@media (min-height: 700px)": {
               display: "block",
-              marginTop: "40px",
-              width: "230px",
-              height: "230px",
+              marginTop: "10px",
+              width: "200px",
+              height: "200px",
             },
             "@media (min-height: 1100px)": {
               marginTop: "100px",
