@@ -40,6 +40,7 @@ export const useEmailLogin = () => {
           navigate(`/spot/${fishingSpotId?.fishingSpotId}`);
         } else {
           navigate(`/spot/${redirectFishingSpotId}`);
+          localStorage.removeItem("redirectFishingSpotId");
         }
       }
     },

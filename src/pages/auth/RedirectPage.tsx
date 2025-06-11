@@ -37,6 +37,7 @@ export default function RedirectPage() {
           navigate(`/spot/${fishingSpotId}`);
         } else {
           navigate(`/spot/${redirectFishingSpotId}`);
+          localStorage.removeItem("redirectFishingSpotId");
         }
       }
     },
