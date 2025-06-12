@@ -1,7 +1,7 @@
 import { Box, Text, Flex, Image } from "@chakra-ui/react";
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SentSmeltsQueryResponseBody } from "../../../api/inventory/types";
 import { useQuerySentSmelts } from "../../../hook/inventory/useQuerySentSmelts";
