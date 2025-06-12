@@ -14,6 +14,11 @@ export default function RedirectPage() {
 
   useEffect(
     () => {
+      // 가드
+      // 만약 useGetFishingSpotId 훅에서 아직 데이터를 받아오지 못했다면 함수 종료
+      if (!data) {
+        return;
+      }
       const searchParams = new URLSearchParams(location.search);
       const isFreshUser = searchParams.get("isFreshUser");
       const fishingSpotId = data?.fishingSpotId;
@@ -44,7 +49,7 @@ export default function RedirectPage() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [data]
   );
 
   return (
