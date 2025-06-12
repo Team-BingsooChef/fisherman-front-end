@@ -8,22 +8,27 @@ import { useQuerySentSmelts } from "../../../hook/inventory/useQuerySentSmelts";
 import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 
 export const SeeToppingsByMe = () => {
-  const [page, setPage] = useState(0);
   const size = 10;
-  const { data, isLoading } = useQuerySentSmelts(page, size);
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useQuerySentSmelts(size);
 
   useEffect(() => {
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } =
         document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight - 100 && !isLoading) {
-        setPage((prev) => prev + 1);
+      // 다음 페이지가 있고, 현재 데이터를 가져오는 중이 아닐 때만 다음 페이지를 호출합니다.
+      if (
+        scrollTop + clientHeight >= scrollHeight - 100 &&
+        hasNextPage &&
+        !isFetchingNextPage
+      ) {
+        fetchNextPage();
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isLoading]);
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <Flex
@@ -35,12 +40,14 @@ export const SeeToppingsByMe = () => {
       justify="center"
       overflowY="auto"
     >
-      <Box w="full" h="100%" bg="none">
-        {data?.smelts.map((topping) => (
-          <ToppingByMeElement topping={topping} key={topping.id} />
-        ))}
+      <Box w="full" h="100%" bg="none" overflowY="auto">
+        {data?.pages.map((page) =>
+          page.smelts.map((topping) => (
+            <ToppingByMeElement topping={topping} key={topping.id} />
+          ))
+        )}
         {isLoading && <Text>Loading more...</Text>}
-        {!isLoading && data?.smelts.length === 0 && (
+        {!hasNextPage && data?.pages[0].smelts.length === 0 && (
           <Text
             textAlign="center"
             fontSize="14px"

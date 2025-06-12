@@ -4,9 +4,9 @@ import {
   MyInventoryResponse,
 } from "../../api/inventory/apis";
 import { SentSmeltsQueryResponseBody } from "../../api/inventory/types";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-export const useQuerySentSmelts = (page: number = 0, size: number = 1) => {
+export const useQuerySentSmelts = (size: number = 10) => {
   const { data: inventoryData } = useQuery<MyInventoryResponse>({
     queryKey: ["myInventory"],
     queryFn: queryMyInventory,
@@ -14,14 +14,21 @@ export const useQuerySentSmelts = (page: number = 0, size: number = 1) => {
 
   const InventoryId = inventoryData?.id;
 
-  const { data, error, isLoading } = useQuery<
-    SentSmeltsQueryResponseBody,
-    Error
-  >({
-    queryKey: ["sentSmelts", page, size],
-    queryFn: () => querySentSmelts(InventoryId as number, page, size),
+  return useInfiniteQuery<SentSmeltsQueryResponseBody, Error>({
+    queryKey: ["sentSmelts"],
+    queryFn: ({ pageParam = 0 }) => {
+      if (typeof InventoryId !== "number") {
+        return Promise.reject(new Error("Invalid InventoryId"));
+      }
+      return querySentSmelts(InventoryId, pageParam as number, size);
+    },
+    initialPageParam: 0,
+
+    getNextPageParam: (lastPage) => {
+      const nextPage = lastPage.currPage + 1;
+
+      return nextPage < lastPage.totalPages ? nextPage : undefined;
+    },
     enabled: !!InventoryId,
   });
-
-  return { data, error, isLoading };
 };
