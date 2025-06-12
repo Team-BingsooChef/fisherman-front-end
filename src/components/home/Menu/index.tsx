@@ -21,6 +21,7 @@ import {
   LogOut,
   MenuIcon,
   Backpack,
+  MessageCircleWarning,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -191,6 +192,19 @@ export const Menu = () => {
               </Button>
             </Link>
           </DrawerBody>
+          <Link to="https://docs.google.com/forms/d/e/1FAIpQLScAIiltWZFpQD7QzTRCLU3JfKw9jUoRkhhuNsE9xn-EmteGbg/viewform?usp=header">
+            <Button
+              leftIcon={<MessageCircleWarning size="20" color="#777C89" />}
+              bg="#F9F7F7"
+              _hover={{ bg: "#AFD5F4" }}
+              color="#595353"
+              fontWeight="semibold"
+              width="100%"
+              justifyContent="flex-start"
+            >
+              버그 신고하기
+            </Button>
+          </Link>
         </DrawerContent>
       </Drawer>
     </>
