@@ -57,7 +57,10 @@ export default function AfterSignUpPage() {
           "redirectFishingSpotId"
         );
         if (redirectFishingSpotId) {
-          navigate(`/spot/${redirectFishingSpotId}`);
+          navigate(`/spot/${redirectFishingSpotId}`, {
+            state: { from: "afterSignPage" },
+          });
+          localStorage.removeItem("redirectFishingSpotId");
         } else {
           navigate(`/spot/${fishingSpotId}`);
         }

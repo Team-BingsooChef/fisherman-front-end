@@ -17,7 +17,8 @@ export default function HomePage() {
     role !== "owner" &&
     !(
       location.state?.from === "loginPage" ||
-      location.state?.from === "redirectPage"
+      location.state?.from === "redirectPage" ||
+      location.state?.from === "afterSignPage"
     )
   ) {
     localStorage.setItem("redirectFishingSpotId", currentFishingSpotId);
