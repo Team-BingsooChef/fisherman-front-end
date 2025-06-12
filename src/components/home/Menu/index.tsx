@@ -201,6 +201,7 @@ export const Menu = () => {
               fontWeight="semibold"
               width="100%"
               justifyContent="flex-start"
+              marginBottom="20px"
             >
               버그 신고하기
             </Button>
