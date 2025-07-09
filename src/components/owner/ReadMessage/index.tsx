@@ -90,11 +90,11 @@ export const ReadMessage = () => {
     // 태블릿/PC
     if (windowHeight < 750) {
       if (isReplied) {
-        modalHeight = "460px";
+        modalHeight = "420px";
       } else if (isReplying) {
-        modalHeight = "560px";
+        modalHeight = "520px";
       } else {
-        modalHeight = "400px";
+        modalHeight = "360px";
       }
     } else if (windowHeight < 820) {
       if (isReplied) {
