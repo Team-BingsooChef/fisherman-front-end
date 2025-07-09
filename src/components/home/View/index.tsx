@@ -88,6 +88,7 @@ export const ChefView = ({
           color="#777C89"
           onClick={clickGoHome}
         />
+        <Menu />
       </Flex>
       {fishingSpotFishData && (
         <>
