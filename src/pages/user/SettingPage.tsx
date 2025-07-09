@@ -11,6 +11,7 @@ import {
   IconButton,
   useDisclosure,
   Avatar,
+  Switch,
 } from "@chakra-ui/react";
 
 import { LockKeyhole, RotateCcw, Trash2, Pencil } from "lucide-react";
@@ -124,11 +125,17 @@ export default function SettingPage() {
         color="black"
       >
         <LockKeyhole />
-        <FlexChangeElement
-          text1="검색 허용"
-          text2={publicStatus}
-          onClick={togglePublic}
-        />
+        <Flex justify="space-between" align="center" w="100%">
+          <Text color="#000000" fontWeight="600" fontSize="16px">
+            검색 허용
+          </Text>
+          <Switch
+            colorScheme="green"
+            size="lg"
+            isChecked={publicStatus === "허용"}
+            onChange={togglePublic}
+          />
+        </Flex>
       </Box>
 
       <Button
@@ -176,31 +183,31 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const GreyTextButton = styled(Text)`
-  font-size: 14px;
-  font-weight: bold;
-  text-decoration: underline;
-  color: #777c89;
-  cursor: pointer;
-`;
+// const GreyTextButton = styled(Text)`
+//   font-size: 14px;
+//   font-weight: bold;
+//   text-decoration: underline;
+//   color: #777c89;
+//   cursor: pointer;
+// `;
 
-interface FlexChangeElementProps {
-  text1: string;
-  text2: string;
-  onClick: () => void;
-}
+// interface FlexChangeElementProps {
+//   text1: string;
+//   text2: string;
+//   onClick: () => void;
+// }
 
-const FlexChangeElement = ({
-  text1,
-  text2,
-  onClick,
-}: FlexChangeElementProps) => {
-  return (
-    <Flex justify="space-between" align="center" w="100%">
-      <Text color="#000000" fontWeight="600" fontSize="16px">
-        {text1}
-      </Text>
-      <GreyTextButton onClick={onClick}>{text2}</GreyTextButton>
-    </Flex>
-  );
-};
+// const FlexChangeElement = ({
+//   text1,
+//   text2,
+//   onClick,
+// }: FlexChangeElementProps) => {
+//   return (
+//     <Flex justify="space-between" align="center" w="100%">
+//       <Text color="#000000" fontWeight="600" fontSize="16px">
+//         {text1}
+//       </Text>
+//       <GreyTextButton onClick={onClick}>{text2}</GreyTextButton>
+//     </Flex>
+//   );
+// };
