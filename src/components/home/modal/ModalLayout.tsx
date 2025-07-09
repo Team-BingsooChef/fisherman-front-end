@@ -66,6 +66,11 @@ const ModalWrapper = styled.div`
 const ModalContainer = styled.div`
   margin-top: 100px;
   width: calc(100% - 40px);
+
+  @media (min-width: 430px) {
+    width: calc(100% - 60px);
+  }
+
   border-radius: 30px;
   display: flex;
   flex-direction: column;
