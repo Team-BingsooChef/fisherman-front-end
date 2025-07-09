@@ -1,7 +1,7 @@
-import { Box, Text, Flex, Image } from "@chakra-ui/react";
+import { Box, Text, Flex, Image, Spinner } from "@chakra-ui/react";
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { SentSmeltsQueryResponseBody } from "../../../api/inventory/types";
 import { useQuerySentSmelts } from "../../../hook/inventory/useQuerySentSmelts";
@@ -9,14 +9,19 @@ import { useSmeltsImg } from "../../../hook/smelts/useSmeltsImg";
 
 export const SeeToppingsByMe = () => {
   const size = 10;
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useQuerySentSmelts(size);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+    const scrollElement = scrollRef.current;
+    if (!scrollElement) {
+      return;
+    }
+
     const handleScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } =
-        document.documentElement;
-      // 다음 페이지가 있고, 현재 데이터를 가져오는 중이 아닐 때만 다음 페이지를 호출합니다.
+      const { scrollTop, scrollHeight, clientHeight } = scrollElement;
       if (
         scrollTop + clientHeight >= scrollHeight - 100 &&
         hasNextPage &&
@@ -26,27 +31,38 @@ export const SeeToppingsByMe = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    scrollElement.addEventListener("scroll", handleScroll);
+    return () => scrollElement.removeEventListener("scroll", handleScroll);
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <Flex
-      m="20px 0 10px 0"
       flexDir="column"
       w="calc(100% - 48px)"
-      h="100%"
       align="center"
-      justify="center"
-      overflowY="auto"
+      flexGrow={1}
+      overflowY="hidden"
+      mt="20px"
     >
-      <Box w="full" h="100%" bg="none" overflowY="auto">
+      <Box w="full" h="100%" bg="none" overflowY="auto" ref={scrollRef}>
         {data?.pages.map((page) =>
           page.smelts.map((topping) => (
             <ToppingByMeElement topping={topping} key={topping.id} />
           ))
         )}
-        {isLoading && <Text>Loading more...</Text>}
+
+        {(isLoading || isFetchingNextPage) && (
+          <Flex justify="center" align="center" h="80px">
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+          </Flex>
+        )}
+
         {!hasNextPage && data?.pages[0].smelts.length === 0 && (
           <Text
             textAlign="center"
@@ -163,7 +179,6 @@ const ToppingByMeElement = ({
                   position="relative"
                 >
                   <Text fontSize="16px" color="black" fontWeight="medium">
-                    {/* 답장 내용을 표시 (예: "답장 내용입니다.") */}
                     {topping.letter.comment.content}
                   </Text>
                 </Box>
