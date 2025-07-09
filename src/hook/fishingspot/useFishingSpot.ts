@@ -32,7 +32,8 @@ export default function useFishingSpot(
       }),
   });
 
-  const totalPages = data?.totalPages ?? 1;
+  const totalPages =
+    data?.totalPages && data.totalPages > 0 ? data.totalPages : 1;
 
   const nextPage = () => {
     if (currentPage < totalPages - 1) {
