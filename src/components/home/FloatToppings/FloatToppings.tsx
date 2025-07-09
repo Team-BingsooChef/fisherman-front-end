@@ -19,40 +19,6 @@ export const Toppings = ({
 }: {
   fishingSpotFishData: FishingSpotQueryResponseBody;
 }) => {
-  return (
-    <>
-      {fishingSpotFishData?.smelts?.map((smelt, idx) => (
-        <ToppingElement
-          key={smelt.id}
-          topping={{
-            ...smelt,
-          }}
-          localIndex={idx}
-        />
-      ))}
-    </>
-  );
-};
-
-type ToppingProps = {
-  topping: {
-    id: number;
-    smeltTypeId: number;
-    status: SmeltStatus;
-  };
-  localIndex: number;
-};
-
-const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
-  const role = useDetermineRole();
-  const isOwner = role === "owner";
-  const { data: quizData } = useQueryQuiz(topping.id, {
-    enabled: isOwner,
-  });
-
-  const { setModalState } = useModalStateStore();
-  const { onOpen } = useModalOpenStore();
-
   const [smeltTypes, setSmeltTypes] = useState<
     SmeltsCategoryQueryResponseBody["smeltTypes"]
   >([]);
@@ -66,14 +32,54 @@ const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
     getSmeltsType();
   }, []);
 
-  const matchingSmeltType = smeltTypes.find(
-    (smelt) => smelt.id === topping.smeltTypeId
-  );
+  return (
+    <>
+      {fishingSpotFishData?.smelts?.map((smelt, idx) => {
+        const matchingSmeltType = smeltTypes.find(
+          (type) => type.id === smelt.smeltTypeId
+        );
+        const imgSrc =
+          smelt.status === SmeltStatus.UNREAD
+            ? matchingSmeltType?.iceImageUrl
+            : matchingSmeltType?.imageUrl;
+        const toppingWithExtraData = {
+          ...smelt,
+          imgSrc,
+          matchTypeName: matchingSmeltType?.name || "알 수 없는 타입",
+        };
 
-  const imgSrc =
-    topping.status === "UNREAD"
-      ? matchingSmeltType?.iceImageUrl
-      : matchingSmeltType?.imageUrl;
+        return (
+          <ToppingElement
+            key={smelt.id}
+            topping={toppingWithExtraData}
+            localIndex={idx}
+          />
+        );
+      })}
+    </>
+  );
+};
+
+type ToppingProps = {
+  topping: {
+    id: number;
+    smeltTypeId: number;
+    status: SmeltStatus;
+    imgSrc?: string;
+    matchTypeName: string;
+  };
+  localIndex: number;
+};
+
+const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
+  const role = useDetermineRole();
+  const isOwner = role === "owner";
+  const { data: quizData } = useQueryQuiz(topping.id, {
+    enabled: isOwner,
+  });
+
+  const { setModalState } = useModalStateStore();
+  const { onOpen } = useModalOpenStore();
 
   const groupClass = `group-${localIndex % 8}`;
 
@@ -127,8 +133,8 @@ const ToppingElement = ({ topping, localIndex }: ToppingProps) => {
       cursor={role === "owner" ? "pointer" : "not-allowed"}
     >
       <Image
-        src={imgSrc}
-        alt={matchingSmeltType?.name}
+        src={topping.imgSrc}
+        alt={topping.matchTypeName}
         width="90px"
         height="90px"
         css={{
