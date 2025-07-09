@@ -33,7 +33,7 @@ export default function SettingPage() {
   // 상태를 나타내는 타입
   type publicStatusType = "허용" | "금지";
 
-  const [publicStatus, setPublicStatus] = useState<publicStatusType>("금지");
+  const [publicStatus, setPublicStatus] = useState<publicStatusType>("허용");
 
   const togglePublic = () => {
     const isPublic = Boolean(publicStatus === "허용"); // "허용"이면 true, "금지"이면 false
