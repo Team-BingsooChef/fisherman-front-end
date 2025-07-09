@@ -36,9 +36,12 @@ export default function SettingPage() {
   const [publicStatus, setPublicStatus] = useState<publicStatusType>("허용");
 
   const togglePublic = () => {
-    setPublicStatus((prev) => (prev === "허용" ? "금지" : "허용")); // 상태 토글
-    const isPublic = Boolean(publicStatus === "허용"); // "허용"이면 true, "금지"이면 false
-    changeFishingSpotPublic(isPublic);
+    setPublicStatus((prevStatus) => {
+      const newStatus = prevStatus === "허용" ? "금지" : "허용"; // 상태 토글
+      const isPublic = newStatus === "허용"; // "허용"이면 true, "금지"이면 false
+      changeFishingSpotPublic(isPublic);
+      return newStatus;
+    });
   };
 
   return (
