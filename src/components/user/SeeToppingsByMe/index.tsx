@@ -1,7 +1,7 @@
 import { Box, Text, Flex, Image, Spinner } from "@chakra-ui/react";
 import { ModalInsideWhiteContainer } from "../../home/modal/ModalCustomedElement";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SentSmeltsQueryResponseBody } from "../../../api/inventory/types";
 import { useQuerySentSmelts } from "../../../hook/inventory/useQuerySentSmelts";
@@ -86,6 +86,9 @@ const ToppingByMeElement = ({
   const { getImageUrl } = useSmeltsImg();
   const navigate = useNavigate();
 
+  // 콘텐츠 확장 여부
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const handleImageClick = () => {
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "visit_by_me", {
@@ -94,6 +97,20 @@ const ToppingByMeElement = ({
     }
     navigate(`/spot/${topping.fishingSpotId}`);
   };
+
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  // 텍스트가 넘치는지 확인하여 '더 보기' 버튼을 조건부로 렌더링
+  useEffect(() => {
+    if (textRef.current) {
+      // scrollHeight가 clientHeight보다 크면 버튼을 표시
+      setIsOverflowing(
+        textRef.current.scrollHeight > textRef.current.clientHeight
+      );
+    }
+  }, [topping.letter.content]);
+
   return (
     <Flex
       flexDir="column"
@@ -115,7 +132,8 @@ const ToppingByMeElement = ({
           {topping.fishermanNickname}에게
         </Text>
       </Box>
-      <ModalInsideWhiteContainer height="160px">
+
+      <ModalInsideWhiteContainer style={{ minHeight: "160px", height: "auto" }}>
         <Box
           w="full"
           h="full"
@@ -123,6 +141,9 @@ const ToppingByMeElement = ({
           borderRadius="16px"
           p="20px"
           position="relative"
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-between"
         >
           {/* 상대 낚시터로 navigate */}
           <Image
@@ -140,9 +161,34 @@ const ToppingByMeElement = ({
             }}
           />
 
-          <Text fontSize="16px" color="black" fontWeight="medium">
-            {topping.letter.content}
-          </Text>
+          <Box>
+            {/* 확장되지 않았을 때 텍스트를 4줄로 제한 */}
+            <Text
+              ref={textRef}
+              fontSize="16px"
+              color="black"
+              fontWeight="medium"
+              noOfLines={isExpanded ? undefined : 4}
+              whiteSpace="pre-wrap" // 줄바꿈(\n)이 적용되도록
+            >
+              {topping.letter.content}
+            </Text>
+          </Box>
+
+          {/*  텍스트가 넘치거나 확장된 경우에만 확장/축소 버튼을 표시*/}
+          {(isOverflowing || isExpanded) && (
+            <Text
+              fontSize="14px"
+              fontWeight="bold"
+              color="blue.500"
+              cursor="pointer"
+              onClick={() => setIsExpanded(!isExpanded)}
+              mt="10px"
+              textAlign="right"
+            >
+              {isExpanded ? "간략히 보기" : "더 보기"}
+            </Text>
+          )}
         </Box>
       </ModalInsideWhiteContainer>
       {topping.status === "UNREAD" ? (
@@ -169,7 +215,11 @@ const ToppingByMeElement = ({
                   답장
                 </Text>
               </Box>
-              <ModalInsideWhiteContainer height="60px" state="seemine">
+              {/* 답장 컨테이너도 내용이 길 경우를 대비해 늘어날 수 있도록  */}
+              <ModalInsideWhiteContainer
+                style={{ minHeight: "60px", height: "auto" }}
+                state="seemine"
+              >
                 <Box
                   w="full"
                   h="full"
